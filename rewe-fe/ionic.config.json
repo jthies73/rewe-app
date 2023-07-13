@@ -1,0 +1,7 @@
+{
+  "name": "rewe-fe",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
