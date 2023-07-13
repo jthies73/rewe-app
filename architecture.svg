@@ -1,0 +1,344 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3145.5754856559793 1734.275867029212"
+     width="3145.5754856559793" height="1734.275867029212">
+    <!-- svg-source:excalidraw -->
+
+    <defs>
+        <style class="style-fonts">
+            @font-face {
+            font-family: "Virgil";
+            src: url("https://excalidraw.com/Virgil.woff2");
+            }
+            @font-face {
+            font-family: "Cascadia";
+            src: url("https://excalidraw.com/Cascadia.woff2");
+            }
+        </style>
+
+    </defs>
+    <rect x="0" y="0" width="3145.5754856559793" height="1734.275867029212" fill="#ffffff"></rect>
+    <g stroke-linecap="round" transform="translate(10 10) rotate(0 1562.7877428279896 857.137933514606)">
+        <path d="M33.88 -1.81 L3095.34 -0.99 L3101.49 -0.44 L3113.79 4.65 L3122.24 13.17 L3122.6 19.48 L3124.87 33.93 L3127.41 1683.97 L3123.49 1690.56 L3120.84 1703.26 L3113.71 1710 L3106.46 1713.87 L3094.09 1712.52 L30.74 1715.09 L23.57 1715.66 L10.85 1711.7 L6.32 1702.99 L0.2 1698.06 L0.73 1681.62 L-1.76 33.24 L2.23 16.39 L7.9 7.2 L17.24 3.53 L32.07 -1.4"
+              stroke="none" stroke-width="0" fill="#1e1e1e"></path>
+        <path d="M32 0 M32 0 C1122.31 -6.84, 2213.07 -6.4, 3093.58 0 M32 0 C1187.93 -3.31, 2344.2 -3.87, 3093.58 0 M3093.58 0 C3115.93 -1.83, 3126.92 12.12, 3125.58 32 M3093.58 0 C3115.47 2.02, 3126.33 12.17, 3125.58 32 M3125.58 32 C3128.99 580.92, 3128.51 1131.23, 3125.58 1682.28 M3125.58 32 C3122.98 672.02, 3123.16 1311.62, 3125.58 1682.28 M3125.58 1682.28 C3124.14 1702.71, 3114.68 1712.33, 3093.58 1714.28 M3125.58 1682.28 C3125.57 1704.69, 3115.35 1715.96, 3093.58 1714.28 M3093.58 1714.28 C2116.57 1719.23, 1139.11 1719.3, 32 1714.28 M3093.58 1714.28 C2377.09 1718.51, 1660.43 1718.28, 32 1714.28 M32 1714.28 C10.32 1715.09, 0.42 1701.97, 0 1682.28 M32 1714.28 C10.22 1713.11, 2.2 1703.96, 0 1682.28 M0 1682.28 C2.58 1026.61, 2.27 371.23, 0 32 M0 1682.28 C-1.72 1261.81, -1.35 841.73, 0 32 M0 32 C0.16 11.26, 10.29 0.31, 32 0 M0 32 C0.43 12.18, 11.97 -0.52, 32 0"
+              stroke="#1e1e1e" stroke-width="1" fill="none"></path>
+    </g>
+    <g stroke-linecap="round"
+       transform="translate(1138.3548716378045 614.6127897036586) rotate(0 593.4508864084453 359.5451624858663)">
+        <path d="M32 0 M32 0 C373.54 -2.39, 715.89 -1.52, 1154.9 0 M32 0 C355.76 2.97, 678.95 3.25, 1154.9 0 M1154.9 0 C1174.26 -1.55, 1187.96 11.22, 1186.9 32 M1154.9 0 C1176.86 0.61, 1185.27 10.09, 1186.9 32 M1186.9 32 C1185.46 280.71, 1185.03 529.26, 1186.9 687.09 M1186.9 32 C1184.4 174.41, 1184.72 316.99, 1186.9 687.09 M1186.9 687.09 C1185.05 707.42, 1177.99 720.63, 1154.9 719.09 M1186.9 687.09 C1185.78 706.35, 1174.78 718.48, 1154.9 719.09 M1154.9 719.09 C854.7 716.49, 553.09 716.53, 32 719.09 M1154.9 719.09 C898.97 721.36, 643 721.95, 32 719.09 M32 719.09 C9.06 718.1, 1.26 709.67, 0 687.09 M32 719.09 C9.48 721.27, -0.65 707.71, 0 687.09 M0 687.09 C-1.84 504.15, -1.53 319.82, 0 32 M0 687.09 C0.61 435.4, 1.02 182.75, 0 32 M0 32 C-0.38 10.31, 9 0.27, 32 0 M0 32 C-0.15 12.76, 12.65 -0.86, 32 0"
+              stroke="#1971c2" stroke-width="1" fill="none"></path>
+    </g>
+    <g stroke-linecap="round" transform="translate(152.8939117172049 537.8042647546959) rotate(0 211 508)">
+        <path d="M32 0 M32 0 C132.8 1.81, 234.42 3, 390 0 M32 0 C126.57 -0.72, 220.1 -0.8, 390 0 M390 0 C409.66 0.86, 421.28 9.6, 422 32 M390 0 C411.38 -2.21, 423.15 11.03, 422 32 M422 32 C418.88 338.06, 417.71 645.51, 422 984 M422 32 C419.77 285.25, 419.63 538.36, 422 984 M422 984 C420.2 1006.98, 411.29 1014.45, 390 1016 M422 984 C420.64 1005.58, 409.48 1018.1, 390 1016 M390 1016 C256.16 1015.29, 121.75 1014.87, 32 1016 M390 1016 C304.18 1016.25, 219.27 1016.21, 32 1016 M32 1016 C11.75 1016.86, -0.98 1005.54, 0 984 M32 1016 C11.64 1014.76, 2.09 1004.62, 0 984 M0 984 C0.91 712.85, 0.49 441.66, 0 32 M0 984 C1.03 678.13, 1.11 371.68, 0 32 M0 32 C-1.93 9.82, 12.64 -0.23, 32 0 M0 32 C0.99 9.43, 10.74 -1.16, 32 0"
+              stroke="#1971c2" stroke-width="1" fill="none"></path>
+    </g>
+    <g transform="translate(230.27724301603303 955.8042647546959) rotate(0 133.61666870117188 90)">
+        <text x="133.61666870117188" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">Ionic
+            App
+        </text>
+        <text x="133.61666870117188" y="45" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">with
+            supabase
+        </text>
+        <text x="133.61666870117188" y="90" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">or
+            Parse
+        </text>
+        <text x="133.61666870117188" y="135" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr"
+              dominant-baseline="text-before-edge"></text>
+    </g>
+    <g mask="url(#mask-65M0gB5mDKJINo089hhG0)" stroke-linecap="round">
+        <g transform="translate(598.3395406343343 830.3354744395178) rotate(0 264.26765253570875 -0.6703159797075386)">
+            <path d="M0.4 1.03 C88.6 0.44, 441.39 -1.81, 529.38 -2.37 M-0.84 0.52 C87.28 0.6, 440.95 -0.85, 529.02 -1.15"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(598.3395406343343 830.3354744395178) rotate(0 264.26765253570875 -0.6703159797075386)">
+            <path d="M502.58 11.09 C508.64 5.96, 517.63 2.55, 527.29 -1.75 M500.99 9.47 C507.77 6.37, 516.97 2.73, 528.61 -2.04"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(598.3395406343343 830.3354744395178) rotate(0 264.26765253570875 -0.6703159797075386)">
+            <path d="M502.5 -9.44 C508.78 -8.08, 517.79 -5.03, 527.29 -1.75 M500.91 -11.05 C507.8 -8.42, 517.02 -6.34, 528.61 -2.04"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+    </g>
+    <mask id="mask-65M0gB5mDKJINo089hhG0">
+        <rect x="0" y="0" fill="#fff" width="1226.5979632477765" height="932.0964081604111"></rect>
+        <rect x="725.5770893433992" y="784.4550075790712" fill="#000" width="273.7833251953125" height="90"
+              opacity="1"></rect>
+    </mask>
+    <g transform="translate(725.5770893433992 784.4550075790712) rotate(0 137.03010382664388 45.21015088073909)">
+        <text x="136.89166259765625" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">HTTP
+            POST
+        </text>
+        <text x="136.89166259765625" y="45" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">
+            (Image, userId)
+        </text>
+    </g>
+    <g stroke-linecap="round" transform="translate(1138.7765986607956 748.2665475958092) rotate(0 144 225)">
+        <path d="M0.88 0.86 C78.61 -2.66, 160.86 -2.08, 288.46 -0.36 M-0.31 -0.44 C58.16 -1.15, 115.17 -0.96, 287.91 0.68 M288.49 0.51 C285.59 153.78, 286.57 308.39, 287.24 449.2 M288 -0.03 C285.79 124.03, 285.94 247.84, 287.74 449.66 M287.36 449.67 C176.61 447.28, 66.45 448.33, -0.78 450.22 M288.04 450.42 C174.02 451.88, 58.24 451.74, 0.26 450.73 M0.73 449.78 C-1.67 348.56, -1.89 248.61, -0.43 0.62 M0.43 450.42 C-1.1 325.42, -1.75 201.17, 0.29 -0.34"
+              stroke="#1971c2" stroke-width="1" fill="none"></path>
+    </g>
+    <g transform="translate(1190.5099284337448 928.2665475958092) rotate(0 92.26667022705078 45)">
+        <text x="92.26667022705078" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">Django
+        </text>
+        <text x="92.26667022705078" y="45" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">REST
+            API
+        </text>
+    </g>
+    <g stroke-linecap="round" transform="translate(1426.3952108837639 749.1536104723068) rotate(0 119.5 112.5)">
+        <path d="M-1.63 -1.14 C67.38 0.32, 132.6 -1.95, 239.71 0.67 M0.3 -0.21 C78.22 -0.9, 155.14 -1.9, 238.6 0.03 M239.06 1.08 C241.82 52.2, 241.83 105.38, 237.74 223.43 M238.57 -0.36 C237.9 78.03, 238.33 157.39, 238.95 224.7 M239.94 225.49 C155.37 224.29, 73.43 223.79, -0.32 225.71 M239.48 225.53 C165.15 222.8, 92.14 223.42, 0.16 225.76 M-0.46 223.8 C1.5 174.9, 1.85 128.14, -1.42 -1.43 M0.44 224.88 C-0.67 151.11, -1.32 76.63, 0.03 -0.47"
+              stroke="#1971c2" stroke-width="1" fill="none"></path>
+    </g>
+    <g transform="translate(1460.128540656713 816.6536104723068) rotate(0 85.76667022705078 45)">
+        <text x="85.76667022705078" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">Python
+        </text>
+        <text x="85.76667022705078" y="45" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">
+            Processor
+        </text>
+    </g>
+    <g stroke-linecap="round"
+       transform="translate(1403.9011329348386 124.26459770298015) rotate(0 182.19009993791497 182.19009993791497)">
+        <path d="M178 -0.13 C194.27 -3.32, 213.29 1.39, 229.95 5.96 C246.61 10.53, 263.38 18.22, 277.96 27.29 C292.53 36.35, 306.04 47.82, 317.39 60.37 C328.74 72.91, 338.72 87.15, 346.05 102.55 C353.38 117.95, 358.62 135.64, 361.37 152.77 C364.13 169.91, 364.51 188.35, 362.58 205.38 C360.65 222.41, 356.56 239.48, 349.78 254.97 C343 270.45, 332.93 285.26, 321.91 298.27 C310.88 311.28, 297.76 323.44, 283.64 333.03 C269.51 342.61, 253.61 350.5, 237.14 355.76 C220.68 361.02, 201.86 364.07, 184.83 364.59 C167.81 365.11, 151.4 363.34, 135.01 358.87 C118.62 354.41, 101.28 346.97, 86.48 337.8 C71.69 328.64, 57.64 316.63, 46.23 303.9 C34.83 291.16, 25.38 276.78, 18.05 261.39 C10.71 246, 4.83 228.63, 2.22 211.56 C-0.4 194.49, 0.19 176.11, 2.36 158.96 C4.52 141.8, 8.66 124.07, 15.22 108.62 C21.77 93.17, 30.75 79.12, 41.7 66.27 C52.64 53.41, 66.63 41.2, 80.87 31.5 C95.11 21.79, 110.27 13.12, 127.15 8.03 C144.03 2.95, 172.42 1.56, 182.14 1 C191.86 0.44, 185.27 1.72, 185.46 4.66 M201.21 -0.26 C218.01 -1.22, 237.01 7.83, 253.1 14.7 C269.19 21.57, 284.38 30.08, 297.75 40.95 C311.11 51.82, 323.48 66, 333.29 79.93 C343.1 93.85, 351.42 108.29, 356.61 124.52 C361.79 140.75, 364.06 160.01, 364.39 177.32 C364.71 194.62, 362.93 211.84, 358.54 228.34 C354.16 244.85, 347.11 261.81, 338.09 276.35 C329.06 290.9, 317.09 304.14, 304.37 315.62 C291.66 327.1, 276.88 337.53, 261.79 345.21 C246.69 352.89, 230.68 358.85, 213.79 361.69 C196.91 364.54, 177.36 364.33, 160.49 362.28 C143.62 360.24, 128.02 355.68, 112.55 349.42 C97.09 343.15, 81.35 335.55, 67.71 324.69 C54.06 313.83, 40.68 298.44, 30.68 284.26 C20.69 270.07, 12.91 255.51, 7.75 239.58 C2.59 223.64, 0.07 205.8, -0.27 188.64 C-0.61 171.48, 1.46 153.4, 5.7 136.61 C9.94 119.83, 16.3 102.55, 25.19 87.94 C34.09 73.33, 46.61 60.27, 59.05 48.97 C71.49 37.66, 84.53 28.02, 99.84 20.1 C115.14 12.18, 133.87 4.78, 150.86 1.46 C167.85 -1.86, 193.07 -0.54, 201.76 0.18 C210.44 0.9, 203.15 2.45, 202.99 5.79"
+              stroke="#1971c2" stroke-width="1" fill="none"></path>
+    </g>
+    <g transform="translate(1502.705043391013 239.12684250974053) rotate(0 83.55833435058594 67.5)">
+        <text x="83.55833435058594" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">AWS
+        </text>
+        <text x="83.55833435058594" y="45" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">
+            Textract
+        </text>
+        <text x="83.55833435058594" y="90" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">API
+        </text>
+    </g>
+    <g stroke-linecap="round">
+        <g transform="translate(1590.0083307604264 505.13612714934925) rotate(0 0.3331818811668654 111.85669654345384)">
+            <path d="M-1 -0.73 C2.59 67.4, 1.68 137.82, 1.18 224.44 M-0.52 -0.43 C0.67 78.89, 2 157.29, 1.26 224.05"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1590.0083307604264 505.13612714934925) rotate(0 0.3331818811668654 111.85669654345384)">
+            <path d="M8.58 26.44 C7.06 16.91, 2.26 10.09, -1.07 -0.47 M9.14 26.78 C4.97 17.64, 2.23 7.49, -0.98 -0.92"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1590.0083307604264 505.13612714934925) rotate(0 0.3331818811668654 111.85669654345384)">
+            <path d="M-11.93 26.79 C-7.15 17.22, -5.65 10.29, -1.07 -0.47 M-11.38 27.13 C-8.35 17.98, -3.89 7.7, -0.98 -0.92"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1590.0083307604264 505.13612714934925) rotate(0 0.3331818811668654 111.85669654345384)">
+            <path d="M-10.09 194.99 C-4.75 202.81, -3.12 213.26, 1.18 224.31 M-9.53 195.33 C-6.08 206.03, -1.47 215.61, 1.27 223.86"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1590.0083307604264 505.13612714934925) rotate(0 0.3331818811668654 111.85669654345384)">
+            <path d="M10.43 195.04 C9.47 202.78, 4.8 213.22, 1.18 224.31 M10.99 195.39 C7.24 205.96, 4.65 215.52, 1.27 223.86"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+    </g>
+    <mask></mask>
+    <g transform="translate(1821.5394375401243 205.44084603298734) rotate(0 623.5916748046875 22.5)">
+        <text x="0" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2" text-anchor="start"
+              style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">
+            https://docs.aws.amazon.com/textract/latest/dg/invoices-receipts.html
+        </text>
+    </g>
+    <g stroke-linecap="round"
+       transform="translate(2471.3240490610947 712.5923940303414) rotate(0 242.72122381007148 138.69784217718347)">
+        <path d="M32 0 M32 0 C143.76 -1.37, 253.97 -0.5, 453.44 0 M32 0 C154.33 -1.12, 276.55 -0.76, 453.44 0 M453.44 0 C474.22 1.77, 484.51 9.08, 485.44 32 M453.44 0 C476.63 -0.67, 486.02 10.73, 485.44 32 M485.44 32 C483.08 79.93, 484.39 129.06, 485.44 245.4 M485.44 32 C484.74 98.19, 483.27 164.58, 485.44 245.4 M485.44 245.4 C484.49 267.89, 473.97 276.67, 453.44 277.4 M485.44 245.4 C484.57 265.25, 472.84 278.71, 453.44 277.4 M453.44 277.4 C364.23 278.36, 274.46 279.03, 32 277.4 M453.44 277.4 C312.34 277.89, 172.2 278.17, 32 277.4 M32 277.4 C11.78 277.38, -0.94 268.47, 0 245.4 M32 277.4 C9.37 278.35, 2.08 266.57, 0 245.4 M0 245.4 C-1.1 192.04, -2.4 136.5, 0 32 M0 245.4 C-0.2 188.12, 0.1 131.49, 0 32 M0 32 C-1.93 11.03, 10.66 0.36, 32 0 M0 32 C1.77 9.44, 11.31 0.21, 32 0"
+              stroke="#e03131" stroke-width="1" fill="none"></path>
+    </g>
+    <g transform="translate(2632.3869400464596 806.2902362075247) rotate(0 81.65833282470703 45)">
+        <text x="81.65833282470703" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#e03131"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">
+            supabase
+        </text>
+        <text x="81.65833282470703" y="45" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#e03131"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">
+            backend
+        </text>
+    </g>
+    <g stroke-linecap="round" transform="translate(2097.1377688857324 730.7552066964013) rotate(0 90.5 59)">
+        <path d="M29.5 0 M29.5 0 C76.23 0.21, 124.86 2.15, 151.5 0 M29.5 0 C65.49 -0.02, 101.17 0.85, 151.5 0 M151.5 0 C172.21 1.35, 181.74 11.18, 181 29.5 M151.5 0 C172.2 -0.65, 180.72 10.53, 181 29.5 M181 29.5 C180.77 44.83, 179.78 60.49, 181 88.5 M181 29.5 C181.9 49.81, 181.39 70.79, 181 88.5 M181 88.5 C181.89 107.8, 169.24 118.65, 151.5 118 M181 88.5 C180.8 106.27, 173.08 117.85, 151.5 118 M151.5 118 C126.09 117.83, 97.35 119.33, 29.5 118 M151.5 118 C104.84 118.53, 55.54 116.83, 29.5 118 M29.5 118 C10.24 116.69, -1.89 109.97, 0 88.5 M29.5 118 C8.9 117.97, -1.19 109.23, 0 88.5 M0 88.5 C0.72 67.55, 1.24 44.78, 0 29.5 M0 88.5 C-0.26 65.06, -1.44 41.43, 0 29.5 M0 29.5 C-1.19 11.13, 10.24 1.4, 29.5 0 M0 29.5 C1.19 9.32, 10.27 0.59, 29.5 0"
+              stroke="#e03131" stroke-width="1" fill="none"></path>
+    </g>
+    <g transform="translate(2120.18777193749 744.7552066964013) rotate(0 67.44999694824219 45)">
+        <text x="67.44999694824219" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#e03131"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">Parse
+        </text>
+        <text x="67.44999694824219" y="45" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#e03131"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">
+            backend
+        </text>
+    </g>
+    <g mask="url(#mask-G7PO7xYNvaw743xRRMGzt)" stroke-linecap="round">
+        <g transform="translate(1687.0207748448797 787.3686597042297) rotate(0 191.8749469740012 -3.0070615328427266)">
+            <path d="M-1.17 0.38 C63.06 -0.51, 320.71 -3.45, 384.92 -4.41 M0.41 -0.47 C64.54 -1.81, 320.31 -5.73, 384.08 -6.39"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1687.0207748448797 787.3686597042297) rotate(0 191.8749469740012 -3.0070615328427266)">
+            <path d="M356.66 4.58 C363.72 0.76, 369.43 -0.18, 383.19 -6.89 M356.45 4.91 C366.57 0.89, 378.51 -3.89, 384.41 -5.45"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1687.0207748448797 787.3686597042297) rotate(0 191.8749469740012 -3.0070615328427266)">
+            <path d="M356.38 -15.94 C363.67 -14.4, 369.45 -10, 383.19 -6.89 M356.17 -15.61 C366.26 -11.59, 378.31 -8.33, 384.41 -5.45"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+    </g>
+    <mask id="mask-G7PO7xYNvaw743xRRMGzt">
+        <rect x="0" y="0" fill="#fff" width="2171.742170407781" height="892.0471728731923"></rect>
+        <rect x="1870.9898062139773" y="762.5294031197486" fill="#000" width="16.78333282470703" height="45"
+              opacity="1"></rect>
+    </mask>
+    <g transform="translate(1870.9898062139773 762.5294031197486) rotate(0 7.905915604904067 21.832195051638337)">
+        <text x="8.391666412353516" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">?
+        </text>
+    </g>
+    <g mask="url(#mask-_AWOJQePBuawQKoPbXKHc)" stroke-linecap="round">
+        <g transform="translate(1683.7184452692322 904.5782599722329) rotate(0 381.3775405268475 -1.4386209160277303)">
+            <path d="M-0.72 0.07 C126.53 -0.34, 636.06 -2.82, 763.47 -2.95 M1.11 -0.94 C128.26 -1.2, 635.8 -1.7, 762.86 -1.95"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1683.7184452692322 904.5782599722329) rotate(0 381.3775405268475 -1.4386209160277303)">
+            <path d="M734.8 9.41 C741.38 6.98, 753.45 2.33, 761.62 -1.97 M734.68 8 C744.56 4.49, 756.03 0.12, 763.78 -2.93"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1683.7184452692322 904.5782599722329) rotate(0 381.3775405268475 -1.4386209160277303)">
+            <path d="M734.77 -11.11 C741.28 -7.45, 753.36 -6, 761.62 -1.97 M734.65 -12.52 C744.37 -8.45, 755.86 -5.23, 763.78 -2.93"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+    </g>
+    <mask id="mask-_AWOJQePBuawQKoPbXKHc">
+        <rect x="0" y="0" fill="#fff" width="2546.5565772437417" height="1006.5045031783843"></rect>
+        <rect x="2056.745844844134" y="881.1151383691576" fill="#000" width="16.78333282470703" height="45"
+              opacity="1"></rect>
+    </mask>
+    <g transform="translate(2056.745844844133 881.1151383691576) rotate(0 8.350140951946287 22.024500687047976)">
+        <text x="8.391666412353516" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">?
+        </text>
+    </g>
+    <g mask="url(#mask-w95Rlx9B_MmgpSQw9v6ix)" stroke-linecap="round">
+        <g transform="translate(594.5082087244591 1445.9099416451904) rotate(0 1077.021258438604 -205.55992929413378)">
+            <path d="M0.47 -0.62 C319.77 -3.74, 1556.32 51.37, 1914.59 -19.5 C2272.87 -90.37, 2110.66 -358.15, 2150.12 -425.84 M-0.75 1.67 C318.48 -1.74, 1554.67 50.26, 1913.54 -21.35 C2272.42 -92.96, 2112.81 -360.24, 2152.5 -427.99"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(594.5082087244591 1445.9099416451904) rotate(0 1077.021258438604 -205.55992929413378)">
+            <path d="M27.74 -10.89 C23.9 -10.08, 17.98 -6.08, 1.49 0.23 M29.68 -11.28 C21.69 -7.59, 16.04 -6.99, 0.83 -0.12"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(594.5082087244591 1445.9099416451904) rotate(0 1077.021258438604 -205.55992929413378)">
+            <path d="M27.51 9.63 C23.85 6.33, 17.98 6.22, 1.49 0.23 M29.44 9.24 C21.46 8.32, 15.85 4.3, 0.83 -0.12"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(594.5082087244591 1445.9099416451904) rotate(0 1077.021258438604 -205.55992929413378)">
+            <path d="M2161.38 -400 C2161.48 -406.92, 2159.24 -410.58, 2153.52 -427.14 M2163.32 -400.39 C2159.36 -405.31, 2157.84 -413.31, 2152.87 -427.48"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(594.5082087244591 1445.9099416451904) rotate(0 1077.021258438604 -205.55992929413378)">
+            <path d="M2140.86 -400.26 C2145.06 -407.2, 2146.94 -410.81, 2153.52 -427.14 M2142.8 -400.65 C2143.46 -405.51, 2146.55 -413.46, 2152.87 -427.48"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+    </g>
+    <mask id="mask-w95Rlx9B_MmgpSQw9v6ix">
+        <rect x="0" y="0" fill="#fff" width="2845.596927209726" height="1972.1108387248469"></rect>
+        <rect x="2500.909172768686" y="1403.3955823701435" fill="#000" width="16.78333282470703" height="45"
+              opacity="1"></rect>
+    </mask>
+    <g transform="translate(2500.9091727686864 1403.395582370143) rotate(0 -829.3797056056228 -163.04557001908688)">
+        <text x="8.391666412353516" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">?
+        </text>
+    </g>
+    <g mask="url(#mask-98fFNDTCt3TwAU4lATNSv)" stroke-linecap="round">
+        <g transform="translate(598.3395406343343 980.2350756359615) rotate(0 264.2868489218972 -0.30271958003049804)">
+            <path d="M1.12 -0.61 C89.11 -1.16, 440.47 -1.94, 528.32 -2.3 M0.25 1.69 C88.05 1.81, 439.54 -0.43, 527.41 -1.05"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(598.3395406343343 980.2350756359615) rotate(0 264.2868489218972 -0.30271958003049804)">
+            <path d="M28.27 -10.85 C19.07 -7.28, 8.85 -4.39, 0.7 0.23 M28.37 -11.08 C22.92 -9.25, 15.29 -6.78, 2.06 -1.47"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(598.3395406343343 980.2350756359615) rotate(0 264.2868489218972 -0.30271958003049804)">
+            <path d="M28.34 9.67 C18.94 6.4, 8.7 2.44, 0.7 0.23 M28.44 9.44 C22.95 6.31, 15.3 3.84, 2.06 -1.47"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+    </g>
+    <mask id="mask-98fFNDTCt3TwAU4lATNSv">
+        <rect x="0" y="0" fill="#fff" width="1226.5979632477765" height="1081.9960093568548"></rect>
+        <rect x="736.7437534669343" y="956.8546087755149" fill="#000" width="251.4499969482422" height="45"
+              opacity="1"></rect>
+    </mask>
+    <g transform="translate(736.7437534669343 956.8546087755144) rotate(0 125.8826360892972 23.077747280416133)">
+        <text x="125.7249984741211" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">202
+            Response
+        </text>
+    </g>
+    <g mask="url(#mask-hZF2vGXIgtyQihKjoDFaR)" stroke-linecap="round">
+        <g transform="translate(598.3395406343343 1105.5340412783598) rotate(0 264.415602507014 -1.626058485393969)">
+            <path d="M0.22 0.03 C88.3 -0.31, 439.51 -0.97, 527.59 -1.37 M-1.12 -1 C87.43 -1.77, 441.73 -3.23, 529.95 -3.28"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(598.3395406343343 1105.5340412783598) rotate(0 264.415602507014 -1.626058485393969)">
+            <path d="M501.84 5.94 C508.76 5.46, 513.51 4.07, 529.45 -3.84 M500.98 7.66 C507.57 3.92, 513.72 1.69, 529.16 -3"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(598.3395406343343 1105.5340412783598) rotate(0 264.415602507014 -1.626058485393969)">
+            <path d="M501.79 -14.58 C508.84 -10.42, 513.6 -7.16, 529.45 -3.84 M500.93 -12.87 C507.59 -11.9, 513.76 -9.43, 529.16 -3"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+    </g>
+    <mask id="mask-hZF2vGXIgtyQihKjoDFaR">
+        <rect x="0" y="0" fill="#fff" width="1226.5979632477765" height="1207.294974999253"></rect>
+        <rect x="741.2437534669343" y="1082.1535744179132" fill="#000" width="242.4499969482422" height="45"
+              opacity="1"></rect>
+    </mask>
+    <g transform="translate(741.2437534669343 1082.1535744179137) rotate(0 121.51138967441398 21.754408375052662)">
+        <text x="121.2249984741211" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">
+            Response API
+        </text>
+    </g>
+    <g stroke-linecap="round" transform="translate(1449.2530453982795 999.8950671116513) rotate(0 105.5 96.5)">
+        <path d="M32 0 M32 0 C76.7 2.89, 122.82 1.87, 179 0 M32 0 C76.45 -0.76, 121.91 -0.92, 179 0 M179 0 C200.86 -1.32, 209.87 11.63, 211 32 M179 0 C199.74 2.21, 210.09 12.29, 211 32 M211 32 C209.01 63.61, 208.23 98.35, 211 161 M211 32 C211.32 72.14, 210.82 109.39, 211 161 M211 161 C211.67 181.17, 200.91 191.15, 179 193 M211 161 C211.56 182.64, 198.83 190.71, 179 193 M179 193 C139.86 193.62, 102.55 193.56, 32 193 M179 193 C137.66 194.5, 97.75 194.01, 32 193 M32 193 C11.99 193.5, -0.04 181.84, 0 161 M32 193 C9.6 190.9, -1.18 180.86, 0 161 M0 161 C1.56 113.89, 0.21 65.32, 0 32 M0 161 C-0.08 121.94, -0.5 85.26, 0 32 M0 32 C-1.49 12.2, 10.72 1.05, 32 0 M0 32 C1.69 11.39, 10.24 -1.92, 32 0"
+              stroke="#e03131" stroke-width="1" fill="none"></path>
+    </g>
+    <g transform="translate(1476.5530484500373 1073.8950671116513) rotate(0 78.19999694824219 22.5)">
+        <text x="78.19999694824219" y="0" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#e03131"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">
+            Postgres
+        </text>
+    </g>
+    <g mask="url(#mask-OSpE9iwmO-zNitvm_5zjD)" stroke-linecap="round">
+        <g transform="translate(1551.0050639554238 935.032644396515) rotate(0 -0.030816015948857967 54.83667386306297)">
+            <path d="M0.35 -0.52 C0.46 18.02, 1.02 91.72, 0.82 110.2 M-0.93 1.82 C-0.91 20.13, -0.11 90.8, 0.3 108.59"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1551.0050639554238 935.032644396515) rotate(0 -0.030816015948857967 54.83667386306297)">
+            <path d="M-11.29 81.93 C-5.67 87.82, -2.14 99.64, 1.63 107.32 M-9.62 81.33 C-8.29 87.84, -4.65 96.2, 1.03 107.81"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+        <g transform="translate(1551.0050639554238 935.032644396515) rotate(0 -0.030816015948857967 54.83667386306297)">
+            <path d="M9.23 81.6 C8.43 87.65, 5.55 99.57, 1.63 107.32 M10.9 81 C6.69 87.46, 4.8 95.91, 1.03 107.81"
+                  stroke="#1971c2" stroke-width="1" fill="none"></path>
+        </g>
+    </g>
+    <mask id="mask-OSpE9iwmO-zNitvm_5zjD">
+        <rect x="0" y="0" fill="#fff" width="1651.0050639554238" height="1144.2460403024165"></rect>
+        <rect x="1546.3467306538791" y="977.139342349466" fill="#000" width="9.316666603088379" height="25"
+              opacity="1"></rect>
+    </mask>
+    <g transform="translate(1546.3467306538791 977.1393423494665) rotate(0 4.6275172855953315 12.729975910111989)">
+        <text x="4.6583333015441895" y="0" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#1971c2"
+              text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">?
+        </text>
+    </g>
+</svg>
