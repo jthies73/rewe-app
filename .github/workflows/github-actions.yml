@@ -10,11 +10,13 @@ jobs:
         working-directory: ./rewe-fe
         run: |
           echo "Building rewe-fe image... 🏗"
+          ls -al
           docker build -t rewe-fe-image .
       - name: Deploy image
         working-directory: ./rewe-fe
         run: |
           echo "Deploying rewe-fe image 🚀"
+          ls -al
           docker stop rewe-fe || true && docker rm rewe-fe || true
           docker run -d --net rewe-net --ip 172.41.0.21 --name rewe-fe rewe-fe-image
   Deploy-Rewe-Be:
