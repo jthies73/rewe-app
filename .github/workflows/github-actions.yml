@@ -5,13 +5,17 @@ jobs:
   Deploy-Rewe-Fe:
     runs-on: self-hosted
     steps:
-      - run: ls -al
-      - run: echo "Building rewe-fe image"
-      - run: docker build -t rewe-fe-image .
-      - run: docker stop rewe-fe || true && docker rm rewe-fe || true
-      - run: echo "Deploying rewe-fe image 🚀"
-      - run: docker run -d --net rewe-net --ip 172.41.0.21 --name rewe-fe rewe-fe-image
+      - name: Build image
         working-directory: ./rewe-fe
+        run: |
+          echo "Building rewe-fe image"
+          docker build -t rewe-fe-image .
+      - name: Deploy image
+        working-directory: ./rewe-fe
+        run: |
+          echo "Deploying rewe-fe image 🚀"
+          docker stop rewe-fe || true && docker rm rewe-fe || true
+          docker run -d --net rewe-net --ip 172.41.0.21 --name rewe-fe rewe-fe-image
   Deploy-Rewe-Be:
     runs-on: self-hosted
     steps:
