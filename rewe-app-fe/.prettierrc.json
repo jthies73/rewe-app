@@ -1,0 +1,11 @@
+{
+	"plugins": ["@trivago/prettier-plugin-sort-imports"],
+	"trailingComma": "es5",
+	"tabWidth": 4,
+	"semi": true,
+	"singleQuote": false,
+	"bracketSpacing": true,
+	"useTabs": true,
+	"importOrder": ["^@/(.*)$", "^[./]"],
+	"importOrderSeparation": true
+}
