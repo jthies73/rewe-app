@@ -1,7 +1,7 @@
 {
-  "name": "rewe-app-fe",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
+	"name": "rewe-app-fe",
+	"integrations": {
+		"capacitor": {}
+	},
+	"type": "react"
 }

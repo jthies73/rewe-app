@@ -1,12 +1,12 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'rewe-app-fe',
-  webDir: 'build',
-  server: {
-    androidScheme: 'https'
-  }
+	appId: "io.ionic.starter",
+	appName: "rewe-app-fe",
+	webDir: "build",
+	server: {
+		androidScheme: "https",
+	},
 };
 
 export default config;
