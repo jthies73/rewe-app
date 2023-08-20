@@ -3,8 +3,9 @@
 	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
+		"@capacitor/android": "^5.2.3",
 		"@capacitor/app": "5.0.6",
-		"@capacitor/camera": "5.0.6",
+		"@capacitor/camera": "^5.0.7",
 		"@capacitor/core": "5.2.0",
 		"@capacitor/filesystem": "^5.1.2",
 		"@capacitor/haptics": "5.0.6",
