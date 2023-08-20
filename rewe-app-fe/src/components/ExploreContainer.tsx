@@ -12,6 +12,7 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
 		<div className="container">
 			<strong>{name.toUpperCase()}</strong>
 			<br />
+			<br />
 			<IonButton
 				onClick={async () => {
 					if (
@@ -39,6 +40,7 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
 			>
 				Show my face
 			</IonButton>
+			<br />
 			<br />
 			<video id="video" autoPlay width="500" height="500"></video>{" "}
 		</div>
