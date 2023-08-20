@@ -14,6 +14,15 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
 			<br />
 			<IonButton
 				onClick={() => {
+					if (
+						"mediaDevices" in navigator &&
+						"getUserMedia" in navigator.mediaDevices
+					) {
+						console.log("Let's get this party started");
+					} else {
+						console.log("Sorry, camera not available.");
+					}
+
 					navigator.mediaDevices.getUserMedia({
 						video: {
 							facingMode: "user",
