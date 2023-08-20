@@ -13,7 +13,7 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
 			<strong>{name.toUpperCase()}</strong>
 			<br />
 			<IonButton
-				onClick={() => {
+				onClick={async () => {
 					if (
 						"mediaDevices" in navigator &&
 						"getUserMedia" in navigator.mediaDevices
@@ -23,15 +23,24 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
 						console.log("Sorry, camera not available.");
 					}
 
-					navigator.mediaDevices.getUserMedia({
+					// Get access to the camera
+					void navigator.mediaDevices.getUserMedia({
 						video: {
 							facingMode: "user",
 						},
 					});
+
+					// List cameras and microphones
+					const devices =
+						await navigator.mediaDevices.enumerateDevices();
+
+					console.log(devices);
 				}}
 			>
 				Show my face
 			</IonButton>
+			<br />
+			<video id="video" autoPlay width="500" height="500"></video>{" "}
 		</div>
 	);
 };

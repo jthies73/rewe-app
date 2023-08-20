@@ -9,23 +9,7 @@ import {
 	IonMenuToggle,
 	IonNote,
 } from "@ionic/react";
-import {
-	archiveOutline,
-	archiveSharp,
-	bookmarkOutline,
-	heartOutline,
-	heartSharp,
-	home,
-	homeOutline,
-	mailOutline,
-	mailSharp,
-	paperPlaneOutline,
-	paperPlaneSharp,
-	trashOutline,
-	trashSharp,
-	warningOutline,
-	warningSharp,
-} from "ionicons/icons";
+import { home } from "ionicons/icons";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
