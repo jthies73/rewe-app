@@ -1,21 +1,26 @@
 {
-	"short_name": "Ionic App",
-	"name": "My Ionic App",
+	"short_name": "Rewe App",
+	"name": "Rewe App Ionic",
 	"icons": [
 		{
-			"src": "assets/icon/favicon.png",
-			"sizes": "64x64 32x32 24x24 16x16",
-			"type": "image/x-icon"
+			"src": "assets/icon/favicon.ico",
+			"sizes": "16x16",
+			"type": "image/x-icon",
+			"purpose": "any maskable"
 		},
 		{
-			"src": "assets/icon/icon.png",
-			"type": "image/png",
+			"src": "assets/icon/icon-256.png",
+			"sizes": "256x256",
+			"purpose": "any"
+		},
+		{
+			"src": "assets/icon/icon-512.png",
 			"sizes": "512x512",
-			"purpose": "maskable"
+			"purpose": "any"
 		}
 	],
-	"start_url": ".",
+	"start_url": "index.html",
 	"display": "standalone",
-	"theme_color": "#ffffff",
-	"background_color": "#ffffff"
+	"theme_color": "#02EFD1",
+	"background_color": "#02EFD1"
 }
