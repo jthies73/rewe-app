@@ -4,6 +4,9 @@ FROM node:14
 # Set the working directory inside the container
 WORKDIR /app
 
+# Install Ionic CLI globally
+RUN npm i -g ionic
+
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
