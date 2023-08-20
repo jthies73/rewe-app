@@ -20,7 +20,7 @@ EXPOSE 8100
 RUN npm run build
 
 # Command to start the Ionic app (adjust as needed)
-CMD ["ionic", "serve", "--address", "0.0.0.0", "--port", "8100"]
+CMD ["ionic", "serve"]
 
 # Example: If you need to pass environment variables to the app
 # CMD ["ionic", "serve", "--address", "0.0.0.0", "--port", "8100", "--env", "production"]
