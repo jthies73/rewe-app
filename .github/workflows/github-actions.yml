@@ -1,0 +1,26 @@
+name: GitHub Actions Pipeline 🚀
+run-name: ${{ github.actor }} is deploying rewe-app 🚀
+on: [push]
+jobs:
+  Deploy-Rewe-App-Fe:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
+        working-directory: ./rewe-app-fe
+        run: |
+          echo "Building rewe-app-fe image... 🏗"
+          ls -al
+          docker build -t rewe-app-fe-image .
+      - name: Deploy image
+        working-directory: ./rewe-app-fe
+        run: |
+          echo "Deploying rewe-app-fe image 🚀"
+          ls -al
+          docker stop rewe-app-fe || true && docker rm rewe-app-fe || true
+          docker run -d --net rewe-net --ip 172.41.0.21 --name rewe-app-fe rewe-app-fe-image
+  Deploy-Rewe-App-Be:
+    runs-on: self-hosted
+    steps:
+      - run: ls -al
+      - run: echo "Deploying rewe-be 🚀"
