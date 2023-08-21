@@ -11,16 +11,16 @@ def read_root():
 
 
 @app.post("/api/images")
-async def process_upload_image(image: UploadFile = File(...)):
+async def process_upload_image(file: UploadFile = File(...)):
     try:
-        contents = await image.file.read()
+        contents = await file.read()
         # TODO: Process file from here
     except Exception:
         return {"message": "There was an error uploading the file"}
     finally:
-       await image.file.close()
+       await file.close()
 
-    return {"message": f"Successfully uploaded {image.filename}"}
+    return {"message": f"Successfully uploaded {file.filename}"}
 
 
 @app.get("/api/items/{item_id}")
