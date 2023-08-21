@@ -13,4 +13,3 @@
 		- Optical Character Recognition (OCR)
 		- Text processing (TP)
 		- Supabase BaaS
-			-
