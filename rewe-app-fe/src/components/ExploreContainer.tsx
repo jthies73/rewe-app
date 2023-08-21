@@ -27,12 +27,10 @@ async function uploadPhoto(photo: Photo) {
 
 	console.log("uploading photo...", fileName);
 	// Send FormData object to API
-	const res: Response = await fetch("https://rewe-app.yafa.app/api/images", {
+	const res = await fetch("https://rewe-app.yafa.app/api/images", {
 		method: "POST",
 		body: formData,
-	})
-		.then((res) => res.json())
-		.catch((err) => console.error(err));
+	});
 
 	console.log("Upload successful!", res);
 	return res;
