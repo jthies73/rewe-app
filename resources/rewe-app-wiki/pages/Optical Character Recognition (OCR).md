@@ -1,0 +1,6 @@
+- Second Step in Image processing pipeline
+- OCR process should convert image data into structured text data
+- Idea Step 1:
+	- convert the whole image at once and see if text extraction is reliable
+- Idea Step 2:
+	- Divide initial image into chunks of related information for more control in later processing?

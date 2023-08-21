@@ -1,0 +1,2 @@
+- The Ionic Frontend application is an Single Page Application (SPA) written in react
+- capacitor by ionic provides access to native device features such a camera, sound and push-notifications

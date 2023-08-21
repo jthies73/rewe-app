@@ -1,0 +1,15 @@
+- rewe-app is a tool that enables the user to keep track of their grocery expenses
+- to do so the user can take a photo of their bill and let it be processed by rewe-app
+- after processing the user can interact with the extracted information different ways
+	- filtering
+	- sorting
+	- clustering
+	- (labeling)
+	- limiters
+- The app is divided into different parts to solve support these usecases:
+	- SPA (Frontend)
+	- Python Backend processing
+		- Image Enhancement (IE)
+		- Optical Character Recognition (OCR)
+		- Text processing (TP)
+		- Supabase BaaS
