@@ -1,16 +1,20 @@
 name: GitHub Actions Pipeline 🚀
 run-name: ${{ github.actor }} is deploying rewe-app 🚀
-on: [push]
+on: [ push ]
 jobs:
   Deploy-Rewe-App-Fe:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - name: Build image
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL_DEV }} # TODO: Make this dynamic
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY_DEV }} # TODO: Make this dynamic
         working-directory: ./rewe-app-fe
         run: |
           echo "Building rewe-app-fe image... 🏗"
-          ls -al
+          echo "REACT_APP_SUPABASE_URL=$SUPABASE_URL" >> .env
+          echo "REACT_APP_SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" >> .env
           docker build -t rewe-app-fe-image .
       - name: Deploy image
         working-directory: ./rewe-app-fe

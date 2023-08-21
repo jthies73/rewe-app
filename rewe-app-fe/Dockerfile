@@ -16,14 +16,14 @@ RUN npm install
 # Copy the entire project to the container
 COPY . .
 
-# Expose the port that the Ionic app will run on (adjust as needed)
+# Expose the port that the Ionic app will run on
 EXPOSE 8100
 
-# Build the Ionic app (adjust the command if needed)
+# Build the Ionic app
 RUN npm run build
 
-# Command to start the Ionic app (adjust as needed)
+# Command to start the Ionic app
 #CMD ["ionic", "serve"]
 
 # Example: If you need to pass environment variables to the app
-CMD ["ionic", "serve", "--address", "0.0.0.0", "--port", "8100", "--prod"]
+CMD ["ionic", "serve", "--prod"]

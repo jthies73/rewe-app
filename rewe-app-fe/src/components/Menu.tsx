@@ -9,7 +9,7 @@ import {
 	IonMenuToggle,
 	IonNote,
 } from "@ionic/react";
-import { home } from "ionicons/icons";
+import { camera, analytics, person } from "ionicons/icons";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
@@ -24,10 +24,22 @@ interface AppPage {
 
 const appPages: AppPage[] = [
 	{
-		title: "Home",
-		url: "/home",
-		iosIcon: home,
-		mdIcon: home,
+		title: "Camera",
+		url: "/camera",
+		iosIcon: camera,
+		mdIcon: camera,
+	},
+	{
+		title: "Expenses",
+		url: "/expenses",
+		iosIcon: analytics,
+		mdIcon: analytics,
+	},
+	{
+		title: "Users",
+		url: "/users",
+		iosIcon: person,
+		mdIcon: person,
 	},
 ];
 
@@ -38,9 +50,8 @@ const Menu: React.FC = () => {
 		<IonMenu contentId="main" type="overlay">
 			<IonContent>
 				<IonList id="inbox-list">
-					<IonListHeader>Menu</IonListHeader>
-					<IonNote>hi@christian</IonNote>
-					<IonNote>hi@arthur</IonNote>
+					<IonListHeader>REME App</IonListHeader>
+					<br />
 					{appPages.map((appPage, index) => {
 						return (
 							<IonMenuToggle key={index} autoHide={false}>
@@ -64,6 +75,7 @@ const Menu: React.FC = () => {
 									{/*Title Capitalized*/}
 									<IonLabel>{appPage.title}</IonLabel>
 								</IonItem>
+								<div style={{ marginBottom: 5 }} />
 							</IonMenuToggle>
 						);
 					})}

@@ -25,7 +25,9 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
 import Menu from "./components/Menu";
-import Page from "./pages/Page";
+import CameraPage from "./pages/CameraPage";
+import ExpensesPage from "./pages/ExpensesPage";
+import UsersPage from "./pages/UsersPage";
 
 /* Theme variables */
 import "./theme/variables.css";
@@ -40,10 +42,16 @@ const App: React.FC = () => {
 					<Menu />
 					<IonRouterOutlet id="main">
 						<Route path="/" exact={true}>
-							<Redirect to="/home" />
+							<Redirect to="/camera" />
 						</Route>
-						<Route path="/:name" exact={true}>
-							<Page />
+						<Route path="/camera" exact={true}>
+							<CameraPage />
+						</Route>
+						<Route path="/expenses" exact={true}>
+							<ExpensesPage />
+						</Route>
+						<Route path="/users" exact={true}>
+							<UsersPage />
 						</Route>
 					</IonRouterOutlet>
 				</IonSplitPane>

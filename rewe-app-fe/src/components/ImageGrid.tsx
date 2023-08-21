@@ -3,10 +3,8 @@ import { IonButton, IonCol, IonGrid, IonRow } from "@ionic/react";
 import React, { useState } from "react";
 
 import { generateFileNameWithDate } from "../utils/stringUtils";
-import "./ExploreContainer.css";
 
-interface ContainerProps {
-	name: string;
+interface ImageGridProps {
 	photos: Photo[];
 }
 
@@ -36,46 +34,44 @@ async function uploadPhoto(photo: Photo) {
 	return res;
 }
 
-const ExploreContainer: React.FC<ContainerProps> = ({ name, photos }) => {
+const ImageGrid: React.FC<ImageGridProps> = ({ photos }) => {
 	const [successfullUploads, setSuccessfullUploads] = useState<string[]>([]);
 
 	return (
-		<div>
-			<IonGrid>
-				<IonRow>
-					{photos.map((photo) => (
-						<IonCol size-md="6" size-xs="12" key={photo.webPath}>
-							<img
-								key={photo.webPath}
-								src={photo.webPath}
-								style={{ width: "100%", height: "auto" }}
-								alt={name}
-							/>
-							<IonButton
-								disabled={successfullUploads.includes(
-									photo.webPath + ""
-								)}
-								onClick={async () => {
-									const res = await uploadPhoto(photo);
-									if (res.ok) {
-										setSuccessfullUploads((prev) => [
-											...prev,
-											photo.webPath + "",
-										]);
-									}
-								}}
-							>
-								Upload
-							</IonButton>
-							{successfullUploads.includes(
+		<IonGrid>
+			<IonRow>
+				{photos.map((photo) => (
+					<IonCol size-md="6" size-xs="12" key={photo.webPath}>
+						<img
+							key={photo.webPath}
+							src={photo.webPath}
+							style={{ width: "100%", height: "auto" }}
+							alt={"whats that??"}
+						/>
+						<IonButton
+							disabled={successfullUploads.includes(
 								photo.webPath + ""
-							) && <div>Uploaded!</div>}
-						</IonCol>
-					))}
-				</IonRow>
-			</IonGrid>
-		</div>
+							)}
+							onClick={async () => {
+								const res = await uploadPhoto(photo);
+								if (res.ok) {
+									setSuccessfullUploads((prev) => [
+										...prev,
+										photo.webPath + "",
+									]);
+								}
+							}}
+						>
+							Upload
+						</IonButton>
+						{successfullUploads.includes(photo.webPath + "") && (
+							<div>Uploaded!</div>
+						)}
+					</IonCol>
+				))}
+			</IonRow>
+		</IonGrid>
 	);
 };
 
-export default ExploreContainer;
+export default ImageGrid;
