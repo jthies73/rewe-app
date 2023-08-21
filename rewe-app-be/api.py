@@ -1,6 +1,6 @@
 from typing import Union
 
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, File, UploadFile
 
 app = FastAPI()
 
@@ -11,16 +11,16 @@ def read_root():
 
 
 @app.post("/api/images")
-def process_upload_image(image: UploadFile):
+async def process_upload_image(file: UploadFile = File(...)):
     try:
-        contents = image.file.read()
+        contents = await file.read()
         # TODO: Process file from here
     except Exception:
         return {"message": "There was an error uploading the file"}
     finally:
-        image.file.close()
+       await file.close()
 
-    return {"message": f"Successfully uploaded {image.filename}"}
+    return {"message": f"Successfully uploaded {file.filename}"}
 
 
 @app.get("/api/items/{item_id}")
