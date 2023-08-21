@@ -39,7 +39,7 @@ async function uploadPhoto(photo: Photo) {
 }
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name, photos }) => {
-	const [successfullUploads, setSuccessfullUploads] = useState<Photo[]>([]);
+	const [successfullUploads, setSuccessfullUploads] = useState<string[]>([]);
 
 	return (
 		<div>
@@ -54,22 +54,24 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name, photos }) => {
 								alt={name}
 							/>
 							<IonButton
-								disabled={successfullUploads.includes(photo)}
+								disabled={successfullUploads.includes(
+									photo.webPath + ""
+								)}
 								onClick={async () => {
 									const res = await uploadPhoto(photo);
 									if (res.ok) {
 										setSuccessfullUploads((prev) => [
 											...prev,
-											photo,
+											photo.webPath + "",
 										]);
 									}
 								}}
 							>
 								Upload
 							</IonButton>
-							{successfullUploads.includes(photo) && (
-								<div>Uploaded!</div>
-							)}
+							{successfullUploads.includes(
+								photo.webPath + ""
+							) && <div>Uploaded!</div>}
 						</IonCol>
 					))}
 				</IonRow>
