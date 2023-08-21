@@ -11,11 +11,12 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL_DEV }} # TODO: Make this dynamic
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY_DEV }} # TODO: Make this dynamic
         working-directory: ./rewe-app-fe
+        # echo "SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" >> .env
         run: |
           echo "Building rewe-app-fe image... 🏗"
-          echo "SUPABASE_URL=$SUPABASE_URL" >> .env 
-          echo "SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" >> .env
+          echo "SUPABASE_URL=$SUPABASE_URL" >> .env
           ls -al
+          cat .env
           docker build -t rewe-app-fe-image .
       - name: Deploy image
         working-directory: ./rewe-app-fe
