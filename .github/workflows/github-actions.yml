@@ -13,6 +13,7 @@ jobs:
         working-directory: ./rewe-app-fe
         run: |
           echo "Building rewe-app-fe image... 🏗"
+          echo "SUPABASE_URL=${SUPABASE_URL}"
           echo "SUPABASE_URL=${SUPABASE_URL}" >> .env
           echo "SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}" >> .env
           ls -al
