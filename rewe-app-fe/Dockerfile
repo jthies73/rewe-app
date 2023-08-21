@@ -20,7 +20,10 @@ COPY . .
 EXPOSE 8100
 
 # Build the Ionic app
-RUN ionic build --prod
+RUN npm run build
 
-# Serve the app
+# Command to start the Ionic app
+#CMD ["ionic", "serve"]
+
+# Example: If you need to pass environment variables to the app
 CMD ["ionic", "serve", "--prod"]
