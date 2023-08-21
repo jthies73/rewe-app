@@ -1,6 +1,6 @@
 from typing import Union
 
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, File, UploadFile
 
 app = FastAPI()
 
