@@ -8,6 +8,7 @@ import {
 import { IonButton, IonCol, IonGrid, IonRow } from "@ionic/react";
 import React, { useState } from "react";
 
+import { generateFileNameWithDate } from "../utils/stringUtils";
 import "./ExploreContainer.css";
 
 interface ContainerProps {
@@ -42,7 +43,11 @@ async function uploadPhoto(photo: Photo) {
 		.then((response) => response.blob())
 		.then((blob) => {
 			// Append the image file to the FormData object
-			formData.append("photo", blob, "photo.jpg");
+			formData.append(
+				"photo",
+				blob,
+				generateFileNameWithDate(new Date())
+			);
 
 			// Append other fields if needed
 			formData.append("field1", "value1");
