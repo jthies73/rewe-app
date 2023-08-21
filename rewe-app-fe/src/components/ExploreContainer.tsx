@@ -1,10 +1,4 @@
-import {
-	Camera,
-	CameraDirection,
-	CameraResultType,
-	CameraSource,
-	Photo,
-} from "@capacitor/camera";
+import { Photo } from "@capacitor/camera";
 import { IonButton, IonCol, IonGrid, IonRow } from "@ionic/react";
 import React, { useState } from "react";
 
@@ -36,14 +30,15 @@ async function uploadPhoto(photo: Photo) {
 	const res = await fetch("https://rewe-app.yafa.app/api/images", {
 		method: "POST",
 		body: formData,
-	})
-		.then((res) => res.json())
-		.catch((err) => console.error(err));
+	});
 
 	console.log("Upload successful!", res);
+	return res;
 }
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name, photos }) => {
+	const [successfullUploads, setSuccessfullUploads] = useState<string[]>([]);
+
 	return (
 		<div>
 			<IonGrid>
@@ -56,9 +51,25 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name, photos }) => {
 								style={{ width: "100%", height: "auto" }}
 								alt={name}
 							/>
-							<IonButton onClick={() => uploadPhoto(photo)}>
+							<IonButton
+								disabled={successfullUploads.includes(
+									photo.webPath + ""
+								)}
+								onClick={async () => {
+									const res = await uploadPhoto(photo);
+									if (res.ok) {
+										setSuccessfullUploads((prev) => [
+											...prev,
+											photo.webPath + "",
+										]);
+									}
+								}}
+							>
 								Upload
 							</IonButton>
+							{successfullUploads.includes(
+								photo.webPath + ""
+							) && <div>Uploaded!</div>}
 						</IonCol>
 					))}
 				</IonRow>
