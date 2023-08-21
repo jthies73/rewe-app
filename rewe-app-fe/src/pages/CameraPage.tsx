@@ -55,7 +55,7 @@ const CameraPage: React.FC = () => {
 			<IonFab vertical={"bottom"} horizontal={"end"}>
 				<IonFabButton
 					onClick={async () => {
-						const photo = await takePhoto("front");
+						const photo = await takePhoto("rear");
 						if (!photo) return;
 						setPhotos((photos) => [...photos, photo]);
 					}}
