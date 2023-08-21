@@ -1,0 +1,4 @@
+- Initial Step in Image processing pipeline
+- contrast enhancement
+- traightening
+- 8 bit image?

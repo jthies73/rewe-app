@@ -1,0 +1,14 @@
+- Third Step in Image_processing pipeline
+- convert plain text into structured data
+- we are mostly interested in a list of items. Each should have:
+	- Name
+	- price
+	- category
+		- subcategories?
+	- amount?
+- other potential extraction relevant information:
+	- Store name
+	- num items
+	- total price
+	- MwSt
+	- ...

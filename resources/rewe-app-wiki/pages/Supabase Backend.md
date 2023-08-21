@@ -1,0 +1,9 @@
+- Supabase is a BaaS Solution and enables quick and easy access to a PostgreSQL
+- SDKs available for
+	- Typescript (Frontend)
+	- Python (Backend Image Processing)
+- Provides functionality such as
+	- Database Management
+	- User Authentication and Authorization
+	- (Serverless)
+- Supabase is also open source
