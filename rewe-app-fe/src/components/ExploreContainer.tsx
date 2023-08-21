@@ -46,9 +46,6 @@ async function uploadPhoto(photo: Photo) {
 	const res = await fetch("https://rewe-app.yafa.app/api/images", {
 		method: "POST",
 		body: formData,
-		headers: {
-			"Content-Type": "multipart/form-data",
-		},
 	})
 		.then((res) => res.json())
 		.catch((err) => console.error(err));
