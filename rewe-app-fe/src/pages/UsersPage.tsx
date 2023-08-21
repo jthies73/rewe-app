@@ -9,7 +9,7 @@ import {
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 
-import { supabase } from "../supabaseClient";
+import { supabase } from "../supabase/client";
 
 type User = {
 	id: string;

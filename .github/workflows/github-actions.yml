@@ -13,8 +13,8 @@ jobs:
         working-directory: ./rewe-app-fe
         run: |
           echo "Building rewe-app-fe image... 🏗"
-          echo "SUPABASE_URL=$SUPABASE_URL" >> .env
-          echo "SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" >> .env
+          echo "REACT_APP_SUPABASE_URL=$SUPABASE_URL" >> .env
+          echo "REACT_APP_SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" >> .env
           docker build -t rewe-app-fe-image .
       - name: Deploy image
         working-directory: ./rewe-app-fe
