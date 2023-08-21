@@ -8,6 +8,7 @@ import {
 import { IonButton, IonCol, IonGrid, IonRow } from "@ionic/react";
 import React, { useState } from "react";
 
+import { generateFileNameWithDate } from "../utils/stringUtils";
 import "./ExploreContainer.css";
 
 interface ContainerProps {
@@ -23,32 +24,24 @@ const takePhoto = async (direction: "rear" | "front") => {
 		direction:
 			direction === "rear" ? CameraDirection.Rear : CameraDirection.Front,
 	});
-
-	// image.webPath will contain a path that can be set as an image src.
-	// You can access the original file using image.path, which can be
-	// passed to the Filesystem API to read the raw data of the image,
-	// if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-
-	// return photo.webPath;
 };
 
 // A function that uploads a photo to the server in multipart/form-data format
 async function uploadPhoto(photo: Photo) {
 	// Create a FormData object
 	const formData = new FormData();
+	const fileName = generateFileNameWithDate(new Date());
 
+	console.log("converting photo to blob...", photo.webPath);
 	// Convert photo to Blob to append to FormData object
 	await fetch(photo.webPath + "")
 		.then((response) => response.blob())
 		.then((blob) => {
 			// Append the image file to the FormData object
-			formData.append("photo", blob, "photo.jpg");
-
-			// Append other fields if needed
-			formData.append("field1", "value1");
-			formData.append("field2", "value2");
+			formData.append("image", blob, fileName);
 		});
 
+	console.log("uploading photo...", fileName);
 	// Send FormData object to API
 	const res = await fetch("https://rewe-app.yafa.app/api/images", {
 		method: "POST",
@@ -60,7 +53,7 @@ async function uploadPhoto(photo: Photo) {
 		.then((res) => res.json())
 		.catch((err) => console.error(err));
 
-	console.log("Upload successful! " + res);
+	console.log("Upload successful!", res);
 }
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
