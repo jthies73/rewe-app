@@ -38,7 +38,7 @@ async function uploadPhoto(photo: Photo) {
 		.then((response) => response.blob())
 		.then((blob) => {
 			// Append the image file to the FormData object
-			formData.append("image", blob, fileName);
+			formData.append("file", blob, fileName);
 		});
 
 	console.log("uploading photo...", fileName);

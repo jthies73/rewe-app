@@ -11,7 +11,7 @@ def read_root():
 
 
 @app.post("/api/images")
-async def process_upload_image(image: UploadFile):
+async def process_upload_image(file: UploadFile = File(...)):
 #     try:
 #         contents = await image.file.read()
 #         # TODO: Process file from here
@@ -20,7 +20,7 @@ async def process_upload_image(image: UploadFile):
 #     finally:
 #        await image.file.close()
 
-    return {"message": f"Successfully uploaded {image.filename}"}
+    return {"message": f"Successfully uploaded {file.filename}"}
 
 
 @app.get("/api/items/{item_id}")
