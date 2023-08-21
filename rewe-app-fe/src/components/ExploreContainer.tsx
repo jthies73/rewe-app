@@ -13,18 +13,8 @@ import "./ExploreContainer.css";
 
 interface ContainerProps {
 	name: string;
+	photos: Photo[];
 }
-
-const takePhoto = async (direction: "rear" | "front") => {
-	return await Camera.getPhoto({
-		quality: 100,
-		allowEditing: true,
-		resultType: CameraResultType.Uri,
-		source: CameraSource.Camera,
-		direction:
-			direction === "rear" ? CameraDirection.Rear : CameraDirection.Front,
-	});
-};
 
 // A function that uploads a photo to the server in multipart/form-data format
 async function uploadPhoto(photo: Photo) {
@@ -53,37 +43,9 @@ async function uploadPhoto(photo: Photo) {
 	console.log("Upload successful!", res);
 }
 
-const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
-	const [photos, setPhotos] = useState<Photo[]>([]);
-
+const ExploreContainer: React.FC<ContainerProps> = ({ name, photos }) => {
 	return (
-		<div className="container">
-			<strong>{name.toUpperCase()}</strong>
-			<br />
-			<br />
-			<IonButton
-				onClick={async () => {
-					const photo = await takePhoto("front");
-					if (!photo) return;
-					setPhotos((photos) => [...photos, photo]);
-				}}
-			>
-				Show my face
-			</IonButton>
-			<br />
-			<br />
-			<IonButton
-				onClick={async () => {
-					const photo = await takePhoto("rear");
-					if (!photo) return;
-					setPhotos((photos) => [...photos, photo]);
-				}}
-			>
-				Rear cam test
-			</IonButton>
-			<br />
-			<br />
-
+		<div>
 			<IonGrid>
 				<IonRow>
 					{photos.map((photo) => (
