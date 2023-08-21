@@ -21,7 +21,7 @@ const ExpensesPage: React.FC = () => {
 				</IonToolbar>
 			</IonHeader>
 
-			<IonContent fullscreen>
+			<IonContent>
 				<div>Some Content</div>
 			</IonContent>
 		</IonPage>

@@ -42,7 +42,7 @@ const UsersPage: React.FC = () => {
 				</IonToolbar>
 			</IonHeader>
 
-			<IonContent fullscreen>
+			<IonContent>
 				<table>
 					<thead>
 						<tr>

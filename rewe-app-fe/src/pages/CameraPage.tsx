@@ -20,7 +20,7 @@ import {
 import { camera } from "ionicons/icons";
 import React, { useState } from "react";
 
-import ExploreContainer from "../components/ImageGrid";
+import ImageGrid from "../components/ImageGrid";
 
 const takePhoto = async (direction: "rear" | "front") => {
 	return await Camera.getPhoto({
@@ -47,8 +47,8 @@ const CameraPage: React.FC = () => {
 				</IonToolbar>
 			</IonHeader>
 
-			<IonContent fullscreen>
-				<ExploreContainer photos={photos} />
+			<IonContent>
+				<ImageGrid photos={photos} />
 			</IonContent>
 
 			{/* Add the fab button with the camera icon */}
