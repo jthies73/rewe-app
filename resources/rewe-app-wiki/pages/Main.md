@@ -12,5 +12,5 @@
 		- Image Enhancement (IE)
 		- Optical Character Recognition (OCR)
 		- Text processing (TP)
-	- Supabase BaaS
-		-
+		- Supabase BaaS
+			-
