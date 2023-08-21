@@ -9,23 +9,7 @@ import {
 	IonMenuToggle,
 	IonNote,
 } from "@ionic/react";
-import {
-	archiveOutline,
-	archiveSharp,
-	bookmarkOutline,
-	heartOutline,
-	heartSharp,
-	home,
-	homeOutline,
-	mailOutline,
-	mailSharp,
-	paperPlaneOutline,
-	paperPlaneSharp,
-	trashOutline,
-	trashSharp,
-	warningOutline,
-	warningSharp,
-} from "ionicons/icons";
+import { home } from "ionicons/icons";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
@@ -56,6 +40,7 @@ const Menu: React.FC = () => {
 				<IonList id="inbox-list">
 					<IonListHeader>Menu</IonListHeader>
 					<IonNote>hi@christian</IonNote>
+					<IonNote>hi@arthur</IonNote>
 					{appPages.map((appPage, index) => {
 						return (
 							<IonMenuToggle key={index} autoHide={false}>
