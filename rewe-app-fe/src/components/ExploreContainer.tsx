@@ -28,7 +28,7 @@ async function uploadPhoto(photo: Photo) {
 		.then((response) => response.blob())
 		.then((blob) => {
 			// Append the image file to the FormData object
-			formData.append("image", blob, fileName);
+			formData.append("file", blob, fileName);
 		});
 
 	console.log("uploading photo...", fileName);
@@ -36,9 +36,6 @@ async function uploadPhoto(photo: Photo) {
 	const res = await fetch("https://rewe-app.yafa.app/api/images", {
 		method: "POST",
 		body: formData,
-		headers: {
-			"Content-Type": "multipart/form-data",
-		},
 	})
 		.then((res) => res.json())
 		.catch((err) => console.error(err));
