@@ -19,7 +19,7 @@
 			"purpose": "any"
 		}
 	],
-	"start_url": "index.html",
+	"start_url": "/camera",
 	"display": "standalone",
 	"theme_color": "#FFFFFF",
 	"background_color": "#FFFFFF"
