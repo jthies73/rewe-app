@@ -8,6 +8,8 @@ interface ImageGridProps {
 	photos: Photo[];
 }
 
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 // A function that uploads a photo to the server in multipart/form-data format
 async function uploadPhoto(photo: Photo) {
 	// Create a FormData object
@@ -24,8 +26,9 @@ async function uploadPhoto(photo: Photo) {
 		});
 
 	console.log("uploading photo...", fileName);
+
 	// Send FormData object to API
-	const res = await fetch("https://rewe-app.yafa.app/api/images", {
+	const res = await fetch(BASE_URL + "/images", {
 		method: "POST",
 		body: formData,
 	});
