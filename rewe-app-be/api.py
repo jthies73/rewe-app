@@ -1,11 +1,33 @@
 from typing import Union
 
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 
 import pandas as pd
 
 app = FastAPI()
+# Configure CORS (Cross-Origin Resource Sharing) settings
+origins = [
+    "http://localhost",  # Replace with your frontend domain(s)
+    "http://localhost:8080",  # Add more origins as needed
+    "http://localhost:8081",  # Add more origins as needed
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
+
 df = pd.read_parquet("purchases.parquet")
+
+
+# Define an OPTIONS route for CORS preflight requests
+@app.options("/api/")
+async def options_route():
+    return {"methods": "OPTIONS, GET, POST, PUT, DELETE"}
 
 
 @app.get("/api/")
