@@ -16,7 +16,7 @@ root.render(
 );
 
 // Call the element loader after the app has been rendered the first time
-void defineCustomElements(window);
+// void defineCustomElements(window);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
