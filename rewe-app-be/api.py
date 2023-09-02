@@ -10,6 +10,7 @@ import pandas as pd
 import db
 import rewe_process
 
+import json
 
 import pandas as pd
 
@@ -61,9 +62,10 @@ async def process_upload_image(file: UploadFile = File(...)):
     contents = await file.read()
     await file.close()
     with io.BytesIO(contents) as fd:
-        json = rewe_process.parse_rewe_ebon(fd)
-        print(json)
-    return json
+        jsonString = rewe_process.parse_rewe_ebon(fd)
+        print(type(jsonString))
+        print(type(json.loads(jsonString)))
+    return json.loads(jsonString)
 
 
 @app.get("/api/items/{item_id}")
