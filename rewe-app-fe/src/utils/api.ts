@@ -3,7 +3,8 @@ import { Photo } from "@capacitor/camera";
 import { Expense } from "../model/expense";
 import { generateFileNameWithDate } from "./stringUtils";
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const BASE_URL =
+	process.env.REACT_APP_API_BASE_URL || "https://rewe-app.yafa.app/api";
 
 // A function that uploads a photo to the server in multipart/form-data format
 export async function uploadPhoto(photo: Photo) {
