@@ -1,9 +1,15 @@
+import io
+
 from typing import Union
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
 import pandas as pd
+
+import db
+import rewe_process
+
 
 app = FastAPI()
 # Configure CORS (Cross-Origin Resource Sharing) settings
@@ -47,15 +53,14 @@ async def read_purchase_mock(purchase_id: int):
 
 @app.post("/api/images")
 async def process_upload_image(file: UploadFile = File(...)):
-    try:
-        contents = await file.read()
-        # TODO: Process file from here
-    except Exception:
-        return {"message": "There was an error uploading the file"}
-    finally:
-       await file.close()
-
-    return {"message": f"Successfully uploaded {file.filename}"}
+    db.clean()
+    db.create_database()
+    contents = await file.read()
+    await file.close()
+    with io.BytesIO(contents) as fd:
+        json = rewe_process.parse_rewe_ebon(fd)
+        print(json)
+    return json
 
 
 @app.get("/api/items/{item_id}")
