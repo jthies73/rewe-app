@@ -2,12 +2,10 @@
 FROM node:14 AS build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 RUN npm i -g ionic
 COPY . .
 RUN ionic build --prod
-#RUN serve -s build
-
 
 # Use Nginx as the production web server
 FROM nginx:latest
