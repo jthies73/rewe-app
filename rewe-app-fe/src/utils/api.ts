@@ -29,7 +29,7 @@ export async function uploadPhoto(photo: Photo) {
 		body: formData,
 	});
 
-	const expenses: Expense[] = await res.json();
+	const expenses: Expense[] = JSON.parse(await res.text());
 
 	// const expenses: Expense[] = [
 	// 	{
