@@ -2,7 +2,7 @@
 FROM node:14 AS build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 RUN npm i -g ionic
 COPY . .
 RUN ionic build --prod
