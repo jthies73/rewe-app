@@ -7,7 +7,6 @@ import {
 	IonListHeader,
 	IonMenu,
 	IonMenuToggle,
-	IonNote,
 } from "@ionic/react";
 import { camera, analytics, person } from "ionicons/icons";
 import React from "react";
