@@ -8,11 +8,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build image
         env:
+          BASE_URL: ${{ secrets.BASE_URL }} # TODO: Make this dynamic
           SUPABASE_URL: ${{ secrets.SUPABASE_URL_DEV }} # TODO: Make this dynamic
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY_DEV }} # TODO: Make this dynamic
         working-directory: ./rewe-app-fe
         run: |
           echo "Building rewe-app-fe image... 🏗"
+          echo "REACT_APP_BASE_URL=$BASE_URL" >> .env
           echo "REACT_APP_SUPABASE_URL=$SUPABASE_URL" >> .env
           echo "REACT_APP_SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" >> .env
           docker build -t rewe-app-fe-image .
