@@ -11,6 +11,8 @@ import db
 import rewe_process
 
 
+import pandas as pd
+
 app = FastAPI()
 # Configure CORS (Cross-Origin Resource Sharing) settings
 origins = [
@@ -34,6 +36,7 @@ df = pd.read_parquet("purchases.parquet")
 @app.options("/api/")
 async def options_route():
     return {"methods": "OPTIONS, GET, POST, PUT, DELETE"}
+df = pd.read_parquet("purchases.parquet")
 
 
 @app.get("/api/")

@@ -1,4 +1,3 @@
-import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import React from "react";
 import { createRoot } from "react-dom/client";
 
