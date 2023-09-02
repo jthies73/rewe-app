@@ -41,4 +41,4 @@ jobs:
           echo "Deploying rewe-app-be image 🚀"
           ls -al
           docker stop rewe-app-be || true && docker rm rewe-app-be || true
-          docker run -d --net rewe-net --ip 172.41.0.22 --name rewe-app-be rewe-app-be-image
+          docker run -d --net rewe-net --ip 172.41.0.20 --name rewe-app-be rewe-app-be-image
