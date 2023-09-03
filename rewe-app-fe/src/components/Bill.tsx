@@ -35,7 +35,7 @@ const BillComponent: React.FC<BillComponentProps> = (
 					fontSize: 40,
 				}}
 			>
-				${total}
+				${total.toFixed(2)}
 			</h1>
 			<p
 				style={{
