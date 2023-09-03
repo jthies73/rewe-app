@@ -53,6 +53,15 @@ class ImageToText:
         for txt in self.ocr_output:
             self.text_output.append(txt[1])
 
+    def get_total_sum(self):
+        pass
+
+    def get_items(self):
+        pass
+
+    def get_prices(self):
+        pass
+
     def parse(self) -> None:
         """
         This method takes the input image and extracts the text using easy ocr.
