@@ -4,8 +4,10 @@ export interface Expense {
 	user_id: number;
 	name: string;
 	value: number;
-	price_per_item: number;
-	weight: number;
-	price_per_kg: number;
+	// price_per_item: number;
+	// weight: number;
+	// price_per_kg: number;
 	tags: string;
+	date: string;
+	quantity: number;
 }
