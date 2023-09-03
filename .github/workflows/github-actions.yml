@@ -1,9 +1,6 @@
 name: GitHub Actions Pipeline 🚀
 run-name: ${{ github.actor }} is deploying rewe-app 🚀
-on:
-  push:
-    branches:
-      - main
+on: [ push ]
 
 jobs:
   Deploy-Rewe-App-Fe:
