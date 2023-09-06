@@ -17,14 +17,14 @@ import {
 	IonToolbar,
 } from "@ionic/react";
 import { camera } from "ionicons/icons";
-import React from "react";
+import React, { useState } from "react";
 
 import Bill from "../components/Bill";
 import { Expense } from "../model/expense";
-import { uploadPhoto } from "../utils/api";
+import { uploadPhoto, uploadPDF } from "../utils/api";
 import useExpenseStore from "../zustand/store";
 
-const takePhoto = async (direction: "rear" | "front") => {
+async function takePhoto(direction: "rear" | "front") {
 	return await Camera.getPhoto({
 		quality: 100,
 		allowEditing: true,
@@ -33,7 +33,11 @@ const takePhoto = async (direction: "rear" | "front") => {
 		direction:
 			direction === "rear" ? CameraDirection.Rear : CameraDirection.Front,
 	});
-};
+}
+
+async function selectFile() {
+	// TODO: Implement file selection for web
+}
 
 const CameraPage: React.FC = () => {
 	const billMap = useExpenseStore((state) => state.expenses).reduce(
@@ -46,6 +50,21 @@ const CameraPage: React.FC = () => {
 		},
 		{} as { [key: number]: Expense[] }
 	);
+
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+	const handleFileInputChange = async (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const files = event.target.files;
+		if (files && files.length > 0) {
+			setSelectedFile(files[0]);
+			const expenses = await uploadPDF(files[0]);
+			useExpenseStore.getState().addExpenses(expenses);
+			setSelectedFile(null);
+		}
+	};
+
 	return (
 		<IonPage>
 			<IonHeader>
@@ -58,6 +77,20 @@ const CameraPage: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
+				<div>
+					<label>Select a File:</label>
+					<input
+						type="file"
+						accept="application/pdf"
+						onChange={handleFileInputChange}
+					/>
+				</div>
+				{selectedFile && (
+					<div>
+						<p>Selected File: {selectedFile.name}</p>
+						<p>File Size: {selectedFile.size} bytes</p>
+					</div>
+				)}
 				{Object.entries(billMap).map(([bill_id, expenses]) => (
 					<Bill
 						key={bill_id}
