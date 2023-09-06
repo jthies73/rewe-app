@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 import { Expense } from "../model/expense";
 

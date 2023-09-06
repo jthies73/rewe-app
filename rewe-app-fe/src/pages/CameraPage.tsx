@@ -78,7 +78,7 @@ const CameraPage: React.FC = () => {
 
 			<IonContent>
 				<div>
-					<label>Select a File:</label>
+					<label className={"bg-green-800"}>Select a File:</label>
 					<input
 						type="file"
 						accept="application/pdf"
