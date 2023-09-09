@@ -4,8 +4,6 @@ import math
 from sqlalchemy.orm import Session
 from pdfminer.high_level import extract_text
 
-import pandas as pd
-
 import db
 
 
@@ -50,15 +48,28 @@ def __parse_rewe_ebon_text(text):
     for expense in expenses:
         expense.datetime = dt
     assert math.isclose(sum([e.value for e in expenses]), total)
-    return expenses
+    return expenses, total
 
 
-def parse_rewe_ebon(ebon):
+def parse_rewe_ebon(ebon, user_id):
     text = extract_text(ebon)
-    expenses = __parse_rewe_ebon_text(text)
+    expenses, total = __parse_rewe_ebon_text(text)
+    bill = db.Bill(
+            user_id=user_id,
+            datetime=expenses[0].datetime,
+            value=total)
+    # We refresh ORM objects so that autoincremented values are accessible.
     with Session(db.engine) as session:
-        session.bulk_save_objects(expenses)
+        session.add(bill)
+        session.flush()
+        session.refresh(bill)
+
+        for expense in expenses:
+            expense.user_id = user_id
+            expense.bill_id = bill.id
+            session.add(expense)
+            session.flush()
+            session.refresh(expense)
         session.commit()
-    stmt = db.sqlalchemy.select(db.Expense)
-    df = pd.read_sql(stmt, db.engine.connect())
-    return df.to_json(orient="records")
+
+        return [db.orm_object_to_dict(e) for e in expenses]
