@@ -54,7 +54,7 @@
 		"autoprefixer": "^9.8.8",
 		"eslint": "^8.35.0",
 		"eslint-plugin-react": "^7.32.2",
-		"postcss": "^7.0.39",
+		"postcss": "^8.4.29",
 		"prettier": "^3.0.2",
 		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
 	},
