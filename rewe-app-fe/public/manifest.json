@@ -22,5 +22,13 @@
 	"start_url": "index.html",
 	"display": "standalone",
 	"theme_color": "#FFFFFF",
-	"background_color": "#FFFFFF"
+	"background_color": "#FFFFFF",
+	"share_target": {
+		"action": "/share",
+		"params": {
+			"title": "title",
+			"text": "text",
+			"url": "url"
+		}
+	}
 }

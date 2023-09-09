@@ -29,6 +29,9 @@ import CameraPage from "./pages/CameraPage";
 import ExpensesPage from "./pages/ExpensesPage";
 import UsersPage from "./pages/UsersPage";
 
+/* Tailwind styles */
+import "./theme/tailwind.css";
+
 /* Theme variables */
 import "./theme/variables.css";
 

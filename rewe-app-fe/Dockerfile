@@ -1,29 +1,13 @@
-# Use the official Node.js image as the base image
-FROM node:14
-
-# Set the working directory inside the container
+# Use an official Node.js runtime as the base image for building the app
+FROM node:14 AS build-stage
 WORKDIR /app
-
-# Install Ionic CLI globally
-RUN npm i -g ionic
-
-# Copy package.json and package-lock.json to the container
 COPY package*.json ./
-
-# Install project dependencies
 RUN npm install
-
-# Copy the entire project to the container
+RUN npm i -g ionic
 COPY . .
+RUN ionic build --prod
 
-# Expose the port that the Ionic app will run on
-EXPOSE 8100
-
-# Build the Ionic app
-RUN npm run build
-
-# Command to start the Ionic app
-#CMD ["ionic", "serve"]
-
-# Example: If you need to pass environment variables to the app
-CMD ["ionic", "serve", "--prod"]
+# Use Nginx as the production web server
+FROM nginx:latest
+COPY --from=build-stage /app/build /usr/share/nginx/html
+CMD ["nginx", "-g", "daemon off;"]

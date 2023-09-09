@@ -1,0 +1,17 @@
+version: '3'
+services:
+  rewe-app-be:
+    build:
+      context: ./rewe-app-be
+      dockerfile: Dockerfile
+    image: rewe-app-be-image
+    ports:
+      - "8080:80"
+
+  rewe-app-fe:
+    build:
+      context: ./rewe-app-fe
+      dockerfile: Dockerfile
+    image: rewe-app-fe-image
+    ports:
+      - "8081:80"
