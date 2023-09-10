@@ -22,8 +22,13 @@ class ImageToText:
         self.preprocess = img_preprocessing
         self.conf_thres = confidence_threshold
         self.ocr_output: List = []
+        self.prices = []
+        self.items = []
+        self.prices_indices = []
         self.parse()
         self.get_one_letter_dims()
+        self.get_prices()
+        self.get_items()
         self.text_output: List[str] = []
         self.get_txt_only()
 
@@ -48,7 +53,6 @@ class ImageToText:
         widths = []
         for txt in self.ocr_output:
             if len(txt[1]) == 1 and txt[1] != '"' and txt[1] != "'":
-                print(txt[1])
                 widths.append(int(abs(txt[0][2][0] - txt[0][3][0])))
                 heights.append(int(abs(txt[0][2][1] - txt[0][1][1])))
 
@@ -74,6 +78,9 @@ class ImageToText:
             self.text_output.append(txt[1])
 
     def get_total_sum(self):
+        """
+        gets the total sum of the bill.
+        """
         pass
 
     def collect_items_info(self) -> List:
@@ -85,8 +92,14 @@ class ImageToText:
         for idx, txt in enumerate(self.ocr_output):
             if txt[1] == "EUR":
                 start_idx = idx + 1
-            elif txt[1] == "SUMME":
+                break
+
+        for idx, txt in enumerate(self.ocr_output):
+            if txt[1] == "SUMME":
                 end_idx = idx - 1
+                break
+
+        print(start_idx, end_idx)
 
         return self.ocr_output[start_idx:end_idx + 1]
 
@@ -97,8 +110,8 @@ class ImageToText:
         x = 0
         y = 0
         for txt in self.collect_items_info():
-            x = txt[0][0]
-            y = txt[0][1]
+            x = txt[0][0][0]
+            y = txt[0][0][1]
             break
         return x, y
 
@@ -108,29 +121,38 @@ class ImageToText:
         """
         x = 0
         y = 0
-        for txt in self.collect_items_info():
-            if txt[0][0] > self.img_width * 0.75:
-                x = txt[0][0]
-                y = txt[0][1]
-                break
+        for idx, txt in enumerate(self.collect_items_info()):
+            if txt[0][0][0] > self.img_width * 0.75:
+                x = txt[0][0][0]
+                y = txt[0][0][1]
         return x, y
 
     def get_items(self):
         """
         Collects all the items in a list
         """
-        items = []
+        if len(self.prices_indices) == 0:
+            raise ValueError("The prices indices is empty")
+        self.items = []
         prices = []
         items_list = self.collect_items_info()
         item_start_x, item_start_y = self.get_start_point_of_items()
         prices_start_x, prices_start_y = self.get_start_point_of_prices()
-        for txt in items_list:
-            pass
+        for idx, txt in enumerate(items_list):
+            if idx not in self.prices:
+                self.items.append(txt)
 
     def get_prices(self):
         """
         Collects all the prices in a list
         """
+        self.prices = []
+        self.prices_indices = []
+        for idx, txt in enumerate(self.collect_items_info()):
+            print(txt[0][0][0])
+            if txt[0][0][0] > self.img_width * 0.75:
+                self.prices.append(txt)
+                self.prices_indices.append(idx)
 
     def parse(self) -> None:
         """
@@ -156,7 +178,9 @@ class ImageToText:
 if __name__ == "__main__":
     txt_image = "test_images/IMG-20230903-WA0003.jpg"
     img_to_txt = ImageToText(txt_image, img_preprocessing=False)
-    print(img_to_txt.ocr_output)
-    print(img_to_txt.text_output)
-    print(img_to_txt.one_letter_height)
-    print(img_to_txt.one_letter_width)
+    # print(img_to_txt.ocr_output)
+    # print(img_to_txt.text_output)
+    # print(img_to_txt.one_letter_height)
+    # print(img_to_txt.one_letter_width)
+    print(img_to_txt.prices)
+    print(img_to_txt.items)
