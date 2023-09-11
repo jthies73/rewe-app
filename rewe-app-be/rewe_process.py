@@ -16,6 +16,11 @@ TIME_PATTERN = r"Uhrzeit:\s+(\d{2}:\d{2}:\d{2}) Uhr"
 TOTAL_PATTERN = r"SUMME\s+EUR\s+(\d+,\d+)"
 
 
+def __atof(x: str):
+    """Convert str to float handling numbers in german locale form"""
+    return float(x.replace(",", "."))
+
+
 def __parse_rewe_ebon_text(text):
     expense = None
     expenses = []
@@ -26,21 +31,21 @@ def __parse_rewe_ebon_text(text):
                 expenses.append(expense)
             expense = db.Expense()
             expense.name = m.group(1)
-            expense.value = float(m.group(2).replace(",", "."))
+            expense.value = __atof(m.group(2))
         elif m := re.search(WEIGHT_PATTERN, line):
-            expense.weight = m.group(1)
-            expense.price_per_kg = m.group(2)
+            expense.weight = __atof(m.group(1))
+            expense.price_per_kg = __atof(m.group(2))
         elif m := re.search(WEIGHT_BUTCHER_PATTERN, line):
             expense.weight = m.group(1)
         elif m := re.search(AMOUNT_PATTERN, line):
-            expense.quantity = m.group(1)
-            expense.price_per_item = m.group(2)
+            expense.quantity = int(m.group(1))
+            expense.price_per_item = __atof(m.group(2))
         elif m := re.search(DATE_PATTERN, line):
             date = m.group(1)
         elif m := re.search(TIME_PATTERN, line):
             time = m.group(1)
         elif m := re.search(TOTAL_PATTERN, line):
-            total = float(m.group(1).replace(",", "."))
+            total = __atof(m.group(1))
         else:
             pass
     expenses.append(expense)
@@ -63,13 +68,22 @@ def parse_rewe_ebon(ebon, user_id):
         session.add(bill)
         session.flush()
         session.refresh(bill)
+        bill_id = bill.id
 
         for expense in expenses:
             expense.user_id = user_id
-            expense.bill_id = bill.id
+            expense.bill_id = bill_id
             session.add(expense)
-            session.flush()
-            session.refresh(expense)
         session.commit()
 
-        return [db.orm_object_to_dict(e) for e in expenses]
+    # Select expenses from the bill we just added and return as json.
+    json = []
+    with Session(db.engine) as session:
+        stmt = (
+            db.sqlalchemy.select(db.Expense)
+            .where(db.Expense.user_id == user_id)
+            .where(db.Expense.bill_id == bill_id)
+        )
+        for row in session.execute(stmt):
+            json.append(db.orm_object_to_dict(row[0]))
+    return json
