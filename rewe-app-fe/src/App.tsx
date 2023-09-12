@@ -29,7 +29,7 @@ import CameraPage from "./pages/CameraPage";
 import ExpensesPage from "./pages/ExpensesPage";
 import UsersPage from "./pages/UsersPage";
 
-/* Tailwind styles */
+/* Tailwind CSS */
 import "./theme/tailwind.css";
 
 /* Theme variables */
