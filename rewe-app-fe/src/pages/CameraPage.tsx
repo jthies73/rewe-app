@@ -6,6 +6,7 @@ import {
 } from "@capacitor/camera";
 import {
 	IonButtons,
+	IonChip,
 	IonContent,
 	IonFab,
 	IonFabButton,
@@ -16,7 +17,7 @@ import {
 	IonTitle,
 	IonToolbar,
 } from "@ionic/react";
-import { camera } from "ionicons/icons";
+import { camera, information } from "ionicons/icons";
 import React, { useState } from "react";
 
 import Bill from "../components/Bill";
@@ -77,20 +78,19 @@ const CameraPage: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
-				<div>
-					<label className={"bg-yellow-800"}>Select a File:</label>
+				<div className={"p-2"}>
+					<label className={"text-lg font-semibold"}>
+						Select a File:
+					</label>
+					<br />
+					<br />
 					<input
+						className={"border-2 border-gray-400 rounded-md p-2"}
 						type="file"
 						accept="application/pdf"
 						onChange={handleFileInputChange}
 					/>
 				</div>
-				{selectedFile && (
-					<div>
-						<p>Selected File: {selectedFile.name}</p>
-						<p>File Size: {selectedFile.size} bytes</p>
-					</div>
-				)}
 				{Object.entries(billMap).map(([bill_id, expenses]) => (
 					<Bill
 						key={bill_id}
