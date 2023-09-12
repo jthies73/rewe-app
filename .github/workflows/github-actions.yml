@@ -13,6 +13,8 @@ jobs:
       - name: Lint & Test
         working-directory: ./rewe-app-fe
         run: |
+          echo "Installing rewe-app-fe dependencies ... 📦"
+          npm install 
           echo "Testing rewe-app-fe ... 🧪"
           npm run test
           echo "Linting rewe-app-fe ... 🧹"
