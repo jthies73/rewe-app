@@ -1,0 +1,16 @@
+- Graph Usecases:
+	- Display Expenses by
+		- total (expenses, income)
+		- category
+		- product
+	- Change X Scope to
+		- (weekly)
+		- mothly
+		- (yearly)
+		- all
+- Graph API:
+	- GET to /api/expenses
+	- query params:
+		- time (monthly, all)
+		- plotType (total, category, product)
+	- header: email (for user validation)
