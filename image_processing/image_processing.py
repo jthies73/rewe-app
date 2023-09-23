@@ -99,8 +99,6 @@ class ImageToText:
                 end_idx = idx - 1
                 break
 
-        # print(start_idx, end_idx)
-
         return self.ocr_output[start_idx:end_idx + 1]
 
     def get_start_point_of_items(self):
@@ -137,14 +135,10 @@ class ImageToText:
         items = []
         items_list = self.collect_items_info()
         item_start_x, item_start_y = self.get_start_point_of_items()
-        print("item_start_x", item_start_x)
-        print("item_start_y", item_start_y)
         prices_start_x, prices_start_y = self.get_start_point_of_prices()
-        # print(self.prices_indices)
         for idx, txt in enumerate(items_list):
             if idx not in self.prices_indices:
                 items.append(txt)
-        print("items", items)
         current_item = ""
         for idx, txt in enumerate(items):
             if item_start_x-self.one_letter_width <= txt[0][0][0] <= item_start_x + self.one_letter_width:
@@ -164,7 +158,6 @@ class ImageToText:
         prices = []
         self.prices_indices = []
         for idx, txt in enumerate(self.collect_items_info()):
-            # print(txt[0][0][0])
             if txt[0][0][0] > self.img_width * 0.75:
                 prices.append(txt)
                 self.prices_indices.append(idx)
