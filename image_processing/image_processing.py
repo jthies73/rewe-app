@@ -99,7 +99,7 @@ class ImageToText:
                 end_idx = idx - 1
                 break
 
-        print(start_idx, end_idx)
+        # print(start_idx, end_idx)
 
         return self.ocr_output[start_idx:end_idx + 1]
 
@@ -134,25 +134,57 @@ class ImageToText:
         if len(self.prices_indices) == 0:
             raise ValueError("The prices indices is empty")
         self.items = []
-        prices = []
+        items = []
         items_list = self.collect_items_info()
         item_start_x, item_start_y = self.get_start_point_of_items()
+        print("item_start_x", item_start_x)
+        print("item_start_y", item_start_y)
         prices_start_x, prices_start_y = self.get_start_point_of_prices()
+        # print(self.prices_indices)
         for idx, txt in enumerate(items_list):
-            if idx not in self.prices:
-                self.items.append(txt)
+            if idx not in self.prices_indices:
+                items.append(txt)
+        print("items", items)
+        current_item = ""
+        for idx, txt in enumerate(items):
+            if item_start_x-self.one_letter_width <= txt[0][0][0] <= item_start_x + self.one_letter_width:
+                if current_item != "":
+                    self.items.append(current_item)
+                    current_item = ""
+                current_item += txt[1]
+            elif txt[0][0][0] >= item_start_x + self.one_letter_width and current_item != "":
+                current_item += " " + txt[1]
+            if idx == len(items)-1:
+                self.items.append(current_item)
 
     def get_prices(self):
         """
         Collects all the prices in a list
         """
-        self.prices = []
+        prices = []
         self.prices_indices = []
         for idx, txt in enumerate(self.collect_items_info()):
-            print(txt[0][0][0])
+            # print(txt[0][0][0])
             if txt[0][0][0] > self.img_width * 0.75:
-                self.prices.append(txt)
+                prices.append(txt)
                 self.prices_indices.append(idx)
+
+        current_price = ""
+        previous_txt_bbox = []
+        for idx, txt in enumerate(prices):
+            if idx == 0:
+                current_price += txt[1]
+                previous_txt_bbox = txt[0]
+                continue
+            if previous_txt_bbox[0][1] <= txt[0][0][1] < previous_txt_bbox[0][1]+self.one_letter_height:
+                current_price += txt[1]
+            else:
+                self.prices.append(current_price)
+                current_price = ""
+                current_price += txt[1]
+                previous_txt_bbox = txt[0]
+            if idx == len(prices)-1:
+                self.prices.append(current_price)
 
     def parse(self) -> None:
         """
@@ -176,11 +208,7 @@ class ImageToText:
 
 
 if __name__ == "__main__":
-    txt_image = "test_images/IMG-20230903-WA0003.jpg"
+    txt_image = "test_images/IMG-20230903-WA0007_6_lowqual.jpg"
     img_to_txt = ImageToText(txt_image, img_preprocessing=False)
-    # print(img_to_txt.ocr_output)
-    # print(img_to_txt.text_output)
-    # print(img_to_txt.one_letter_height)
-    # print(img_to_txt.one_letter_width)
     print(img_to_txt.prices)
     print(img_to_txt.items)
