@@ -17,8 +17,9 @@ import {
 	IonTitle,
 	IonToolbar,
 } from "@ionic/react";
-import { camera, information } from "ionicons/icons";
+import { camera } from "ionicons/icons";
 import React, { useState } from "react";
+import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
 
 import Bill from "../components/Bill";
 import { Expense } from "../model/expense";
@@ -40,7 +41,7 @@ async function selectFile() {
 	// TODO: Implement file selection for web
 }
 
-const CameraPage: React.FC = () => {
+const OverviewPage: React.FC = () => {
 	const billMap = useExpenseStore((state) => state.expenses).reduce(
 		(acc, expense) => {
 			if (!acc[expense.bill_id]) {
@@ -66,6 +67,48 @@ const CameraPage: React.FC = () => {
 		}
 	};
 
+	const data = [
+		{
+			name: "Page A",
+			uv: 4000,
+			pv: 2400,
+			amt: 2400,
+		},
+		{
+			name: "Page B",
+			uv: 3000,
+			pv: 1398,
+			amt: 2210,
+		},
+		{
+			name: "Page C",
+			uv: 2000,
+			pv: 9800,
+			amt: 2290,
+		},
+		{
+			name: "Page D",
+			uv: 2780,
+			pv: 3908,
+			amt: 2000,
+		},
+	];
+
+	// Update the chart dimensions on resize
+	// TODO: This is a hacky solution, find a better way to do this
+	const [chartHeight, setChartHeight] = useState(window.innerHeight / 4);
+	const [chartWidth, setChartWidth] = useState(
+		window.innerWidth - 20 - document.getElementById("menu")!.clientWidth
+	);
+	window.addEventListener("resize", () => {
+		setChartHeight(window.innerHeight / 4);
+		setChartWidth(
+			window.innerWidth -
+				20 -
+				document.getElementById("menu")!.clientWidth
+		);
+	});
+
 	return (
 		<IonPage>
 			<IonHeader>
@@ -73,11 +116,26 @@ const CameraPage: React.FC = () => {
 					<IonButtons slot="start">
 						<IonMenuButton />
 					</IonButtons>
-					<IonTitle>Camera</IonTitle>
+					<IonTitle>Overview</IonTitle>
 				</IonToolbar>
 			</IonHeader>
 
 			<IonContent>
+				<BarChart
+					style={{ marginTop: 20 }}
+					width={chartWidth}
+					height={chartHeight}
+					data={data}
+				>
+					<XAxis dataKey={"name"} />
+					<YAxis id={"1"} />
+					<YAxis id={"2"} />
+					<Tooltip />
+					<Legend />
+					<Bar dataKey={"pv"} fill={"#8884d8"} />
+					<Bar dataKey={"uv"} fill={"#82ca9d"} />
+					<Bar dataKey={"amt"} fill={"#821f9f"} />
+				</BarChart>
 				<div className={"p-2"}>
 					<label className={"text-lg font-semibold"}>
 						Select a File:
@@ -124,4 +182,4 @@ const CameraPage: React.FC = () => {
 	);
 };
 
-export default CameraPage;
+export default OverviewPage;

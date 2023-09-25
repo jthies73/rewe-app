@@ -46,7 +46,7 @@ const Menu: React.FC = () => {
 	const location = useLocation();
 
 	return (
-		<IonMenu contentId="main" type="overlay">
+		<IonMenu id={"menu"} contentId="main" type="overlay">
 			<IonContent>
 				<IonList id="inbox-list">
 					<IonListHeader>REME App</IonListHeader>
