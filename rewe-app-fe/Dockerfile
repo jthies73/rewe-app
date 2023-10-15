@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image for building the app
-FROM node:14 AS build-stage
+FROM node:20 AS build-stage
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
