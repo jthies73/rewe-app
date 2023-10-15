@@ -12,8 +12,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Lint & Test
         working-directory: ./rewe-app-fe
+        # Use latest node version
+        
+
         run: |
-          npm install npm@latest -g
           echo "Installing rewe-app-fe dependencies ... 📦"
           npm install
           echo "Testing rewe-app-fe ... 🧪"
