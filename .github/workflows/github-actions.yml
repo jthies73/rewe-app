@@ -10,11 +10,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
+        with:
+          node-version: 14.x
       - name: Lint & Test
         working-directory: ./rewe-app-fe
-        # Use latest node version
-        
-
         run: |
           echo "Installing rewe-app-fe dependencies ... 📦"
           npm install
