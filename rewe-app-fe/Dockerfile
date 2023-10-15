@@ -9,6 +9,5 @@ RUN ionic build --prod
 
 # Use Nginx as the production web server
 FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-stage /app/build /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
