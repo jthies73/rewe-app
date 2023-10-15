@@ -6,7 +6,6 @@ import {
 } from "@capacitor/camera";
 import {
 	IonButtons,
-	IonChip,
 	IonContent,
 	IonFab,
 	IonFabButton,

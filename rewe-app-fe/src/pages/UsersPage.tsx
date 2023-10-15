@@ -7,7 +7,7 @@ import {
 	IonTitle,
 	IonToolbar,
 } from "@ionic/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 type User = {
 	id: string;
@@ -16,7 +16,7 @@ type User = {
 };
 
 const UsersPage: React.FC = () => {
-	const [users, setUsers] = useState<User[]>([]);
+	const [users] = useState<User[]>([]);
 
 	return (
 		<IonPage>
