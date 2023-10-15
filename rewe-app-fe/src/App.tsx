@@ -25,8 +25,8 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
 import Menu from "./components/Menu";
-import CameraPage from "./pages/CameraPage";
 import ExpensesPage from "./pages/ExpensesPage";
+import OverviewPage from "./pages/OverviewPage";
 import UsersPage from "./pages/UsersPage";
 
 /* Tailwind CSS */
@@ -48,7 +48,7 @@ const App: React.FC = () => {
 							<Redirect to="/camera" />
 						</Route>
 						<Route path="/camera" exact={true}>
-							<CameraPage />
+							<OverviewPage />
 						</Route>
 						<Route path="/expenses" exact={true}>
 							<ExpensesPage />
