@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import db
 import rewe_process
 
-
+ 
 app = FastAPI()
 # Configure CORS (Cross-Origin Resource Sharing) settings
 origins = [
