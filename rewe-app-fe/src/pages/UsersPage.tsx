@@ -7,9 +7,7 @@ import {
 	IonTitle,
 	IonToolbar,
 } from "@ionic/react";
-import React, { useEffect, useState } from "react";
-
-import { supabase } from "../supabase/client";
+import React, { useState } from "react";
 
 type User = {
 	id: string;
@@ -18,18 +16,7 @@ type User = {
 };
 
 const UsersPage: React.FC = () => {
-	const [users, setUsers] = useState<User[]>([]);
-
-	useEffect(() => {
-		getUsers();
-	}, []);
-
-	async function getUsers() {
-		const { data } = (await supabase.from("users").select()) as {
-			data: User[];
-		};
-		setUsers(() => data);
-	}
+	const [users] = useState<User[]>([]);
 
 	return (
 		<IonPage>

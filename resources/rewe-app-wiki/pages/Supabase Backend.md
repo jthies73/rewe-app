@@ -1,3 +1,4 @@
+- 17.09.2023: this is deprecated (using sqlite in BE instead)
 - Supabase is a BaaS Solution and enables quick and easy access to a PostgreSQL
 - SDKs available for
 	- Typescript (Frontend)
