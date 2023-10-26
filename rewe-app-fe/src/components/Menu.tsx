@@ -8,7 +8,7 @@ import {
 	IonMenu,
 	IonMenuToggle,
 } from "@ionic/react";
-import { camera, analytics, person } from "ionicons/icons";
+import { camera, analytics, person, lockClosed } from "ionicons/icons";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
@@ -40,6 +40,12 @@ const appPages: AppPage[] = [
 		iosIcon: person,
 		mdIcon: person,
 	},
+	{
+		title: "Login",
+		url: "/login",
+		iosIcon: lockClosed,
+		mdIcon: lockClosed,
+	},
 ];
 
 const Menu: React.FC = () => {
@@ -49,7 +55,7 @@ const Menu: React.FC = () => {
 		<IonMenu id={"menu"} contentId="main" type="overlay">
 			<IonContent>
 				<IonList id="inbox-list">
-					<IonListHeader>REME App</IonListHeader>
+					<IonListHeader>EWER App</IonListHeader>
 					<br />
 					{appPages.map((appPage, index) => {
 						return (
@@ -71,7 +77,6 @@ const Menu: React.FC = () => {
 										ios={appPage.iosIcon}
 										md={appPage.mdIcon}
 									/>
-									{/*Title Capitalized*/}
 									<IonLabel>{appPage.title}</IonLabel>
 								</IonItem>
 								<div style={{ marginBottom: 5 }} />

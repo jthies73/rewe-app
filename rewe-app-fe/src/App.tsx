@@ -28,6 +28,7 @@ import Menu from "./components/Menu";
 import ExpensesPage from "./pages/ExpensesPage";
 import OverviewPage from "./pages/OverviewPage";
 import UsersPage from "./pages/UsersPage";
+import LoginPage from "./pages/LoginPage";
 
 /* Tailwind CSS */
 import "./theme/tailwind.css";
@@ -55,6 +56,9 @@ const App: React.FC = () => {
 						</Route>
 						<Route path="/users" exact={true}>
 							<UsersPage />
+						</Route>
+						<Route path="/login" exact={true}>
+							<LoginPage />
 						</Route>
 					</IonRouterOutlet>
 				</IonSplitPane>
