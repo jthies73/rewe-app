@@ -1,9 +1,6 @@
 FROM node:20-buster-slim as builder
-
 WORKDIR /app
-COPY package.json package-lock.json ./
-COPY public/ public/
-COPY src/ src/
+COPY . .
 RUN npm ci
 RUN npm run build
 
