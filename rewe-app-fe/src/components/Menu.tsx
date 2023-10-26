@@ -23,26 +23,14 @@ interface AppPage {
 
 const appPages: AppPage[] = [
 	{
-		title: "Camera",
-		url: "/camera",
-		iosIcon: camera,
-		mdIcon: camera,
-	},
-	{
-		title: "Expenses",
-		url: "/expenses",
+		title: "Overview",
+		url: "/overview",
 		iosIcon: analytics,
 		mdIcon: analytics,
 	},
 	{
-		title: "Users",
-		url: "/users",
-		iosIcon: person,
-		mdIcon: person,
-	},
-	{
 		title: "Login",
-		url: "/login",
+		url: "/auth/login",
 		iosIcon: lockClosed,
 		mdIcon: lockClosed,
 	},
@@ -53,10 +41,9 @@ const Menu: React.FC = () => {
 
 	return (
 		<IonMenu id={"menu"} contentId="main" type="overlay">
-			<IonContent>
-				<IonList id="inbox-list">
-					<IonListHeader>EWER App</IonListHeader>
-					<br />
+			<IonContent className="flex flex-col justify-between">
+				<IonList id="inbox-list" class="flex-1">
+					<IonListHeader className="mb-5">EWER App</IonListHeader>
 					{appPages.map((appPage, index) => {
 						return (
 							<IonMenuToggle key={index} autoHide={false}>

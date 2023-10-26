@@ -25,10 +25,8 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
 import Menu from "./components/Menu";
-import ExpensesPage from "./pages/ExpensesPage";
-import OverviewPage from "./pages/OverviewPage";
-import UsersPage from "./pages/UsersPage";
 import LoginPage from "./pages/LoginPage";
+import OverviewPage from "./pages/OverviewPage";
 
 /* Tailwind CSS */
 import "./theme/tailwind.css";
@@ -46,18 +44,12 @@ const App: React.FC = () => {
 					<Menu />
 					<IonRouterOutlet id="main">
 						<Route path="/" exact={true}>
-							<Redirect to="/camera" />
+							<Redirect to="/overview" />
 						</Route>
-						<Route path="/camera" exact={true}>
+						<Route path="/overview" exact={true}>
 							<OverviewPage />
 						</Route>
-						<Route path="/expenses" exact={true}>
-							<ExpensesPage />
-						</Route>
-						<Route path="/users" exact={true}>
-							<UsersPage />
-						</Route>
-						<Route path="/login" exact={true}>
+						<Route path="/auth/login" exact={true}>
 							<LoginPage />
 						</Route>
 					</IonRouterOutlet>

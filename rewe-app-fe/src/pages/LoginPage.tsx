@@ -1,6 +1,7 @@
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React, { useState } from 'react';
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -18,20 +19,29 @@ const LoginPage = () => {
     };
 
     return (
-        <div>
-            <h1>Login Page</h1>
+        <IonPage >
+            <IonHeader>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonMenuButton />
+                    </IonButtons>
+                    <IonTitle>Login</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent fullscreen>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="username">Username:</label>
-                    <input type="text" id="username" value={username} onChange={handleUsernameChange} />
+                <label htmlFor="username">Username:</label>
+                <input type="text" id="username" value={username} onChange={handleUsernameChange} />
                 </div>
                 <div>
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" id="password" value={password} onChange={handlePasswordChange} />
+                <label htmlFor="password">Password:</label>
+                <input type="password" id="password" value={password} onChange={handlePasswordChange} />
                 </div>
                 <button type="submit">Login</button>
             </form>
-        </div>
+            </IonContent>
+        </IonPage>
     );
 };
 
