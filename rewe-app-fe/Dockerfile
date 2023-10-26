@@ -1,22 +1,17 @@
-# Use an official Node.js runtime as the base image for building the app
-FROM node:20 AS build-stage
+FROM node:18.12.1-buster-slim AS builder
+
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-RUN npm i -g ionic
-COPY . .
-RUN ionic build --prod
+COPY package.json package-lock.json ./
+COPY public/ public/
+COPY src/ src/
+RUN npm ci
+RUN npm run build
 
-# Use Nginx as the production web server
-FROM nginx:alpine
-
-# Remove the default Nginx configuration
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Copy your custom Nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Copy the build output from the previous stage
-COPY --from=build-stage /app/build /usr/share/nginx/html
-
+FROM nginx:1.23.2-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build /usr/share/nginx/html
+RUN touch /var/run/nginx.pid
+RUN chown -R nginx:nginx /var/run/nginx.pid /usr/share/nginx/html /var/cache/nginx /var/log/nginx /etc/nginx/conf.d
+USER nginx
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
