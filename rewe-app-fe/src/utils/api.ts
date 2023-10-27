@@ -1,7 +1,7 @@
 import { Photo } from "@capacitor/camera";
 
 import { Expense } from "../model/expense";
-import { generateFileNameWithDate } from "./stringUtils";
+import { generateDateFileName } from "./stringUtils";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
 
@@ -10,7 +10,7 @@ export async function uploadPhoto(photo: Photo) {
 	try {
 		// Create a FormData object
 		const formData = new FormData();
-		const fileName = generateFileNameWithDate(new Date()) + ".jpeg";
+		const fileName = generateDateFileName(new Date()) + ".jpeg";
 
 		console.log("converting photo to blob...", photo.webPath);
 		// Convert photo to Blob to append to FormData object
@@ -42,7 +42,7 @@ export async function uploadPhoto(photo: Photo) {
 // A function that uploads a file to the server in multipart/form-data format
 export async function uploadPDF(file: File) {
 	try {
-		const fileName = generateFileNameWithDate(new Date()) + ".pdf";
+		const fileName = generateDateFileName(new Date()) + ".pdf";
 
 		const formData = new FormData();
 		formData.append("file", file, fileName);
