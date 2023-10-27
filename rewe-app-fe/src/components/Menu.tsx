@@ -54,33 +54,33 @@ const Menu: React.FC = () => {
 			<IonContent className="flex flex-col justify-between">
 				<IonList id="inbox-list" class="flex-1">
 					<IonListHeader className="mb-5">EWER App</IonListHeader>
-					{appPages.map((appPage, index) => {
-						return (
-							<IonMenuToggle key={index} autoHide={false}>
-								<IonItem
-									className={
-										location.pathname === appPage.url
-											? "selected"
-											: ""
-									}
-									routerLink={appPage.url}
-									routerDirection="none"
-									lines="none"
-									detail={false}
-								>
-									<IonIcon
-										aria-hidden="true"
-										slot="start"
-										ios={appPage.iosIcon}
-										md={appPage.mdIcon}
-									/>
-									<IonLabel>{appPage.title}</IonLabel>
-								</IonItem>
-								<div style={{ marginBottom: 5 }} />
-							</IonMenuToggle>
-						);
-					})}
 					<IonMenuToggle autoHide={false}>
+						{appPages.map((appPage, index) => {
+							return (
+								<>
+									<IonItem
+										key={index}
+										className={
+											location.pathname === appPage.url
+												? "selected"
+												: ""
+										}
+										routerLink={appPage.url}
+										routerDirection="none"
+										lines="none"
+										detail={false}
+									>
+										<IonIcon
+											aria-hidden="true"
+											slot="start"
+											ios={appPage.iosIcon}
+											md={appPage.mdIcon}
+										/>
+										<IonLabel>{appPage.title}</IonLabel>
+									</IonItem>
+								</>
+							);
+						})}
 						<IonItem
 							routerLink={"#"}
 							lines="full"
@@ -95,7 +95,6 @@ const Menu: React.FC = () => {
 							/>
 							<IonLabel>Logout</IonLabel>
 						</IonItem>
-						<div style={{ marginBottom: 5 }} />
 					</IonMenuToggle>
 				</IonList>
 			</IonContent>
