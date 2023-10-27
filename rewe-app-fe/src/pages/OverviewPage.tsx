@@ -9,6 +9,7 @@ import {
 	IonContent,
 	IonFab,
 	IonFabButton,
+	IonFabList,
 	IonHeader,
 	IonIcon,
 	IonMenuButton,
@@ -16,8 +17,8 @@ import {
 	IonTitle,
 	IonToolbar,
 } from "@ionic/react";
-import { camera } from "ionicons/icons";
-import React, { useState } from "react";
+import { add, camera, document as doc } from "ionicons/icons";
+import React, { useRef, useState } from "react";
 import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
 
 import Bill from "../components/Bill";
@@ -36,11 +37,9 @@ async function takePhoto(direction: "rear" | "front") {
 	});
 }
 
-async function selectFile() {
-	// TODO: Implement file selection for web
-}
-
 const OverviewPage: React.FC = () => {
+	const fileInputRef = useRef<HTMLInputElement>(null);
+
 	const billMap = useExpenseStore((state) => state.expenses).reduce(
 		(acc, expense) => {
 			if (!acc[expense.bill_id]) {
@@ -135,19 +134,6 @@ const OverviewPage: React.FC = () => {
 					<Bar dataKey={"uv"} fill={"#82ca9d"} />
 					<Bar dataKey={"amt"} fill={"#821f9f"} />
 				</BarChart>
-				<div className={"p-2"}>
-					<label className={"text-lg font-semibold"}>
-						Select a File:
-					</label>
-					<br />
-					<br />
-					<input
-						className={"border-2 border-gray-400 rounded-md p-2"}
-						type="file"
-						accept="application/pdf"
-						onChange={handleFileInputChange}
-					/>
-				</div>
 				{Object.entries(billMap).map(([bill_id, expenses]) => (
 					<Bill
 						key={bill_id}
@@ -164,18 +150,38 @@ const OverviewPage: React.FC = () => {
 				))}
 			</IonContent>
 
-			{/* Add the fab button with the camera icon */}
-			<IonFab vertical={"bottom"} horizontal={"end"}>
-				<IonFabButton
-					onClick={async () => {
-						const photo = await takePhoto("rear");
-						if (!photo) return;
-						const expenses = await uploadPhoto(photo);
-						useExpenseStore.getState().addExpenses(expenses);
-					}}
-				>
-					<IonIcon icon={camera} />
+			<IonFab vertical="bottom" horizontal="end">
+				<IonFabButton>
+					<IonIcon icon={add} />
 				</IonFabButton>
+				<IonFabList side="top">
+					<IonFabButton
+						size="small"
+						onClick={async () => {
+							const photo = await takePhoto("front");
+							if (!photo) return;
+							const expenses = await uploadPhoto(photo);
+							useExpenseStore.getState().addExpenses(expenses);
+						}}
+					>
+						<IonIcon icon={camera} />
+					</IonFabButton>
+					<IonFabButton
+						onClick={async () => {
+							if (fileInputRef.current) {
+								fileInputRef.current.click();
+							}
+						}}
+					>
+						<input
+							hidden
+							ref={fileInputRef}
+							type="file"
+							onChange={handleFileInputChange}
+						/>
+						<IonIcon icon={doc} />
+					</IonFabButton>
+				</IonFabList>
 			</IonFab>
 		</IonPage>
 	);
