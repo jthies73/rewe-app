@@ -89,7 +89,7 @@ const LoginPage: React.FC = () => {
 										autoComplete="username"
 										placeholder="Harry"
 										// required
-										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
 										onChange={handleUsernameChange}
 									/>
 								</div>
@@ -103,14 +103,6 @@ const LoginPage: React.FC = () => {
 									>
 										Password
 									</label>
-									<div className="text-sm">
-										<a
-											href="#"
-											className="font-semibold text-rewe-400 hover:text-rewe-400"
-										>
-											Forgot password?
-										</a>
-									</div>
 								</div>
 								<div className="mt-2">
 									<input
@@ -120,7 +112,7 @@ const LoginPage: React.FC = () => {
 										autoComplete="current-password"
 										placeholder="Bawls"
 										// required
-										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
 										onChange={handlePasswordChange}
 									/>
 								</div>
