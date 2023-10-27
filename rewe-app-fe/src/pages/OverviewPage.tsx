@@ -51,17 +51,13 @@ const OverviewPage: React.FC = () => {
 		{} as { [key: number]: Expense[] }
 	);
 
-	const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
 	const handleFileInputChange = async (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
 		const files = event.target.files;
 		if (files && files.length > 0) {
-			setSelectedFile(files[0]);
 			const expenses = await uploadPDF(files[0]);
 			useExpenseStore.getState().addExpenses(expenses);
-			setSelectedFile(null);
 		}
 	};
 
