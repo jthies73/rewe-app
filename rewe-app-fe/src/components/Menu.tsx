@@ -8,10 +8,18 @@ import {
 	IonMenu,
 	IonMenuToggle,
 } from "@ionic/react";
-import { camera, analytics, person, lockClosed } from "ionicons/icons";
+import {
+	camera,
+	analytics,
+	person,
+	lockClosed,
+	logOut,
+	lockOpen,
+} from "ionicons/icons";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
+import useAuthStore from "../zustand/authStore";
 import "./Menu.css";
 
 interface AppPage {
@@ -30,14 +38,16 @@ const appPages: AppPage[] = [
 	},
 	{
 		title: "Login",
-		url: "/auth/login",
-		iosIcon: lockClosed,
-		mdIcon: lockClosed,
+		url: "/auth",
+		iosIcon: lockOpen,
+		mdIcon: lockOpen,
 	},
 ];
 
 const Menu: React.FC = () => {
 	const location = useLocation();
+
+	const tokenStore = useAuthStore((state) => state);
 
 	return (
 		<IonMenu id={"menu"} contentId="main" type="overlay">
@@ -70,6 +80,23 @@ const Menu: React.FC = () => {
 							</IonMenuToggle>
 						);
 					})}
+					<IonMenuToggle autoHide={false}>
+						<IonItem
+							routerLink={"#"}
+							lines="full"
+							detail={false}
+							onClick={tokenStore.removeToken}
+						>
+							<IonIcon
+								aria-hidden="true"
+								slot="start"
+								ios={logOut}
+								md={logOut}
+							/>
+							<IonLabel>Logout</IonLabel>
+						</IonItem>
+						<div style={{ marginBottom: 5 }} />
+					</IonMenuToggle>
 				</IonList>
 			</IonContent>
 		</IonMenu>

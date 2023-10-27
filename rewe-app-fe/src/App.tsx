@@ -33,26 +33,42 @@ import "./theme/tailwind.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import useAuthStore from "./zustand/authStore";
 
 setupIonicReact();
 
 const App: React.FC = () => {
+	const isAuthenticated = useAuthStore((state) => state.token) !== "";
+
 	return (
 		<IonApp>
 			<IonReactRouter>
 				<IonSplitPane contentId="main">
-					<Menu />
-					<IonRouterOutlet id="main">
-						<Route path="/" exact={true}>
-							<Redirect to="/overview" />
-						</Route>
-						<Route path="/overview" exact={true}>
-							<OverviewPage />
-						</Route>
-						<Route path="/auth/login" exact={true}>
-							<LoginPage />
-						</Route>
-					</IonRouterOutlet>
+					{isAuthenticated ? (
+						<>
+							<Menu />
+							<IonRouterOutlet id="main">
+								<Route path="/*">
+									<Redirect to="/overview" />
+								</Route>
+								<Route path="/overview" exact={true}>
+									<OverviewPage />
+								</Route>
+								<Route path="/auth" exact={true}>
+									<LoginPage />
+								</Route>
+							</IonRouterOutlet>
+						</>
+					) : (
+						<IonRouterOutlet id="main">
+							<Route path="/*">
+								<Redirect exact to="/auth" />
+							</Route>
+							<Route path="/auth" exact={true}>
+								<LoginPage />
+							</Route>
+						</IonRouterOutlet>
+					)}
 				</IonSplitPane>
 			</IonReactRouter>
 		</IonApp>
