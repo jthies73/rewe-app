@@ -87,7 +87,8 @@ const LoginPage: React.FC = () => {
 										name="username"
 										type="username"
 										autoComplete="username"
-										required
+										placeholder="Username"
+										// required
 										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
 										onChange={handleUsernameChange}
 									/>
@@ -110,7 +111,6 @@ const LoginPage: React.FC = () => {
 											Forgot password?
 										</a>
 									</div>
-									^1
 								</div>
 								<div className="mt-2">
 									<input
@@ -118,7 +118,8 @@ const LoginPage: React.FC = () => {
 										name="password"
 										type="password"
 										autoComplete="current-password"
-										required
+										placeholder="Password"
+										// required
 										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
 										onChange={handlePasswordChange}
 									/>
@@ -130,12 +131,12 @@ const LoginPage: React.FC = () => {
 									type="submit"
 									className="flex w-full justify-center rounded-md bg-rewe-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rewe-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
 								>
-									Sign in
+									Sign in / up
 								</button>
 							</div>
 						</form>
 
-						<p className="mt-10 text-center text-sm text-gray-400">
+						{/* <p className="mt-10 text-center text-sm text-gray-400">
 							or{" "}
 							<a
 								href="#"
@@ -143,7 +144,7 @@ const LoginPage: React.FC = () => {
 							>
 								register
 							</a>
-						</p>
+						</p> */}
 					</div>
 				</div>
 			</IonContent>
