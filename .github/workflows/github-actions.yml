@@ -5,9 +5,9 @@ jobs:
   Deploy-Rewe-App-Fe:
     runs-on: self-hosted
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: latest
       - name: Lint & Test
         working-directory: ./rewe-app-fe
         run: |
