@@ -11,17 +11,6 @@ interface ExpenseStore {
 
 // Create the Zustand store
 const useExpenseStore = create<ExpenseStore>((set) => ({
-	// expense_id: number;
-	// bill_id: number;
-	// user_id: number;
-	// name: string;
-	// value: number;
-	// // price_per_item: number;
-	// // weight: number;
-	// // price_per_kg: number;
-	// tags: string;
-	// date: string;
-	// quantity: number;
 	expenses: [
 		{
 			expense_id: 9999,
