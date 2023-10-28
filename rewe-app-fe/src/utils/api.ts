@@ -30,7 +30,6 @@ export async function uploadPhoto(photo: Photo) {
 		});
 
 		const expenses: Expense[] = await res.json();
-
 		console.log("Expenses server response:", expenses);
 		return expenses;
 	} catch (error) {
@@ -42,11 +41,15 @@ export async function uploadPhoto(photo: Photo) {
 // A function that uploads a file to the server in multipart/form-data format
 export async function uploadPDF(file: File) {
 	try {
+		// Create a FormData object
+		const formData = new FormData();
 		const fileName = generateDateFileName(new Date()) + ".pdf";
 
-		const formData = new FormData();
-		formData.append("file", file, fileName);
+		// convert file to Blob to append to FormData object
+		const blob = await file.arrayBuffer();
+		formData.append("file", new Blob([blob]), fileName);
 
+		// Send FormData object to API
 		const res = await fetch(API_BASE_URL + "/pdfs", {
 			method: "POST",
 			body: formData,

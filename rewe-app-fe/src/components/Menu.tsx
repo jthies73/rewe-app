@@ -8,14 +8,7 @@ import {
 	IonMenu,
 	IonMenuToggle,
 } from "@ionic/react";
-import {
-	camera,
-	analytics,
-	person,
-	lockClosed,
-	logOut,
-	lockOpen,
-} from "ionicons/icons";
+import { analytics, logOut, lockOpen } from "ionicons/icons";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
