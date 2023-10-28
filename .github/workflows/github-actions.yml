@@ -5,18 +5,18 @@ jobs:
   Deploy-Rewe-App-Fe:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: latest
-      # - name: Lint & Test
-      #   working-directory: ./rewe-app-fe
-      #   run: |
-      #     echo "Installing rewe-app-fe dependencies ... 📦"
-      #     npm install
-      #     echo "Testing rewe-app-fe ... 🧪"
-      #     npm run test
-      #     echo "Linting rewe-app-fe ... 🧹"
-      #     npm run lint
+      - name: Lint & Test
+        working-directory: ./rewe-app-fe
+        run: |
+          echo "Installing rewe-app-fe dependencies ... 📦"
+          npm install
+          echo "Testing rewe-app-fe ... 🧪"
+          npm run test
+          echo "Linting rewe-app-fe ... 🧹"
+          npm run lint
       - name: Build image
         env:
           API_BASE_URL: ${{ secrets.API_BASE_URL }} # TODO: make this dynamic
