@@ -11,6 +11,7 @@ interface BillComponentProps {
 	expenses: Expense[];
 }
 
+// TODO: Add styling with TailwindCSS
 const BillComponent: React.FC<BillComponentProps> = ({
 	bill_id,
 	expenses,
@@ -47,7 +48,7 @@ const BillComponent: React.FC<BillComponentProps> = ({
 					color: "grey",
 					fontWeight: "bold",
 					fontSize: 14,
-					marginTop: -5,
+					marginTop: 5,
 				}}
 			>
 				Paid on {date.toString()} by user {user_id}
@@ -74,7 +75,7 @@ const BillComponent: React.FC<BillComponentProps> = ({
 								style={{
 									color: "grey",
 									fontSize: 12,
-									marginTop: -25,
+									marginTop: 10,
 									display: "flex",
 									flexDirection: "row",
 									justifyContent: "space-between",
