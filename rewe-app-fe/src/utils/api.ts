@@ -49,6 +49,8 @@ export async function uploadPDF(file: File) {
 		const blob = await file.arrayBuffer();
 		formData.append("file", new Blob([blob]), fileName);
 
+		console.log("uploading PDF...", fileName);
+
 		// Send FormData object to API
 		const res = await fetch(API_BASE_URL + "/pdfs", {
 			method: "POST",
