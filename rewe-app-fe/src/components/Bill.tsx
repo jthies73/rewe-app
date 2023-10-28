@@ -75,7 +75,6 @@ const BillComponent: React.FC<BillComponentProps> = ({
 								style={{
 									color: "grey",
 									fontSize: 12,
-									marginTop: 10,
 									display: "flex",
 									flexDirection: "row",
 									justifyContent: "space-between",
