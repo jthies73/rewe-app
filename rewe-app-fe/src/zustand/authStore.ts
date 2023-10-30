@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-// Define the store state and actions
+// Define the store state  and actions
 interface AuthStore {
 	token: string;
 	setToken: (token: string) => void;
