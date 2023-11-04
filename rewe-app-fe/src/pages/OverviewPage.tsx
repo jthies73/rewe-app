@@ -18,12 +18,14 @@ import {
 	IonToolbar,
 } from "@ionic/react";
 import { add, camera, document as doc } from "ionicons/icons";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
 
 import Bill from "../components/Bill";
 import { Expense } from "../model/expense";
 import { uploadPhoto, uploadPDF } from "../utils/api";
+import useAuthStore from "../zustand/authStore";
+import useChartDataStore from "../zustand/chartDataStore";
 import useExpenseStore from "../zustand/expenseStore";
 
 async function takePhoto(direction: "rear" | "front") {
@@ -38,6 +40,8 @@ async function takePhoto(direction: "rear" | "front") {
 }
 
 const OverviewPage: React.FC = () => {
+	const token = useAuthStore((state) => state.token);
+	const chartDataStore = useChartDataStore((state) => state);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const billMap = useExpenseStore((state) => state.expenses).reduce(
@@ -61,32 +65,21 @@ const OverviewPage: React.FC = () => {
 		}
 	};
 
-	const data = [
-		{
-			name: "Page A",
-			uv: 4000,
-			pv: 2400,
-			amt: 2400,
-		},
-		{
-			name: "Page B",
-			uv: 3000,
-			pv: 1398,
-			amt: 2210,
-		},
-		{
-			name: "Page C",
-			uv: 2000,
-			pv: 9800,
-			amt: 2290,
-		},
-		{
-			name: "Page D",
-			uv: 2780,
-			pv: 3908,
-			amt: 2000,
-		},
-	];
+	useEffect(() => {
+		const data = fetch(
+			process.env.REACT_APP_API_BASE_URL + "/charts/daily",
+			{
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				chartDataStore.setDaily(data);
+			});
+	}, []);
 
 	// Update the chart dimensions on resize
 	// TODO: This is a hacky solution, find a better way to do this
@@ -119,7 +112,7 @@ const OverviewPage: React.FC = () => {
 					style={{ marginTop: 20 }}
 					width={chartWidth}
 					height={chartHeight}
-					data={data}
+					data={chartDataStore.daily}
 				>
 					<XAxis dataKey={"name"} />
 					<YAxis id={"1"} />
