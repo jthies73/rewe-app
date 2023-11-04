@@ -32,7 +32,7 @@ const LoginPage: React.FC = () => {
 			`Submitting username: ${username} and password: ${password}`
 		);
 
-		fetch(process.env.REACT_APP_API_BASE_URL + "/auth/register", {
+		fetch(process.env.REACT_APP_API_BASE_URL + "/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

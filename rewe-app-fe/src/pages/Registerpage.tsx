@@ -45,7 +45,7 @@ const RegisterPage: React.FC = () => {
 			return;
 		}
 
-		fetch(process.env.REACT_APP_API_BASE_URL + "/auth/register", {
+		fetch(process.env.REACT_APP_API_BASE_URL + "/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
