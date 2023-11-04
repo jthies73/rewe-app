@@ -48,6 +48,8 @@ async def login(user_data: dict = Body(...)):
 
 @app.post("/api/register")
 async def register(user_data: dict = Body(...)):
+    if db.find_user(user_data["username"]):
+        raise HTTPException(status_code=409)
     db.register(user_data["username"], user_data["password"])
     token = auth.jwt_encode(user_data["username"])
     return dict(token=token)
