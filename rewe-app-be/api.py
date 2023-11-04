@@ -2,6 +2,7 @@ import io
 
 from fastapi import Body, Depends, FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 import auth
 import db
@@ -11,6 +12,7 @@ app = FastAPI()
 # Configure CORS (Cross-Origin Resource Sharing) settings
 origins = [
     "http://localhost",
+    "http://localhost:3000",
     "http://localhost:8080",
     "http://localhost:8081",
 ]
@@ -50,9 +52,11 @@ async def login(user_data: dict = Body(...)):
 async def register(user_data: dict = Body(...)):
     if db.find_user(user_data["username"]):
         raise HTTPException(status_code=409)
+    if not user_data["username"] or not user_data["password"]:
+        raise HTTPException(status_code=400, detail="User name and password required")
     db.register(user_data["username"], user_data["password"])
     token = auth.jwt_encode(user_data["username"])
-    return dict(token=token)
+    return JSONResponse(content=dict(token=token), status_code=201)
 
 
 @app.post("/api/db/create", dependencies=[Depends(auth.authenticate)])
