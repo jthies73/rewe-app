@@ -52,6 +52,8 @@ async def login(user_data: dict = Body(...)):
 async def register(user_data: dict = Body(...)):
     if db.find_user(user_data["username"]):
         raise HTTPException(status_code=409)
+    if not user_data["username"] or not user_data["password"]:
+        raise HTTPException(status_code=400, detail="User name and password required")
     db.register(user_data["username"], user_data["password"])
     token = auth.jwt_encode(user_data["username"])
     return JSONResponse(content=dict(token=token), status_code=201)
