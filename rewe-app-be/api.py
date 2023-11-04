@@ -2,6 +2,7 @@ import io
 
 from fastapi import Body, Depends, FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 import auth
 import db
@@ -52,7 +53,7 @@ async def register(user_data: dict = Body(...)):
         raise HTTPException(status_code=409)
     db.register(user_data["username"], user_data["password"])
     token = auth.jwt_encode(user_data["username"])
-    return dict(token=token)
+    return JSONResponse(content=dict(token=token), status_code=201)
 
 
 @app.post("/api/db/create", dependencies=[Depends(auth.authenticate)])
