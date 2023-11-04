@@ -39,17 +39,17 @@ async def options_route():
 
 @app.post("/api/login")
 async def login(user_data: dict = Body(...)):
-    user = db.find_user(user_data["user"], user_data["password"])
+    user = db.find_user(user_data["username"], user_data["password"])
     if user is None:
         raise HTTPException(status_code=404, detail="Not found (from FastAPI).")
-    token = auth.jwt_encode(user_data)
+    token = auth.jwt_encode(user_data["username"])
     return dict(token=token)
 
 
 @app.post("/api/register")
 async def register(user_data: dict = Body(...)):
-    db.register(user_data["user"], user_data["password"])
-    token = auth.jwt_encode(user_data)
+    db.register(user_data["username"], user_data["password"])
+    token = auth.jwt_encode(user_data["username"])
     return dict(token=token)
 
 

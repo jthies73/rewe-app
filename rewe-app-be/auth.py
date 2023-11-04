@@ -11,10 +11,9 @@ JWT_ALG = "HS256"
 JWT_SECRET = os.getenv("JWT_SECRET")
 
 
-def jwt_encode(user_data):
-    assert set(user_data.keys()) == set(("user", "password"))
+def jwt_encode(user_name):
     exp = datetime.datetime.now() + datetime.timedelta(days=30)
-    data = dict(sub=user_data["user"], exp=exp)
+    data = dict(sub=user_name, exp=exp)
     token = jwt.encode(data, JWT_SECRET, algorithm=JWT_ALG)
     return token
 
