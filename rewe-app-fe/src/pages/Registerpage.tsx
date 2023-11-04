@@ -2,17 +2,19 @@ import { IonContent, IonIcon, IonPage, IonRouterLink } from "@ionic/react";
 import { lockClosed } from "ionicons/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import { Route } from "workbox-routing";
 
 import useAuthStore from "../zustand/authStore";
-import { Link } from "react-router-dom";
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
 	const tokenStore = useAuthStore((state) => state);
 
 	const history = useHistory();
 
 	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [password1, setPassword1] = useState("");
+	const [password2, setPassword2] = useState("");
 
 	const handleUsernameChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -20,18 +22,29 @@ const LoginPage: React.FC = () => {
 		setUsername(event.target.value);
 	};
 
-	const handlePasswordChange = (
+	const handlePassword1Change = (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
-		setPassword(event.target.value);
+		setPassword1(event.target.value);
+	};
+
+	const handlePassword2Change = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setPassword2(event.target.value);
 	};
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		console.log(
-			`Submitting username: ${username} and password: ${password}`
+			`Submitting username: ${username} and password: ${password1} and password2: ${password2}`
 		);
-		
+
+		if (password1 !== password2) {
+			alert("Passwords do not match");
+			return;
+		}
+
 		fetch(process.env.REACT_APP_API_BASE_URL + "/auth/register", {
 			method: "POST",
 			headers: {
@@ -39,7 +52,7 @@ const LoginPage: React.FC = () => {
 			},
 			body: JSON.stringify({
 				username: username,
-				password: password,
+				password: password1,
 			}),
 		})
 			.then((response) => response.json())
@@ -105,7 +118,7 @@ const LoginPage: React.FC = () => {
 							<div>
 								<div className="flex items-center justify-between">
 									<label
-										htmlFor="password"
+										htmlFor="password1"
 										className="block text-sm font-medium leading-6 text-white"
 									>
 										Password
@@ -113,14 +126,37 @@ const LoginPage: React.FC = () => {
 								</div>
 								<div className="mt-2">
 									<input
-										id="password"
-										name="password"
-										type="password"
+										id="password1"
+										name="password1"
+										type="password1"
 										autoComplete="current-password"
 										placeholder="Zufall"
 										// required
 										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
-										onChange={handlePasswordChange}
+										onChange={handlePassword1Change}
+									/>
+								</div>
+							</div>
+
+							<div>
+								<div className="flex items-center justify-between">
+									<label
+										htmlFor="password2"
+										className="block text-sm font-medium leading-6 text-white"
+									>
+										Repeat Password
+									</label>
+								</div>
+								<div className="mt-2">
+									<input
+										id="password2"
+										name="password2"
+										type="password2"
+										autoComplete="current-password"
+										placeholder="Zufall"
+										// required
+										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
+										onChange={handlePassword2Change}
 									/>
 								</div>
 							</div>
@@ -130,7 +166,7 @@ const LoginPage: React.FC = () => {
 									type="submit"
 									className="flex w-full justify-center rounded-md bg-rewe-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rewe-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
 								>
-									Log in
+									Register
 								</button>
 							</div>
 						</form>
@@ -138,10 +174,10 @@ const LoginPage: React.FC = () => {
 						<p className="mt-10 text-center text-sm text-gray-400">
 							or{" "}
 							<Link
-								to={"/auth/register"}
+								to={"/auth/login"}
 								className="font-semibold leading-6 text-rewe-500 hover:text-rewe-400"
 							>
-								register
+								login
 							</Link>
 						</p>
 					</div>
@@ -151,4 +187,4 @@ const LoginPage: React.FC = () => {
 	);
 };
 
-export default LoginPage;
+export default RegisterPage;

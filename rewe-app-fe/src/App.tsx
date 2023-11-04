@@ -27,6 +27,7 @@ import { Redirect, Route } from "react-router-dom";
 import Menu from "./components/Menu";
 import LoginPage from "./pages/LoginPage";
 import OverviewPage from "./pages/OverviewPage";
+import RegisterPage from "./pages/Registerpage";
 
 /* Tailwind CSS */
 import "./theme/tailwind.css";
@@ -66,12 +67,17 @@ const App: React.FC = () => {
 					) : (
 						<IonRouterOutlet id="main">
 							<Route>
-								<Redirect from="/*" to="/auth" />
+								<Redirect from="/*" to="/auth/login" />
 							</Route>
 							<Route
-								path="/auth"
+								path="/auth/login"
 								exact={true}
 								component={LoginPage}
+							/>
+							<Route
+								path="/auth/register"
+								exact={true}
+								component={RegisterPage}
 							/>
 						</IonRouterOutlet>
 					)}
