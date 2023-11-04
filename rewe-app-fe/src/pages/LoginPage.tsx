@@ -2,9 +2,9 @@ import { IonContent, IonIcon, IonPage, IonRouterLink } from "@ionic/react";
 import { lockClosed } from "ionicons/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 import useAuthStore from "../zustand/authStore";
-import { Link } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
 	const tokenStore = useAuthStore((state) => state);
@@ -31,7 +31,7 @@ const LoginPage: React.FC = () => {
 		console.log(
 			`Submitting username: ${username} and password: ${password}`
 		);
-		
+
 		fetch(process.env.REACT_APP_API_BASE_URL + "/auth/register", {
 			method: "POST",
 			headers: {

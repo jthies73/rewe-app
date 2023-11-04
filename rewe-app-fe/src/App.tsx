@@ -57,29 +57,26 @@ const App: React.FC = () => {
 									exact={true}
 									component={OverviewPage}
 								/>
-								<Route
-									path="/auth"
-									exact={true}
-									component={LoginPage}
-								/>
 							</IonRouterOutlet>
 						</>
 					) : (
-						<IonRouterOutlet id="main">
-							<Route>
-								<Redirect from="/*" to="/auth/login" />
-							</Route>
-							<Route
-								path="/auth/login"
-								exact={true}
-								component={LoginPage}
-							/>
-							<Route
-								path="/auth/register"
-								exact={true}
-								component={RegisterPage}
-							/>
-						</IonRouterOutlet>
+						<>
+							<IonRouterOutlet id="main">
+								<Route>
+									<Redirect from="/*" to="/auth/login" />
+								</Route>
+								<Route
+									path="/auth/login"
+									exact={true}
+									component={LoginPage}
+								/>
+								<Route
+									path="/auth/register"
+									exact={true}
+									component={RegisterPage}
+								/>
+							</IonRouterOutlet>
+						</>
 					)}
 				</IonSplitPane>
 			</IonReactRouter>
