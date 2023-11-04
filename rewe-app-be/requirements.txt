@@ -9,10 +9,12 @@ greenlet==2.0.2
 h11==0.14.0
 httptools==0.6.0
 idna==3.4
+passlib==1.7.4
 pdfminer.six==20221105
 pycparser==2.21
 pydantic==2.3.0
 pydantic_core==2.6.3
+PyJWT==2.8.0
 python-dotenv==1.0.0
 python-multipart==0.0.6
 PyYAML==6.0.1

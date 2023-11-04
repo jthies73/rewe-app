@@ -1,11 +1,10 @@
-import re
 import math
+import re
 
-from sqlalchemy.orm import Session
 from pdfminer.high_level import extract_text
+from sqlalchemy.orm import Session
 
 import db
-
 
 PRODUCT_PATTERN = r"^([\w\s\!\.\-/,%&]+?)\s+(\-?\d+,\d+) \w\s*[\*]*$"
 WEIGHT_PATTERN = r"\s+(\d+,\d+) kg x\s+(\d+,\d+) EUR/kg"
@@ -59,10 +58,7 @@ def __parse_rewe_ebon_text(text):
 def parse_rewe_ebon(ebon, user_id):
     text = extract_text(ebon)
     expenses, total = __parse_rewe_ebon_text(text)
-    bill = db.Bill(
-            user_id=user_id,
-            datetime=expenses[0].datetime,
-            value=total)
+    bill = db.Bill(user_id=user_id, datetime=expenses[0].datetime, value=total)
     # We refresh ORM objects so that autoincremented values are accessible.
     with Session(db.engine) as session:
         session.add(bill)

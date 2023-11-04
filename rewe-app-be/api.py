@@ -1,12 +1,12 @@
 import io
 
-from fastapi import FastAPI, File, UploadFile
+from fastapi import Body, Depends, FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
+import auth
 import db
 import rewe_process
 
- 
 app = FastAPI()
 # Configure CORS (Cross-Origin Resource Sharing) settings
 origins = [
@@ -24,39 +24,62 @@ app.add_middleware(
 )
 
 
+async def get_user_from_request(request: Request):
+    credentials = await auth.get_bearer_credentials(request)
+    jwt_data = auth.jwt_decode(credentials.credentials)
+    user = db.find_user(jwt_data["sub"])
+    return user
+
+
 # Define an OPTIONS route for CORS preflight requests
 @app.options("/api/")
 async def options_route():
     return {"methods": "OPTIONS, GET, POST, PUT, DELETE"}
 
 
-@app.get("/api/")
-def read_root():
-    return {"Hello": "World"}
+@app.post("/api/login")
+async def login(user_data: dict = Body(...)):
+    user = db.find_user(user_data["username"], user_data["password"])
+    if user is None:
+        raise HTTPException(status_code=404, detail="Not found (from FastAPI).")
+    token = auth.jwt_encode(user_data["username"])
+    return dict(token=token)
 
 
-@app.post("/api/db/create")
-async def create_db():
+@app.post("/api/register")
+async def register(user_data: dict = Body(...)):
+    db.register(user_data["username"], user_data["password"])
+    token = auth.jwt_encode(user_data["username"])
+    return dict(token=token)
+
+
+@app.post("/api/db/create", dependencies=[Depends(auth.authenticate)])
+async def create_db(request: Request):
+    user = await get_user_from_request(request)
+    if user.name not in ["zzo", "jthies"]:
+        raise HTTPException(status_code=401)
     db.create_database()
 
 
-@app.put("/api/db/clean")
-async def clean_db():
+@app.post("/api/db/clean", dependencies=[Depends(auth.authenticate)])
+async def clean_db(request: Request):
+    user = await get_user_from_request(request)
+    if user.name not in ["zzo", "jthies"]:
+        raise HTTPException(status_code=401)
     db.clean()
 
 
-@app.post("/api/images")
+@app.post("/api/images", dependencies=[Depends(auth.authenticate)])
 async def process_upload_image(file: UploadFile = File(...)):
     raise NotImplementedError("No image processing yet")
 
 
-@app.post("/api/pdfs")
-async def process_upload_pdf(file: UploadFile = File(...)):
+@app.post("/api/pdfs", dependencies=[Depends(auth.authenticate)])
+async def process_upload_pdf(request: Request, file: UploadFile = File(...)):
     contents = await file.read()
     await file.close()
 
-    # TODO Retrieve user id here
-    user_id = 1
+    user = await get_user_from_request(request)
     with io.BytesIO(contents) as fd:
-        json = rewe_process.parse_rewe_ebon(fd, user_id)
+        json = rewe_process.parse_rewe_ebon(fd, user.id)
     return json

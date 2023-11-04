@@ -42,12 +42,11 @@ jobs:
         working-directory: ./rewe-app-be
         run: |
           echo "Building rewe-app-be image... 🏗"
-          ls -al
+          echo "JWT_SECRET=$JWT_SECRET" >> .env
           docker build -t rewe-app-be-image .
       - name: Deploy image
         working-directory: ./rewe-app-be
         run: |
           echo "Deploying rewe-app-be image 🚀"
-          ls -al
           docker stop rewe-app-be || true && docker rm rewe-app-be || true
           docker run -d --net rewe-net --ip 172.41.0.20  -v rewe-be-data:/app/data/ --name rewe-app-be rewe-app-be-image
