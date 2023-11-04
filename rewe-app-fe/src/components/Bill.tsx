@@ -11,9 +11,15 @@ interface BillComponentProps {
 	expenses: Expense[];
 }
 
-const BillComponent: React.FC<BillComponentProps> = (
-	{ bill_id, expenses, total, storeName, date, user_id }
-) => {
+// TODO: Add styling with TailwindCSS
+const BillComponent: React.FC<BillComponentProps> = ({
+	bill_id,
+	expenses,
+	total,
+	storeName,
+	date,
+	user_id,
+}) => {
 	return (
 		<div
 			style={{
@@ -30,7 +36,7 @@ const BillComponent: React.FC<BillComponentProps> = (
 			<h1
 				style={{
 					color: "black",
-					marginTop: -10,
+					marginTop: 10,
 					fontWeight: "bolder",
 					fontSize: 40,
 				}}
@@ -42,7 +48,7 @@ const BillComponent: React.FC<BillComponentProps> = (
 					color: "grey",
 					fontWeight: "bold",
 					fontSize: 14,
-					marginTop: -5,
+					marginTop: 5,
 				}}
 			>
 				Paid on {date.toString()} by user {user_id}
@@ -54,7 +60,7 @@ const BillComponent: React.FC<BillComponentProps> = (
 						<div>
 							<div
 								style={{
-									marginTop: -10,
+									marginTop: 5,
 									color: "black",
 									fontWeight: "bold",
 									display: "flex",
@@ -69,7 +75,6 @@ const BillComponent: React.FC<BillComponentProps> = (
 								style={{
 									color: "grey",
 									fontSize: 12,
-									marginTop: -25,
 									display: "flex",
 									flexDirection: "row",
 									justifyContent: "space-between",
@@ -83,7 +88,7 @@ const BillComponent: React.FC<BillComponentProps> = (
 							style={{
 								height: "1px",
 								backgroundColor: "#ddd",
-								marginTop: -10,
+								marginTop: 5,
 							}}
 						></div>
 					</li>

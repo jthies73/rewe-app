@@ -25,38 +25,59 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
 import Menu from "./components/Menu";
-import ExpensesPage from "./pages/ExpensesPage";
+import LoginPage from "./pages/LoginPage";
 import OverviewPage from "./pages/OverviewPage";
-import UsersPage from "./pages/UsersPage";
+import RegisterPage from "./pages/Registerpage";
 
 /* Tailwind CSS */
 import "./theme/tailwind.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import useAuthStore from "./zustand/authStore";
 
 setupIonicReact();
 
 const App: React.FC = () => {
+	const isAuthenticated = useAuthStore((state) => state.token) !== "";
+
 	return (
 		<IonApp>
 			<IonReactRouter>
 				<IonSplitPane contentId="main">
-					<Menu />
-					<IonRouterOutlet id="main">
-						<Route path="/" exact={true}>
-							<Redirect to="/camera" />
-						</Route>
-						<Route path="/camera" exact={true}>
-							<OverviewPage />
-						</Route>
-						<Route path="/expenses" exact={true}>
-							<ExpensesPage />
-						</Route>
-						<Route path="/users" exact={true}>
-							<UsersPage />
-						</Route>
-					</IonRouterOutlet>
+					{isAuthenticated ? (
+						<>
+							<Menu />
+							<IonRouterOutlet id="main">
+								<Route>
+									<Redirect from="/*" to="/overview" />
+								</Route>
+								<Route
+									path="/overview"
+									exact={true}
+									component={OverviewPage}
+								/>
+							</IonRouterOutlet>
+						</>
+					) : (
+						<>
+							<IonRouterOutlet id="main">
+								<Route>
+									<Redirect from="/*" to="/auth/login" />
+								</Route>
+								<Route
+									path="/auth/login"
+									exact={true}
+									component={LoginPage}
+								/>
+								<Route
+									path="/auth/register"
+									exact={true}
+									component={RegisterPage}
+								/>
+							</IonRouterOutlet>
+						</>
+					)}
 				</IonSplitPane>
 			</IonReactRouter>
 		</IonApp>

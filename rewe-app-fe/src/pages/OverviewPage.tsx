@@ -24,7 +24,7 @@ import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
 import Bill from "../components/Bill";
 import { Expense } from "../model/expense";
 import { uploadPhoto, uploadPDF } from "../utils/api";
-import useExpenseStore from "../zustand/store";
+import useExpenseStore from "../zustand/expenseStore";
 
 async function takePhoto(direction: "rear" | "front") {
 	return await Camera.getPhoto({

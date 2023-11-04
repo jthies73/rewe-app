@@ -1,0 +1,190 @@
+import { IonContent, IonIcon, IonPage, IonRouterLink } from "@ionic/react";
+import { lockClosed } from "ionicons/icons";
+import React, { useState } from "react";
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import { Route } from "workbox-routing";
+
+import useAuthStore from "../zustand/authStore";
+
+const RegisterPage: React.FC = () => {
+	const tokenStore = useAuthStore((state) => state);
+
+	const history = useHistory();
+
+	const [username, setUsername] = useState("");
+	const [password1, setPassword1] = useState("");
+	const [password2, setPassword2] = useState("");
+
+	const handleUsernameChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setUsername(event.target.value);
+	};
+
+	const handlePassword1Change = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setPassword1(event.target.value);
+	};
+
+	const handlePassword2Change = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setPassword2(event.target.value);
+	};
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		console.log(
+			`Submitting username: ${username} and password: ${password1} and password2: ${password2}`
+		);
+
+		if (password1 !== password2) {
+			alert("Passwords do not match");
+			return;
+		}
+
+		fetch(process.env.REACT_APP_API_BASE_URL + "/auth/register", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				username: username,
+				password: password1,
+			}),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log("Success:", data);
+				tokenStore.setToken(data.token);
+				history.push("/overview");
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+			});
+	};
+
+	return (
+		<IonPage>
+			{/* <IonHeader>
+				<IonToolbar>
+					<IonButtons slot="start">
+						<IonMenuButton />
+					</IonButtons>
+					<IonTitle>Login</IonTitle>
+				</IonToolbar>
+			</IonHeader> */}
+			<IonContent fullscreen>
+				<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+					<div className="flex flex-col items-center sm:mx-auto sm:w-full sm:max-w-sm">
+						<IonIcon
+							className="text-white w-10 h-10"
+							size="large"
+							aria-hidden="true"
+							slot="start"
+							ios={lockClosed}
+							md={lockClosed}
+						/>
+						<h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+							Sign in to your account
+						</h2>
+					</div>
+
+					<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+						<form className="space-y-6" onSubmit={handleSubmit}>
+							<div>
+								<label
+									htmlFor="username"
+									className="block text-sm font-medium leading-6 text-white"
+								>
+									Username
+								</label>
+								<div className="mt-2">
+									<input
+										id="username"
+										name="username"
+										type="username"
+										autoComplete="username"
+										placeholder="Rainer"
+										// required
+										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
+										onChange={handleUsernameChange}
+									/>
+								</div>
+							</div>
+
+							<div>
+								<div className="flex items-center justify-between">
+									<label
+										htmlFor="password1"
+										className="block text-sm font-medium leading-6 text-white"
+									>
+										Password
+									</label>
+								</div>
+								<div className="mt-2">
+									<input
+										id="password1"
+										name="password1"
+										type="password1"
+										autoComplete="current-password"
+										placeholder="Zufall"
+										// required
+										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
+										onChange={handlePassword1Change}
+									/>
+								</div>
+							</div>
+
+							<div>
+								<div className="flex items-center justify-between">
+									<label
+										htmlFor="password2"
+										className="block text-sm font-medium leading-6 text-white"
+									>
+										Repeat Password
+									</label>
+								</div>
+								<div className="mt-2">
+									<input
+										id="password2"
+										name="password2"
+										type="password2"
+										autoComplete="current-password"
+										placeholder="Zufall"
+										// required
+										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
+										onChange={handlePassword2Change}
+									/>
+								</div>
+							</div>
+
+							<div>
+								<button
+									type="submit"
+									className="flex w-full justify-center rounded-md bg-rewe-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rewe-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+								>
+									Register
+								</button>
+							</div>
+						</form>
+
+						<p className="mt-10 text-center text-sm text-gray-400">
+							or{" "}
+							<Link
+								to={"/auth/login"}
+								className="font-semibold leading-6 text-rewe-500 hover:text-rewe-400"
+							>
+								login
+							</Link>
+						</p>
+					</div>
+				</div>
+			</IonContent>
+		</IonPage>
+	);
+};
+
+export default RegisterPage;
