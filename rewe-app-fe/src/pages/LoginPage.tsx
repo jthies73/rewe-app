@@ -44,7 +44,7 @@ const LoginPage: React.FC = () => {
 		})
 			.then((response) => {
 				// throw error when status code is not 201
-				if (response.status !== 201) {
+				if (response.status !== 200) {
 					alert("Login failed");
 					throw new Error("Registration failed");
 				}
