@@ -36,7 +36,7 @@ def __parse_rewe_ebon_text(text):
             expense.weight = __atof(m.group(1))
             expense.price_per_kg = __atof(m.group(2))
         elif m := re.search(WEIGHT_BUTCHER_PATTERN, line):
-            expense.weight = m.group(1)
+            expense.weight = __atof(m.group(1))
         elif m := re.search(AMOUNT_PATTERN, line):
             expense.quantity = int(m.group(1))
             expense.price_per_item = __atof(m.group(2))
