@@ -42,11 +42,21 @@ const LoginPage: React.FC = () => {
 				password: password,
 			}),
 		})
+			.then((response) => {
+				// throw error when status code is not 201
+				if (response.status !== 201) {
+					alert("Login failed");
+					throw new Error("Registration failed");
+				}
+				return response;
+			})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log("Success:", data);
-				tokenStore.setToken(data.token);
-				history.push("/overview");
+				if (data.token) {
+					console.log("Success:", data);
+					tokenStore.setToken(data.token);
+					history.push("/overview");
+				} else throw new Error("Registration failed", data);
 			})
 			.catch((error) => {
 				console.error("Error:", error);

@@ -3,9 +3,11 @@ import { lockClosed } from "ionicons/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { Route } from "workbox-routing";
+
+
 
 import useAuthStore from "../zustand/authStore";
+
 
 const RegisterPage: React.FC = () => {
 	const tokenStore = useAuthStore((state) => state);
@@ -55,11 +57,21 @@ const RegisterPage: React.FC = () => {
 				password: password1,
 			}),
 		})
+			.then((response) => {
+				// throw error when status code is not 201
+				if (response.status !== 201) {
+					alert("Registration failed");
+					throw new Error("Registration failed");
+				}
+				return response;
+			})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log("Success:", data);
-				tokenStore.setToken(data.token);
-				history.push("/overview");
+				if (data.token) {
+					console.log("Success:", data);
+					tokenStore.setToken(data.token);
+					history.push("/overview");
+				} else throw new Error("Registration failed", data);
 			})
 			.catch((error) => {
 				console.error("Error:", error);
