@@ -1,12 +1,11 @@
 import datetime
+from typing import Optional
 
 import sqlalchemy
 import sqlalchemy.orm
-
-from typing import Optional
+from passlib.hash import bcrypt
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
 
 engine = sqlalchemy.create_engine("sqlite:///data/expenses.db", echo=True)
 
@@ -19,6 +18,7 @@ class User(Base):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str]
+    password: Mapped[str]
 
 
 class Bill(Base):
@@ -45,24 +45,18 @@ class Expense(Base):
 
     def __repr__(self):
         return (
-                "Expense("
-                f"id={self.expense_id}, "
-                f"bill_id={self.bill_id}, "
-                f"name={self.name},"
-                f"quantity={self.quantity},"
-                f"value={self.value}"
-                ")"
+            "Expense("
+            f"id={self.expense_id}, "
+            f"bill_id={self.bill_id}, "
+            f"name={self.name},"
+            f"quantity={self.quantity},"
+            f"value={self.value}"
+            ")"
         )
 
 
 def create_database():
     Base.metadata.create_all(engine)
-    from sqlalchemy.orm import Session
-    with Session(engine) as session:
-        mock = User(name="mock")
-        session.add(mock)
-        session.flush()
-        session.commit()
 
 
 def clean():
@@ -73,3 +67,23 @@ def orm_object_to_dict(expense):
     d = expense.__dict__
     d.pop("_sa_instance_state")
     return d
+
+
+def register(user_name, password):
+    hash_ = bcrypt.hash(password)
+    with sqlalchemy.orm.Session(engine) as session:
+        user = User(name=user_name, password=hash_)
+        session.add(user)
+        session.commit()
+
+
+def find_user(user_name, password=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        results = session.query(User).filter(User.name == user_name).all()
+        if not results:
+            return None
+        assert len(results) == 1
+        user = results[0]
+        if password is not None and not bcrypt.verify(password, user.password):
+            return None
+        return user
