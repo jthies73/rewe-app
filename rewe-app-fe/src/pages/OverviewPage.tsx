@@ -103,7 +103,6 @@ const OverviewPage: React.FC = () => {
 					throw new Error("No data to display: ", data);
 				}
 			});
-
 		// fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
 		// 	headers: {
 		// 		"Content-Type": "application/json",
@@ -155,23 +154,21 @@ const OverviewPage: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
-			<div>ChartData Count: {chartData.length}</div>
+				<div>ChartData Count: {chartData.length}</div>
 				<BarChart
 					style={{ marginTop: 20 }}
 					width={chartWidth}
 					height={chartHeight}
 					data={chartData}
 				>
-					<XAxis
-						dataKey="day"
-						type="number"
-						domain={["auto", "auto"]}
-					/>
-					<YAxis id={"1"} />
-					<YAxis id={"2"} />
-					<Tooltip />
+					<XAxis dataKey="day" type="category" />
+					<YAxis dataKey={"value"} type="number" />
 					<Legend />
-					<Bar dataKey={"total amount spent"} fill={"#8884d8"} />
+					<Bar
+						dataKey={"value"}
+						fill={"#8884d8"}
+						name="total amount spent"
+					/>
 				</BarChart>
 				<div>Bill Count: {bills.length}</div>
 				{bills.map((bill) => (
@@ -189,10 +186,6 @@ const OverviewPage: React.FC = () => {
 						user_id={1}
 					/>
 				))}
-				<p>
-					This toast example uses triggers to automatically open a
-					toast when the button is clicked.
-				</p>
 			</IonContent>
 
 			<IonFab vertical="bottom" horizontal="end">

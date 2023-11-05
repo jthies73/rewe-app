@@ -1,4 +1,9 @@
-import { IonContent, IonIcon, IonPage, IonRouterLink, IonToast } from "@ionic/react";
+import {
+	IonContent,
+	IonIcon,
+	IonPage,
+	IonToast,
+} from "@ionic/react";
 import { lockClosed } from "ionicons/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
@@ -62,7 +67,7 @@ const LoginPage: React.FC = () => {
 			})
 			.catch((error) => {
 				console.error("Error:", error);
-			})
+			});
 	};
 
 	return (
