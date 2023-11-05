@@ -200,9 +200,11 @@ const RegisterPage: React.FC = () => {
 					</div>
 				</div>
 				<IonToast
+					onDidDismiss={() => setError(undefined)}
+					className="mb-10"
 					color={"danger"}
 					isOpen={!!error}
-					message="This toast will disappear after 5 seconds"
+					message={error}
 					duration={5000}
 				></IonToast>
 			</IonContent>
