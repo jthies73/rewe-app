@@ -15,6 +15,7 @@ import {
 	IonMenuButton,
 	IonPage,
 	IonTitle,
+	IonToast,
 	IonToolbar,
 } from "@ionic/react";
 import { add, camera, document as doc } from "ionicons/icons";
@@ -154,6 +155,7 @@ const OverviewPage: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
+			<div>ChartData Count: {chartData.length}</div>
 				<BarChart
 					style={{ marginTop: 20 }}
 					width={chartWidth}
@@ -171,6 +173,7 @@ const OverviewPage: React.FC = () => {
 					<Legend />
 					<Bar dataKey={"total amount spent"} fill={"#8884d8"} />
 				</BarChart>
+				<div>Bill Count: {bills.length}</div>
 				{bills.map((bill) => (
 					<Bill
 						key={bill.id}
@@ -186,6 +189,10 @@ const OverviewPage: React.FC = () => {
 						user_id={1}
 					/>
 				))}
+				<p>
+					This toast example uses triggers to automatically open a
+					toast when the button is clicked.
+				</p>
 			</IonContent>
 
 			<IonFab vertical="bottom" horizontal="end">

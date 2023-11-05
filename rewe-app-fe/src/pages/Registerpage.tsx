@@ -1,4 +1,10 @@
-import { IonContent, IonIcon, IonPage, IonRouterLink } from "@ionic/react";
+import {
+	IonContent,
+	IonIcon,
+	IonPage,
+	IonRouterLink,
+	IonToast,
+} from "@ionic/react";
 import { lockClosed } from "ionicons/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
@@ -14,6 +20,8 @@ const RegisterPage: React.FC = () => {
 	const [username, setUsername] = useState("");
 	const [password1, setPassword1] = useState("");
 	const [password2, setPassword2] = useState("");
+
+	const [error, setError] = useState<string | undefined>(undefined);
 
 	const handleUsernameChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -58,6 +66,7 @@ const RegisterPage: React.FC = () => {
 				// throw error when status code is not 201
 				if (response.status !== 201) {
 					console.error("Registration failed", response);
+					setError("Registration failed");
 					throw new Error("Registration failed");
 				} else return response;
 			})
@@ -190,6 +199,12 @@ const RegisterPage: React.FC = () => {
 						</p>
 					</div>
 				</div>
+				<IonToast
+					color={"danger"}
+					isOpen={!!error}
+					message="This toast will disappear after 5 seconds"
+					duration={5000}
+				></IonToast>
 			</IonContent>
 		</IonPage>
 	);

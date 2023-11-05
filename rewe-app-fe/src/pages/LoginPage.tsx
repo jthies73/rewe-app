@@ -1,4 +1,4 @@
-import { IonContent, IonIcon, IonPage, IonRouterLink } from "@ionic/react";
+import { IonContent, IonIcon, IonPage, IonRouterLink, IonToast } from "@ionic/react";
 import { lockClosed } from "ionicons/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
@@ -13,6 +13,8 @@ const LoginPage: React.FC = () => {
 
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+
+	const [error, setError] = useState<string | undefined>(undefined);
 
 	const handleUsernameChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -46,6 +48,7 @@ const LoginPage: React.FC = () => {
 				// throw error when status code is not 201
 				if (response.status !== 200) {
 					console.error("Login failed", response);
+					setError("Login failed");
 					throw new Error("Login failed");
 				} else return response;
 			})
@@ -155,6 +158,12 @@ const LoginPage: React.FC = () => {
 						</p>
 					</div>
 				</div>
+				<IonToast
+					color={"danger"}
+					isOpen={!!error}
+					message="This toast will disappear after 5 seconds"
+					duration={5000}
+				></IonToast>
 			</IonContent>
 		</IonPage>
 	);
