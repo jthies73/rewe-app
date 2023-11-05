@@ -31,9 +31,9 @@ export async function uploadPhoto(photo: Photo, token: string) {
 			},
 		});
 
-		const expenses: Expense[] = await res.json();
-		console.log("Expenses server response:", expenses);
-		return expenses;
+		const bill = await res.json();
+		console.log("Photo upload server response:", bill);
+		return bill;
 	} catch (error) {
 		console.error("Error:", error);
 		return [];
@@ -61,9 +61,9 @@ export async function uploadPDF(file: File, token: string) {
 			},
 		});
 
-		const expenses: Expense[] = await res.json();
-		console.log("Expenses server response:", expenses);
-		return expenses;
+		const bill = await res.json();
+		console.log("PDF upload server response:", bill);
+		return bill;
 	} catch (error) {
 		console.error("Error:", error);
 		return [];

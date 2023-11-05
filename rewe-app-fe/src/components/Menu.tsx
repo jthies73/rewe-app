@@ -31,12 +31,6 @@ const appPages: AppPage[] = [
 		iosIcon: analytics,
 		mdIcon: analytics,
 	},
-	{
-		title: "Login",
-		url: "/auth",
-		iosIcon: lockOpen,
-		mdIcon: lockOpen,
-	},
 ];
 
 const Menu: React.FC = () => {
@@ -61,13 +55,12 @@ const Menu: React.FC = () => {
 							<IonItem>
 								<IonLabel>
 									Logged in as {decodedToken.sub} until{" "}
-									{new Date(decodedToken.exp! * 1000).toLocaleString(
-										"en-US",
-										{
-											month: "short",
-											day: "2-digit",
-										}
-									)}
+									{new Date(
+										decodedToken.exp! * 1000
+									).toLocaleString("en-US", {
+										month: "short",
+										day: "2-digit",
+									})}
 								</IonLabel>
 							</IonItem>
 						) : (
