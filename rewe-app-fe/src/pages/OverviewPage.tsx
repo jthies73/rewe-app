@@ -81,27 +81,27 @@ const OverviewPage: React.FC = () => {
 				}
 			});
 
-			fetch(process.env.REACT_APP_API_BASE_URL + "/bills", {
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
+		fetch(process.env.REACT_APP_API_BASE_URL + "/bills", {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((response) => {
+				if (response.status !== 200) {
+					console.error("Daily Data fetching failed", response);
+					throw new Error("Daily Data fetching failed");
+				} else return response;
 			})
-				.then((response) => {
-					if (response.status !== 200) {
-						console.error("Daily Data fetching failed", response);
-						throw new Error("Daily Data fetching failed");
-					} else return response;
-				})
-				.then((response) => response.json())
-				.then((data) => {
-					if (data.data && data.data.length > 0) {
-						setChartData(data.data);
-					} else {
-						setChartData([]);
-						throw new Error("No data to display: ", data);
-					}
-				});
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.data && data.data.length > 0) {
+					setChartData([...data.data]);
+				} else {
+					setChartData([]);
+					throw new Error("No data to display: ", data);
+				}
+			});
 
 		// fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
 		// 	headers: {
