@@ -108,28 +108,28 @@ const OverviewPage: React.FC = () => {
 				}
 			});
 
-		// fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 		Authorization: `Bearer ${token}`,
-		// 	},
-		// })
-		// 	.then((response) => {
-		// 		// throw error when status code is not 201
-		// 		if (response.status !== 200) {
-		// 			console.error("Yearly Data fetching failed", response);
-		// 			throw new Error("Yearly Data fetching failed");
-		// 		} else return response;
-		// 	})
-		// 	.then((response) => response.json())
-		// 	.then((data) => {
-		// 		if (data.data && data.data.length > 0) {
-		// 			chartDataStore.setYearly(data.data);
-		// 		} else {
-		// 			chartDataStore.setYearly([]);
-		// 			throw new Error("No data to display: ", data);
-		// 		}
-		// 	});
+		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((response) => {
+				// throw error when status code is not 201
+				if (response.status !== 200) {
+					console.error("Yearly Data fetching failed", response);
+					throw new Error("Yearly Data fetching failed");
+				} else return response;
+			})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.data && data.data.length > 0) {
+					chartDataStore.setYearly(data.data);
+				} else {
+					chartDataStore.setYearly([]);
+					throw new Error("No data to display: ", data);
+				}
+			});
 	}, []);
 
 	// Update the chart dimensions on resize
@@ -167,11 +167,11 @@ const OverviewPage: React.FC = () => {
 					data={chartDataStore.daily}
 				>
 					<XAxis dataKey="day" type="category" />
-					<YAxis dataKey={"value"} type="number" />
+					<YAxis dataKey="value" type="number" />
 					<Legend />
 					<Bar
-						dataKey={"value"}
-						fill={"#8884d8"}
+						dataKey="value"
+						fill="#8884d8"
 						name="total amount spent"
 					/>
 				</BarChart>

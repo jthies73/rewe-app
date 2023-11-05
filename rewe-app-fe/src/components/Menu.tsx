@@ -1,5 +1,6 @@
 import {
 	IonContent,
+	IonHeader,
 	IonIcon,
 	IonItem,
 	IonLabel,
@@ -9,6 +10,7 @@ import {
 	IonMenuToggle,
 } from "@ionic/react";
 import { analytics, logOut, lockOpen } from "ionicons/icons";
+import { jwtDecode } from "jwt-decode";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
@@ -42,12 +44,27 @@ const Menu: React.FC = () => {
 
 	const tokenStore = useAuthStore((state) => state);
 
+	const { exp, sub } = jwtDecode(tokenStore.token);
+
 	return (
 		<IonMenu id={"menu"} contentId="main" type="overlay">
 			<IonContent className="flex flex-col justify-between">
 				<IonList id="inbox-list" class="flex-1">
 					<IonListHeader className="mb-5">EWER App</IonListHeader>
 					<IonMenuToggle autoHide={false}>
+						<IonItem>
+							<IonLabel>
+								Logged in as {sub} until{" "}
+								{new Date(exp! * 1000).toLocaleString("en-US", {
+									hour12: false,
+									hour: "numeric",
+									minute: "numeric",
+									year: "numeric",
+									month: "short",
+									day: "2-digit",
+								})}
+							</IonLabel>
+						</IonItem>
 						{appPages.map((appPage, index) => {
 							return (
 								<IonItem

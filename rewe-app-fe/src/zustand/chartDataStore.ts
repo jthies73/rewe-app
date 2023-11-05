@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+
 // Define the store state and actions
 interface ChartDataStore {
 	daily: { day: string; value: number }[];
@@ -21,6 +22,15 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 				year: "numeric", // "2023"
 			}),
 			value: 10,
+		},
+		{
+			day: new Date().toLocaleDateString("en-US", {
+				weekday: "short", // "Sun"
+				month: "short", // "Nov"
+				day: "2-digit", // "05"
+				year: "numeric", // "2023"
+			}),
+			value: 5,
 		},
 		{
 			day: new Date().toLocaleDateString("en-US", {
