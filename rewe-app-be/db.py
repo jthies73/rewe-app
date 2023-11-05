@@ -117,7 +117,7 @@ def retrieve_daily_data(user):
         for dt in range(30):
             date = (start + datetime.timedelta(days=dt)).date()
             total = sum([b.value for b in bills if b.datetime.date() == date])
-            values.append(dict(date=str(date), total=total))
+            values.append(dict(date=str(date), value=total))
     return values
 
 
@@ -132,6 +132,6 @@ def retrieve_yearly_data(user):
         for dt in range(5 + 1):
             year = (start + datetime.timedelta(days=dt * 365)).year
             total = sum([b.value for b in bills if b.datetime.year == year])
-            data.append(dict(year=year, total=total))
+            data.append(dict(year=year, value=total))
         session.close()
     return data
