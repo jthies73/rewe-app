@@ -72,14 +72,4 @@ def parse_rewe_ebon(ebon, user_id):
             session.add(expense)
         session.commit()
 
-    # Select expenses from the bill we just added and return as json.
-    json = []
-    with Session(db.engine) as session:
-        stmt = (
-            db.sqlalchemy.select(db.Expense)
-            .where(db.Expense.user_id == user_id)
-            .where(db.Expense.bill_id == bill_id)
-        )
-        for row in session.execute(stmt):
-            json.append(db.orm_object_to_dict(row[0]))
-    return json
+    return bill_id

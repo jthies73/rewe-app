@@ -89,8 +89,22 @@ def find_user(user_name, password=None):
         return user
 
 
+def jsonify_bill(bill=None, bill_id=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        if bill_id is None:
+            assert bill is not None
+        else:
+            query = session.query(Bill).filter(Bill.id == bill_id)
+            results = query.all()
+            assert len(results) == 1
+            bill = results[0]
+    with sqlalchemy.orm.Session(engine) as session:
+        query = session.query(Expense).filter(Expense.bill_id == bill.id)
+        expenses = [orm_object_to_dict(e) for e in query.all()]
+        return dict(**orm_object_to_dict(bill), expenses=expenses)
+
+
 def get_bills(user):
-    data = []
     with sqlalchemy.orm.Session(engine) as session:
         query = (
             session.query(Bill)
@@ -99,11 +113,11 @@ def get_bills(user):
             .limit(10)
         )
         bills = query.all()
-        for bill in bills:
-            query = session.query(Expense).filter(Expense.bill_id == bill.id)
-            expenses = [orm_object_to_dict(e) for e in query.all()]
-            data.append(dict(**orm_object_to_dict(bill), expenses=expenses))
-    return dict(data=data)
+
+    data = []
+    for bill in bills:
+        data.append(jsonify_bill(bill))
+    return data
 
 
 def retrieve_daily_data(user):

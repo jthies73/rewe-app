@@ -86,7 +86,7 @@ async def get_daily_data(request: Request):
     user = await get_user_from_request(request)
     assert user is not None
     data = db.retrieve_daily_data(user)
-    return dict(data=data)
+    return data
 
 
 @app.get("/api/charts/yearly", dependencies=[Depends(auth.authenticate)])
@@ -94,7 +94,7 @@ async def get_yearly_data(request: Request):
     user = await get_user_from_request(request)
     assert user is not None
     data = db.retrieve_yearly_data(user)
-    return dict(data=data)
+    return data
 
 
 @app.post("/api/images", dependencies=[Depends(auth.authenticate)])
@@ -109,5 +109,5 @@ async def process_upload_pdf(request: Request, file: UploadFile = File(...)):
 
     user = await get_user_from_request(request)
     with io.BytesIO(contents) as fd:
-        json = rewe_process.parse_rewe_ebon(fd, user.id)
-    return json
+        bill_id = rewe_process.parse_rewe_ebon(fd, user.id)
+    db.jsonify_bill(bill_id=bill_id)
