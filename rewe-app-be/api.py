@@ -110,4 +110,4 @@ async def process_upload_pdf(request: Request, file: UploadFile = File(...)):
     user = await get_user_from_request(request)
     with io.BytesIO(contents) as fd:
         bill_id = rewe_process.parse_rewe_ebon(fd, user.id)
-    db.jsonify_bill(bill_id=bill_id)
+    return db.jsonify_bill(bill_id=bill_id)
