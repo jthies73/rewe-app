@@ -28,7 +28,6 @@ export async function uploadPhoto(photo: Photo, token: string) {
 			method: "POST",
 			body: formData,
 			headers: {
-				"Content-Type": "multipart/form-data",
 				Authorization: "Bearer " + token,
 			},
 		});
@@ -60,7 +59,6 @@ export async function uploadPDF(file: File, token: string) {
 			method: "POST",
 			body: formData,
 			headers: {
-				"Content-Type": "multipart/form-data",
 				Authorization: "Bearer " + token,
 			},
 		});
