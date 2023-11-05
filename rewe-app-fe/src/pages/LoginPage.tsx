@@ -60,10 +60,6 @@ const LoginPage: React.FC = () => {
 			.catch((error) => {
 				console.error("Error:", error);
 			})
-			.finally(() => {
-				tokenStore.setToken("data.token");
-				history.push("/overview");
-			});
 	};
 
 	return (
