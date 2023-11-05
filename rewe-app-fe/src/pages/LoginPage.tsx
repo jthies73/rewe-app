@@ -45,7 +45,6 @@ const LoginPage: React.FC = () => {
 			}),
 		})
 			.then((response) => {
-				// throw error when status code is not 201
 				if (response.status !== 200) {
 					console.error("Login failed", response);
 					setError("Login failed");

@@ -63,7 +63,6 @@ const RegisterPage: React.FC = () => {
 			}),
 		})
 			.then((response) => {
-				// throw error when status code is not 201
 				if (response.status !== 201) {
 					console.error("Registration failed", response);
 					setError("Registration failed");

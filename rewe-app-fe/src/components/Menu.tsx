@@ -44,7 +44,12 @@ const Menu: React.FC = () => {
 
 	const tokenStore = useAuthStore((state) => state);
 
-	const { exp, sub } = jwtDecode(tokenStore.token);
+	let decodedToken;
+	try {
+		decodedToken = jwtDecode(tokenStore.token);
+	} catch (error) {
+		console.error("Invalid token format:", error);
+	}
 
 	return (
 		<IonMenu id={"menu"} contentId="main" type="overlay">
@@ -52,19 +57,22 @@ const Menu: React.FC = () => {
 				<IonList id="inbox-list" class="flex-1">
 					<IonListHeader className="mb-5">EWER App</IonListHeader>
 					<IonMenuToggle autoHide={false}>
-						<IonItem>
-							<IonLabel>
-								Logged in as {sub} until{" "}
-								{new Date(exp! * 1000).toLocaleString("en-US", {
-									hour12: false,
-									hour: "numeric",
-									minute: "numeric",
-									year: "numeric",
-									month: "short",
-									day: "2-digit",
-								})}
-							</IonLabel>
-						</IonItem>
+						{decodedToken ? (
+							<IonItem>
+								<IonLabel>
+									Logged in as {decodedToken.sub} until{" "}
+									{new Date(decodedToken.exp! * 1000).toLocaleString(
+										"en-US",
+										{
+											month: "short",
+											day: "2-digit",
+										}
+									)}
+								</IonLabel>
+							</IonItem>
+						) : (
+							""
+						)}
 						{appPages.map((appPage, index) => {
 							return (
 								<IonItem

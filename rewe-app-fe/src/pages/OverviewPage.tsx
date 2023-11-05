@@ -15,15 +15,22 @@ import {
 	IonMenuButton,
 	IonPage,
 	IonTitle,
-	IonToast,
 	IonToolbar,
 } from "@ionic/react";
 import { add, camera, document as doc } from "ionicons/icons";
 import React, { useEffect, useRef, useState } from "react";
-import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
+import {
+	Bar,
+	BarChart,
+	CartesianGrid,
+	Legend,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis,
+} from "recharts";
 
 import Bill from "../components/Bill";
-import { Expense } from "../model/expense";
 import { uploadPhoto, uploadPDF } from "../utils/api";
 import useAuthStore from "../zustand/authStore";
 import useBillStore from "../zustand/billStore";
@@ -59,79 +66,36 @@ const OverviewPage: React.FC = () => {
 	};
 
 	useEffect(() => {
-		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/daily", {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((response) => {
-				if (response.status !== 200) {
-					console.error("Daily Data fetching failed", response);
-					throw new Error("Daily Data fetching failed");
-				} else return response;
-			})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.data) {
-					console.log("CHARTDATA Daily: ", data.data);
-					chartDataStore.setDaily(data.data);
-				} else {
-					chartDataStore.setDaily([]);
-					throw new Error(
-						`No daily chartdata in payload: ${JSON.stringify(data)}`
-					);
-				}
-			});
-
-		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((response) => {
-				if (response.status !== 200) {
-					console.error("Yearly Data fetching failed", response);
-					throw new Error("Yearly Data fetching failed");
-				} else return response;
-			})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.data) {
-					console.log("CHARTDATA Yearly: ", data.data);
-					chartDataStore.setYearly(data.data);
-				} else {
-					chartDataStore.setYearly([]);
-					throw new Error(
-						`No yearly chartdata in payload: ${JSON.stringify(data)}`
-					);
-				}
-			});
-
-		fetch(process.env.REACT_APP_API_BASE_URL + "/bills", {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((response) => {
-				if (response.status !== 200) {
-					console.error("Daily Data fetching failed", response);
-					throw new Error("Daily Data fetching failed");
-				} else return response;
-			})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.data) {
-					console.log("BILLDATA: ", data.data);
-					billStore.addBills(data.data);
-				} else {
-					throw new Error(
-						`No bills in payload: ${JSON.stringify(data)}`
-					);
-				}
-			});
+		// fetchDailyChartData(token).then((data) => {
+		// 	if (data.data) {
+		// 		console.log("CHARTDATA Daily: ", data.data);
+		// 		chartDataStore.setDaily(data.data);
+		// 	} else {
+		// 		chartDataStore.setDaily([]);
+		// 		throw new Error(
+		// 			`No daily chartdata in payload: ${JSON.stringify(data)}`
+		// 		);
+		// 	}
+		// });
+		// fetchYearlyChartData(token).then((data) => {
+		// 	if (data.data) {
+		// 		console.log("CHARTDATA Yearly: ", data.data);
+		// 		chartDataStore.setYearly(data.data);
+		// 	} else {
+		// 		chartDataStore.setYearly([]);
+		// 		throw new Error(
+		// 			`No yearly chartdata in payload: ${JSON.stringify(data)}`
+		// 		);
+		// 	}
+		// });
+		// fetchBills(token).then((data) => {
+		// 	if (data.data) {
+		// 		console.log("BILLDATA: ", data.data);
+		// 		billStore.addBills(data.data);
+		// 	} else {
+		// 		throw new Error(`No bills in payload: ${JSON.stringify(data)}`);
+		// 	}
+		// });
 	}, []);
 
 	// Update the chart dimensions on resize
@@ -165,36 +129,43 @@ const OverviewPage: React.FC = () => {
 				<div>
 					ChartData Yearly Count: {chartDataStore.yearly.length}
 				</div>
-				<BarChart
-					style={{ marginTop: 20 }}
-					width={chartWidth}
-					height={chartHeight}
-					data={chartDataStore.daily}
-				>
-					<XAxis dataKey="day" type="category" />
-					<YAxis dataKey="value" type="number" />
-					<Legend />
-					<Bar
-						dataKey="value"
-						fill="#8884d8"
-						name="total amount spent"
-					/>
-				</BarChart>
-				<BarChart
-					style={{ marginTop: 20 }}
-					width={chartWidth}
-					height={chartHeight}
-					data={chartDataStore.yearly}
-				>
-					<XAxis dataKey="year" type="category" />
-					<YAxis dataKey="value" type="number" />
-					<Legend />
-					<Bar
-						dataKey="value"
-						fill="#8884d8"
-						name="total amount spent"
-					/>
-				</BarChart>
+				<ResponsiveContainer width={"100%"} height="30%">
+					<BarChart
+						style={{ marginTop: 20 }}
+						data={chartDataStore.daily}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="day" type="category" />
+						<YAxis dataKey="value" type="number" unit={" €"} />
+						<Legend />
+						<Tooltip contentStyle={{ color: "black" }} />
+						<Bar
+							dataKey="value"
+							fill="#e08428"
+							name="total amount spent"
+							unit={" €"}
+						/>
+					</BarChart>
+				</ResponsiveContainer>
+				<ResponsiveContainer width={"100%"} height="30%">
+					<BarChart
+						style={{ marginTop: 20 }}
+						data={chartDataStore.yearly}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="year" type="category" />
+						<YAxis dataKey="value" type="number" unit={" €"} />
+						<Legend />
+						<Tooltip contentStyle={{ color: "black" }} />
+						<Bar
+							dataKey="value"
+							fill="#1fc7bf"
+							name="total amount spent"
+							unit={" €"}
+						/>
+					</BarChart>
+				</ResponsiveContainer>
+
 				<div>Bill Count: {billStore.bills.length}</div>
 				{billStore.bills.map((bill) => (
 					<Bill
