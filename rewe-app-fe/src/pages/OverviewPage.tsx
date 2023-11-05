@@ -45,9 +45,8 @@ const OverviewPage: React.FC = () => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const token = useAuthStore((state) => state.token);
-	const chartData = useChartDataStore((state) => state.daily);
-	const setChartData = useChartDataStore((state) => state.setDaily);
-	const bills = useBillStore((state) => state.bills);
+	const chartDataStore = useChartDataStore((state) => state);
+	const billStore = useBillStore((state) => state);
 
 	const handleFileInputChange = async (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -74,12 +73,14 @@ const OverviewPage: React.FC = () => {
 			})
 			.then((response) => response.json())
 			.then((data) => {
-				if (data.data && data.data.length > 0) {
-					console.log("DATA: ", data.data);
-					setChartData(data.data);
+				if (data.data) {
+					console.log("CHARTDATA: ", data.data);
+					chartDataStore.setDaily(data.data);
 				} else {
-					setChartData([]);
-					throw new Error(`No data to display: ${JSON.stringify(data)}`);
+					chartDataStore.setDaily([]);
+					throw new Error(
+						`No chartdata in payload: ${JSON.stringify(data)}`
+					);
 				}
 			});
 
@@ -97,14 +98,16 @@ const OverviewPage: React.FC = () => {
 			})
 			.then((response) => response.json())
 			.then((data) => {
-				if (data.data && data.data.length > 0) {
-					console.log("DATA: ", data.data);
-					setChartData(data.data);
+				if (data.data) {
+					console.log("BILLDATA: ", data.data);
+					billStore.addBills(data.data);
 				} else {
-					setChartData([]);
-					throw new Error(`No data to display: ${JSON.stringify(data)}`);
+					throw new Error(
+						`No bills in payload: ${JSON.stringify(data)}`
+					);
 				}
 			});
+
 		// fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
 		// 	headers: {
 		// 		"Content-Type": "application/json",
@@ -156,12 +159,12 @@ const OverviewPage: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
-				<div>ChartData Count: {chartData.length}</div>
+				<div>ChartData Count: {chartDataStore.daily.length}</div>
 				<BarChart
 					style={{ marginTop: 20 }}
 					width={chartWidth}
 					height={chartHeight}
-					data={chartData}
+					data={chartDataStore.daily}
 				>
 					<XAxis dataKey="day" type="category" />
 					<YAxis dataKey={"value"} type="number" />
@@ -172,8 +175,8 @@ const OverviewPage: React.FC = () => {
 						name="total amount spent"
 					/>
 				</BarChart>
-				<div>Bill Count: {bills.length}</div>
-				{bills.map((bill) => (
+				<div>Bill Count: {billStore.bills.length}</div>
+				{billStore.bills.map((bill) => (
 					<Bill
 						key={bill.id}
 						bill_id={bill.id}

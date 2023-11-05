@@ -6,7 +6,8 @@ import { Bill } from "../model/bill";
 interface BillStore {
 	bills: Bill[];
 	addBill: (bill: Bill) => void;
-	addBills: (bills: Bill[]) => void; // New action for adding a list of bills
+	addBills: (bills: Bill[]) => void;
+	clearBills: () => void;
 }
 
 // Create the Zustand store
@@ -19,6 +20,10 @@ const useBillStore = create<BillStore>((set) => ({
 	addBills: (bills) =>
 		set((state) => ({
 			bills: [...state.bills, ...bills],
+		})),
+	clearBills: () =>
+		set(() => ({
+			bills: [],
 		})),
 }));
 
