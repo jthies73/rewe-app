@@ -73,6 +73,22 @@ async def clean_db(request: Request):
     db.clean()
 
 
+@app.get("/api/charts/daily", dependencies=[Depends(auth.authenticate)])
+async def get_daily_data(request: Request):
+    user = await get_user_from_request(request)
+    assert user is not None
+    data = db.retrieve_daily_data(user)
+    return dict(data=data)
+
+
+@app.get("/api/charts/yearly", dependencies=[Depends(auth.authenticate)])
+async def get_yearly_data(request: Request):
+    user = await get_user_from_request(request)
+    assert user is not None
+    data = db.retrieve_yearly_data(user)
+    return dict(data=data)
+
+
 @app.post("/api/images", dependencies=[Depends(auth.authenticate)])
 async def process_upload_image(file: UploadFile = File(...)):
     raise NotImplementedError("No image processing yet")

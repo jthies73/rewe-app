@@ -87,3 +87,35 @@ def find_user(user_name, password=None):
         if password is not None and not bcrypt.verify(password, user.password):
             return None
         return user
+
+
+def retrieve_daily_data(user):
+    start = datetime.datetime.now() - datetime.timedelta(days=30)
+    with sqlalchemy.orm.Session(engine) as session:
+        query = (
+            session.query(Bill).filter(Bill.datetime >= start).order_by(Bill.datetime)
+        )
+        bills = query.all()
+        values = list()
+        for dt in range(30):
+            date = (start + datetime.timedelta(days=dt)).date()
+            total = sum([b.value for b in bills if b.datetime.date() == date])
+            values.append(dict(date=str(date), total=total))
+        session.close()
+    return values
+
+
+def retrieve_yearly_data(user):
+    start = datetime.datetime.now() - datetime.timedelta(days=5 * 365)
+    with sqlalchemy.orm.Session(engine) as session:
+        query = (
+            session.query(Bill).filter(Bill.datetime >= start).order_by(Bill.datetime)
+        )
+        bills = query.all()
+        data = list()
+        for dt in range(5 + 1):
+            year = (start + datetime.timedelta(days=dt * 365)).year
+            total = sum([b.value for b in bills if b.datetime.year == year])
+            data.append(dict(year=year, total=total))
+        session.close()
+    return data
