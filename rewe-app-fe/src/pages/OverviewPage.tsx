@@ -44,7 +44,8 @@ const OverviewPage: React.FC = () => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const token = useAuthStore((state) => state.token);
-	const chartDataStore = useChartDataStore((state) => state);
+	const chartData = useChartDataStore((state) => state.daily);
+	const setChartData = useChartDataStore((state) => state.setDaily);
 	const bills = useBillStore((state) => state.bills);
 
 	const handleFileInputChange = async (
@@ -73,36 +74,36 @@ const OverviewPage: React.FC = () => {
 			})
 			.then((response) => response.json())
 			.then((data) => {
-				if (data && data.length > 0) {
-					chartDataStore.setDaily(data.data);
+				if (data.data && data.data.length > 0) {
+					setChartData(data.data);
 				} else {
-					chartDataStore.setDaily([]);
+					setChartData([]);
 					throw new Error("No data to display: ", data);
 				}
 			});
 
-		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((response) => {
-				// throw error when status code is not 201
-				if (response.status !== 200) {
-					console.error("Yearly Data fetching failed", response);
-					throw new Error("Yearly Data fetching failed");
-				} else return response;
-			})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data && data.length > 0) {
-					chartDataStore.setYearly(data.data);
-				} else {
-					chartDataStore.setYearly([]);
-					throw new Error("No data to display: ", data);
-				}
-			});
+		// fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 		Authorization: `Bearer ${token}`,
+		// 	},
+		// })
+		// 	.then((response) => {
+		// 		// throw error when status code is not 201
+		// 		if (response.status !== 200) {
+		// 			console.error("Yearly Data fetching failed", response);
+		// 			throw new Error("Yearly Data fetching failed");
+		// 		} else return response;
+		// 	})
+		// 	.then((response) => response.json())
+		// 	.then((data) => {
+		// 		if (data.data && data.data.length > 0) {
+		// 			chartDataStore.setYearly(data.data);
+		// 		} else {
+		// 			chartDataStore.setYearly([]);
+		// 			throw new Error("No data to display: ", data);
+		// 		}
+		// 	});
 	}, []);
 
 	// Update the chart dimensions on resize
@@ -136,7 +137,7 @@ const OverviewPage: React.FC = () => {
 					style={{ marginTop: 20 }}
 					width={chartWidth}
 					height={chartHeight}
-					data={chartDataStore.daily}
+					data={chartData}
 				>
 					<XAxis
 						dataKey="day"
