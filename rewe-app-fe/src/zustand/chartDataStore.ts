@@ -14,16 +14,7 @@ interface CartDataStore {
 
 // Create the Zustand store
 const useChartDataStore = create<CartDataStore>((set) => ({
-	daily: [
-		{
-			day: new Date("2021-01-01"),
-			value: 11.11,
-		},
-		{
-			day: new Date("2021-01-02"),
-			value: 11.11,
-		},
-	],
+	daily: [],
 	monthly: [
 		{
 			month: "Jan",
