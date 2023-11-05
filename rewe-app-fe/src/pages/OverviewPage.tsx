@@ -75,10 +75,11 @@ const OverviewPage: React.FC = () => {
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.data && data.data.length > 0) {
+					console.log("DATA: ", data.data);
 					setChartData(data.data);
 				} else {
 					setChartData([]);
-					throw new Error("No data to display: ", data);
+					throw new Error(`No data to display: ${JSON.stringify(data)}`);
 				}
 			});
 
@@ -97,10 +98,11 @@ const OverviewPage: React.FC = () => {
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.data && data.data.length > 0) {
-					setChartData([...data.data]);
+					console.log("DATA: ", data.data);
+					setChartData(data.data);
 				} else {
 					setChartData([]);
-					throw new Error("No data to display: ", data);
+					throw new Error(`No data to display: ${JSON.stringify(data)}`);
 				}
 			});
 		// fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
