@@ -26,7 +26,7 @@ app.add_middleware(
 )
 
 
-async def get_user_from_request(request: Request):
+async def get_user_from_request(request: Request) -> db.User:
     credentials = await auth.get_bearer_credentials(request)
     jwt_data = auth.jwt_decode(credentials.credentials)
     user = db.find_user(jwt_data["sub"])
@@ -73,6 +73,30 @@ async def clean_db(request: Request):
     db.clean()
 
 
+@app.get("/api/bills", dependencies=[Depends(auth.authenticate)])
+async def get_bills(request: Request):
+    user = await get_user_from_request(request)
+    assert user is not None
+    data = db.get_bills(user)
+    return data
+
+
+@app.get("/api/charts/daily", dependencies=[Depends(auth.authenticate)])
+async def get_daily_data(request: Request):
+    user = await get_user_from_request(request)
+    assert user is not None
+    data = db.retrieve_daily_data(user)
+    return data
+
+
+@app.get("/api/charts/yearly", dependencies=[Depends(auth.authenticate)])
+async def get_yearly_data(request: Request):
+    user = await get_user_from_request(request)
+    assert user is not None
+    data = db.retrieve_yearly_data(user)
+    return data
+
+
 @app.post("/api/images", dependencies=[Depends(auth.authenticate)])
 async def process_upload_image(file: UploadFile = File(...)):
     raise NotImplementedError("No image processing yet")
@@ -85,5 +109,5 @@ async def process_upload_pdf(request: Request, file: UploadFile = File(...)):
 
     user = await get_user_from_request(request)
     with io.BytesIO(contents) as fd:
-        json = rewe_process.parse_rewe_ebon(fd, user.id)
-    return json
+        bill_id = rewe_process.parse_rewe_ebon(fd, user.id)
+    return db.jsonify_bill(bill_id=bill_id)
