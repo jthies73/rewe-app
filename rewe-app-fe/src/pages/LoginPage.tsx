@@ -60,7 +60,7 @@ const LoginPage: React.FC = () => {
 			})
 			.catch((error) => {
 				console.error("Error:", error);
-			});
+			}).;
 	};
 
 	return (
