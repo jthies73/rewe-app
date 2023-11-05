@@ -66,14 +66,6 @@ const LoginPage: React.FC = () => {
 
 	return (
 		<IonPage>
-			{/* <IonHeader>
-				<IonToolbar>
-					<IonButtons slot="start">
-						<IonMenuButton />
-					</IonButtons>
-					<IonTitle>Login</IonTitle>
-				</IonToolbar>
-			</IonHeader> */}
 			<IonContent fullscreen>
 				<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 					<div className="flex flex-col items-center sm:mx-auto sm:w-full sm:max-w-sm">
