@@ -6,7 +6,7 @@ import { generateDateFileName } from "./stringUtils";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
 
 // A function that uploads a photo to the server in multipart/form-data format
-export async function uploadPhoto(photo: Photo) {
+export async function uploadPhoto(photo: Photo, token: string) {
 	try {
 		// Create a FormData object
 		const formData = new FormData();
@@ -27,6 +27,10 @@ export async function uploadPhoto(photo: Photo) {
 		const res = await fetch(API_BASE_URL + "/images", {
 			method: "POST",
 			body: formData,
+			headers: {
+				"Content-Type": "multipart/form-data",
+				Authorization: "Bearer " + token,
+			},
 		});
 
 		const expenses: Expense[] = await res.json();
@@ -39,7 +43,7 @@ export async function uploadPhoto(photo: Photo) {
 }
 
 // A function that uploads a file to the server in multipart/form-data format
-export async function uploadPDF(file: File) {
+export async function uploadPDF(file: File, token: string) {
 	try {
 		// Create a FormData object
 		const formData = new FormData();
@@ -55,6 +59,10 @@ export async function uploadPDF(file: File) {
 		const res = await fetch(API_BASE_URL + "/pdfs", {
 			method: "POST",
 			body: formData,
+			headers: {
+				"Content-Type": "multipart/form-data",
+				Authorization: "Bearer " + token,
+			},
 		});
 
 		const expenses: Expense[] = await res.json();

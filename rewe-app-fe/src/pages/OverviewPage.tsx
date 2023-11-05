@@ -54,7 +54,7 @@ const OverviewPage: React.FC = () => {
 	) => {
 		const files = event.target.files;
 		if (files && files.length > 0) {
-			const expenses = await uploadPDF(files[0]);
+			const expenses = await uploadPDF(files[0], token);
 			useExpenseStore.getState().addExpenses(expenses);
 		}
 	};
@@ -198,7 +198,7 @@ const OverviewPage: React.FC = () => {
 						onClick={async () => {
 							const photo = await takePhoto("front");
 							if (!photo) return;
-							const expenses = await uploadPhoto(photo);
+							const expenses = await uploadPhoto(photo, token);
 							useExpenseStore.getState().addExpenses(expenses);
 						}}
 					>
