@@ -31,7 +31,7 @@ import {
 } from "recharts";
 
 import Bill from "../components/Bill";
-import { uploadPhoto, uploadPDF } from "../utils/api";
+import { uploadPhoto, uploadPDF, fetchYearlyChartData, fetchDailyChartData, fetchBills } from "../utils/api";
 import useAuthStore from "../zustand/authStore";
 import useBillStore from "../zustand/billStore";
 import useChartDataStore from "../zustand/chartDataStore";
@@ -66,36 +66,36 @@ const OverviewPage: React.FC = () => {
 	};
 
 	useEffect(() => {
-		// fetchDailyChartData(token).then((data) => {
-		// 	if (data.data) {
-		// 		console.log("CHARTDATA Daily: ", data.data);
-		// 		chartDataStore.setDaily(data.data);
-		// 	} else {
-		// 		chartDataStore.setDaily([]);
-		// 		throw new Error(
-		// 			`No daily chartdata in payload: ${JSON.stringify(data)}`
-		// 		);
-		// 	}
-		// });
-		// fetchYearlyChartData(token).then((data) => {
-		// 	if (data.data) {
-		// 		console.log("CHARTDATA Yearly: ", data.data);
-		// 		chartDataStore.setYearly(data.data);
-		// 	} else {
-		// 		chartDataStore.setYearly([]);
-		// 		throw new Error(
-		// 			`No yearly chartdata in payload: ${JSON.stringify(data)}`
-		// 		);
-		// 	}
-		// });
-		// fetchBills(token).then((data) => {
-		// 	if (data.data) {
-		// 		console.log("BILLDATA: ", data.data);
-		// 		billStore.addBills(data.data);
-		// 	} else {
-		// 		throw new Error(`No bills in payload: ${JSON.stringify(data)}`);
-		// 	}
-		// });
+		fetchDailyChartData(token).then((data) => {
+			if (data.data) {
+				console.log("CHARTDATA Daily: ", data.data);
+				chartDataStore.setDaily(data.data);
+			} else {
+				chartDataStore.setDaily([]);
+				throw new Error(
+					`No daily chartdata in payload: ${JSON.stringify(data)}`
+				);
+			}
+		});
+		fetchYearlyChartData(token).then((data) => {
+			if (data.data) {
+				console.log("CHARTDATA Yearly: ", data.data);
+				chartDataStore.setYearly(data.data);
+			} else {
+				chartDataStore.setYearly([]);
+				throw new Error(
+					`No yearly chartdata in payload: ${JSON.stringify(data)}`
+				);
+			}
+		});
+		fetchBills(token).then((data) => {
+			if (data.data) {
+				console.log("BILLDATA: ", data.data);
+				billStore.addBills(data.data);
+			} else {
+				throw new Error(`No bills in payload: ${JSON.stringify(data)}`);
+			}
+		});
 	}, []);
 
 	// Update the chart dimensions on resize
