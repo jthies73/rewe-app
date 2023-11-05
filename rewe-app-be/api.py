@@ -73,6 +73,14 @@ async def clean_db(request: Request):
     db.clean()
 
 
+@app.get("/api/bills", dependencies=[Depends(auth.authenticate)])
+async def get_bills(request: Request):
+    user = await get_user_from_request(request)
+    assert user is not None
+    data = db.get_bills(user)
+    return data
+
+
 @app.get("/api/charts/daily", dependencies=[Depends(auth.authenticate)])
 async def get_daily_data(request: Request):
     user = await get_user_from_request(request)

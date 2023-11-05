@@ -31,7 +31,7 @@ class Bill(Base):
 
 class Expense(Base):
     __tablename__ = "expenses"
-    expense_id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     bill_id: Mapped[int] = mapped_column(ForeignKey("bills.id"))
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     name: Mapped[str]
@@ -46,7 +46,7 @@ class Expense(Base):
     def __repr__(self):
         return (
             "Expense("
-            f"id={self.expense_id}, "
+            f"id={self.id}, "
             f"bill_id={self.bill_id}, "
             f"name={self.name},"
             f"quantity={self.quantity},"
@@ -89,6 +89,23 @@ def find_user(user_name, password=None):
         return user
 
 
+def get_bills(user):
+    data = []
+    with sqlalchemy.orm.Session(engine) as session:
+        query = (
+            session.query(Bill)
+            .filter(Bill.user_id == user.id)
+            .order_by(Bill.datetime.desc())
+            .limit(10)
+        )
+        bills = query.all()
+        for bill in bills:
+            query = session.query(Expense).filter(Expense.bill_id == bill.id)
+            expenses = [orm_object_to_dict(e) for e in query.all()]
+            data.append(dict(**orm_object_to_dict(bill), expenses=expenses))
+    return dict(data=data)
+
+
 def retrieve_daily_data(user):
     start = datetime.datetime.now() - datetime.timedelta(days=30)
     with sqlalchemy.orm.Session(engine) as session:
@@ -101,7 +118,6 @@ def retrieve_daily_data(user):
             date = (start + datetime.timedelta(days=dt)).date()
             total = sum([b.value for b in bills if b.datetime.date() == date])
             values.append(dict(date=str(date), total=total))
-        session.close()
     return values
 
 
