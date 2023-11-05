@@ -16,7 +16,6 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 	daily: [
 		{
 			day: new Date().toLocaleDateString("en-US", {
-				weekday: "short", // "Sun"
 				month: "short", // "Nov"
 				day: "2-digit", // "05"
 				year: "numeric", // "2023"
@@ -25,7 +24,6 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 		},
 		{
 			day: new Date().toLocaleDateString("en-US", {
-				weekday: "short", // "Sun"
 				month: "short", // "Nov"
 				day: "2-digit", // "05"
 				year: "numeric", // "2023"
@@ -34,7 +32,6 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 		},
 		{
 			day: new Date().toLocaleDateString("en-US", {
-				weekday: "short", // "Sun"
 				month: "short", // "Nov"
 				day: "2-digit", // "05"
 				year: "numeric", // "2023"
@@ -66,7 +63,6 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 		set(() => ({
 			daily: daily.map((d) => ({
 				day: new Date(d.day).toLocaleDateString("en-US", {
-					weekday: "short", // "Sun"
 					month: "short", // "Nov"
 					day: "2-digit", // "05"
 					year: "numeric", // "2023"

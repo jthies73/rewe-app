@@ -74,12 +74,37 @@ const OverviewPage: React.FC = () => {
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.data) {
-					console.log("CHARTDATA: ", data.data);
+					console.log("CHARTDATA Daily: ", data.data);
 					chartDataStore.setDaily(data.data);
 				} else {
 					chartDataStore.setDaily([]);
 					throw new Error(
-						`No chartdata in payload: ${JSON.stringify(data)}`
+						`No daily chartdata in payload: ${JSON.stringify(data)}`
+					);
+				}
+			});
+
+		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((response) => {
+				if (response.status !== 200) {
+					console.error("Yearly Data fetching failed", response);
+					throw new Error("Yearly Data fetching failed");
+				} else return response;
+			})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.data) {
+					console.log("CHARTDATA Yearly: ", data.data);
+					chartDataStore.setYearly(data.data);
+				} else {
+					chartDataStore.setYearly([]);
+					throw new Error(
+						`No yearly chartdata in payload: ${JSON.stringify(data)}`
 					);
 				}
 			});
@@ -105,29 +130,6 @@ const OverviewPage: React.FC = () => {
 					throw new Error(
 						`No bills in payload: ${JSON.stringify(data)}`
 					);
-				}
-			});
-
-		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((response) => {
-				// throw error when status code is not 201
-				if (response.status !== 200) {
-					console.error("Yearly Data fetching failed", response);
-					throw new Error("Yearly Data fetching failed");
-				} else return response;
-			})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.data && data.data.length > 0) {
-					chartDataStore.setYearly(data.data);
-				} else {
-					chartDataStore.setYearly([]);
-					throw new Error("No data to display: ", data);
 				}
 			});
 	}, []);
@@ -159,7 +161,10 @@ const OverviewPage: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
-				<div>ChartData Count: {chartDataStore.daily.length}</div>
+				<div>ChartData Daily Count: {chartDataStore.daily.length}</div>
+				<div>
+					ChartData Yearly Count: {chartDataStore.yearly.length}
+				</div>
 				<BarChart
 					style={{ marginTop: 20 }}
 					width={chartWidth}
@@ -167,6 +172,21 @@ const OverviewPage: React.FC = () => {
 					data={chartDataStore.daily}
 				>
 					<XAxis dataKey="day" type="category" />
+					<YAxis dataKey="value" type="number" />
+					<Legend />
+					<Bar
+						dataKey="value"
+						fill="#8884d8"
+						name="total amount spent"
+					/>
+				</BarChart>
+				<BarChart
+					style={{ marginTop: 20 }}
+					width={chartWidth}
+					height={chartHeight}
+					data={chartDataStore.yearly}
+				>
+					<XAxis dataKey="year" type="category" />
 					<YAxis dataKey="value" type="number" />
 					<Legend />
 					<Bar

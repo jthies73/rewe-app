@@ -145,7 +145,7 @@ const RegisterPage: React.FC = () => {
 									<input
 										id="password1"
 										name="password1"
-										type="password1"
+										type="password"
 										autoComplete="current-password"
 										placeholder="Zufall"
 										// required
@@ -168,7 +168,7 @@ const RegisterPage: React.FC = () => {
 									<input
 										id="password2"
 										name="password2"
-										type="password2"
+										type="password"
 										autoComplete="current-password"
 										placeholder="Zufall"
 										// required
