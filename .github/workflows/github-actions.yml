@@ -5,9 +5,12 @@ jobs:
   Deploy-Rewe-App-Fe:
     runs-on: self-hosted
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - name: Cache node modules
+        uses: actions/cache@v3
         with:
-          node-version: latest
+          path: rewe-app-fe/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('rewe-app-fe/package-lock.json') }}
       - name: Lint & Test
         working-directory: ./rewe-app-fe
         run: |
@@ -24,8 +27,6 @@ jobs:
         run: |
           echo "Building rewe-app-fe image... 🏗"
           echo "REACT_APP_API_BASE_URL=$API_BASE_URL" >> .env
-          echo "REACT_APP_SUPABASE_URL=$SUPABASE_URL" >> .env
-          echo "REACT_APP_SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" >> .env
           docker build -t rewe-app-fe-image .
       - name: Deploy image
         working-directory: ./rewe-app-fe
@@ -37,7 +38,7 @@ jobs:
   Deploy-Rewe-App-Be:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Build image
         working-directory: ./rewe-app-be
         run: |

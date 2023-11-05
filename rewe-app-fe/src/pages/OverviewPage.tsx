@@ -18,16 +18,29 @@ import {
 	IonToolbar,
 } from "@ionic/react";
 import { add, camera, document as doc } from "ionicons/icons";
-import React, { useEffect, useRef, useState } from "react";
-import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
+import React, { useEffect, useRef } from "react";
+import {
+	Bar,
+	BarChart,
+	CartesianGrid,
+	Legend,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis,
+} from "recharts";
 
 import Bill from "../components/Bill";
-import { Expense } from "../model/expense";
-import { uploadPhoto, uploadPDF } from "../utils/api";
+import {
+	uploadPhoto,
+	uploadPDF,
+	fetchYearlyChartData,
+	fetchDailyChartData,
+	fetchBills,
+} from "../utils/api";
 import useAuthStore from "../zustand/authStore";
 import useBillStore from "../zustand/billStore";
 import useChartDataStore from "../zustand/chartDataStore";
-import useExpenseStore from "../zustand/expenseStore";
 
 async function takePhoto(direction: "rear" | "front") {
 	return await Camera.getPhoto({
@@ -44,81 +57,63 @@ const OverviewPage: React.FC = () => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const token = useAuthStore((state) => state.token);
+	const getUsername = useAuthStore((state) => state.getUsername);
 	const chartDataStore = useChartDataStore((state) => state);
-	const bills = useBillStore((state) => state.bills);
+	const billStore = useBillStore((state) => state);
 
 	const handleFileInputChange = async (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
 		const files = event.target.files;
 		if (files && files.length > 0) {
-			const expenses = await uploadPDF(files[0]);
-			useExpenseStore.getState().addExpenses(expenses);
+			const bill = await uploadPDF(files[0], token);
+			billStore.addBill(bill);
 		}
 	};
 
 	useEffect(() => {
-		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/daily", {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((response) => {
-				// throw error when status code is not 201
-				if (response.status !== 200) {
-					console.error("Daily Data fetching failed", response);
-					throw new Error("Daily Data fetching failed");
-				} else return response;
-			})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data && data.length > 0) {
-					chartDataStore.setDaily(data.data);
+		try {
+			fetchDailyChartData(token).then((data) => {
+				if (data) {
+					console.log("CHARTDATA Daily: ", data);
+					chartDataStore.setDaily(data);
 				} else {
 					chartDataStore.setDaily([]);
-					throw new Error("No data to display: ", data);
+					throw new Error(
+						`No daily chartdata in payload: ${JSON.stringify(data)}`
+					);
 				}
 			});
-
-		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((response) => {
-				// throw error when status code is not 201
-				if (response.status !== 200) {
-					console.error("Yearly Data fetching failed", response);
-					throw new Error("Yearly Data fetching failed");
-				} else return response;
-			})
-			.then((response) => response.json())
-			.then((data) => {
-				if (data && data.length > 0) {
-					chartDataStore.setYearly(data.data);
+			fetchYearlyChartData(token).then((data) => {
+				if (data) {
+					console.log("CHARTDATA Yearly: ", data);
+					chartDataStore.setYearly(data);
 				} else {
 					chartDataStore.setYearly([]);
-					throw new Error("No data to display: ", data);
+					throw new Error(
+						`No yearly chartdata in payload: ${JSON.stringify(
+							data
+						)}`
+					);
 				}
 			});
+			fetchBills(token).then((data) => {
+				if (data) {
+					console.log("BILLDATA: ", data);
+					billStore.addBills(data);
+				} else {
+					throw new Error(
+						`No bills in payload: ${JSON.stringify(data)}`
+					);
+				}
+			});
+		} catch (error) {
+			console.error(
+				"NetworkError when attempting to fetch resource.",
+				error
+			);
+		}
 	}, []);
-
-	// Update the chart dimensions on resize
-	// TODO: This is a hacky solution, find a better way to do this
-	const [chartHeight, setChartHeight] = useState(window.innerHeight / 4);
-	const [chartWidth, setChartWidth] = useState(
-		window.innerWidth - 20 - document.getElementById("menu")!.clientWidth
-	);
-	window.addEventListener("resize", () => {
-		setChartHeight(window.innerHeight / 4);
-		setChartWidth(
-			window.innerWidth -
-				20 -
-				document.getElementById("menu")!.clientWidth
-		);
-	});
 
 	return (
 		<IonPage>
@@ -132,36 +127,64 @@ const OverviewPage: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
-				<BarChart
-					style={{ marginTop: 20 }}
-					width={chartWidth}
-					height={chartHeight}
-					data={chartDataStore.daily}
-				>
-					<XAxis
-						dataKey="day"
-						type="number"
-						domain={["auto", "auto"]}
-					/>
-					<YAxis id={"1"} />
-					<YAxis id={"2"} />
-					<Tooltip />
-					<Legend />
-					<Bar dataKey={"total amount spent"} fill={"#8884d8"} />
-				</BarChart>
-				{bills.map((bill) => (
+				<div>ChartData Daily Count: {chartDataStore.daily.length}</div>
+				<div>
+					ChartData Yearly Count: {chartDataStore.yearly.length}
+				</div>
+				<ResponsiveContainer width={"100%"} height="30%">
+					<BarChart
+						style={{ marginTop: 20 }}
+						data={chartDataStore.daily}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="day" type="category" />
+						<YAxis dataKey="value" type="number" unit={" €"} />
+						<Legend />
+						<Tooltip contentStyle={{ color: "black" }} />
+						<Bar
+							dataKey="value"
+							fill="#e08428"
+							name="total amount spent"
+							unit={" €"}
+						/>
+					</BarChart>
+				</ResponsiveContainer>
+				<ResponsiveContainer width={"100%"} height="30%">
+					<BarChart
+						style={{ marginTop: 20 }}
+						data={chartDataStore.yearly}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="year" type="category" />
+						<YAxis dataKey="value" type="number" unit={" €"} />
+						<Legend />
+						<Tooltip contentStyle={{ color: "black" }} />
+						<Bar
+							dataKey="value"
+							fill="#1fc7bf"
+							name="total amount spent"
+							unit={" €"}
+						/>
+					</BarChart>
+				</ResponsiveContainer>
+
+				<div>Bill Count: {billStore.bills.length}</div>
+				{billStore.bills.map((bill) => (
 					<Bill
 						key={bill.id}
 						bill_id={bill.id}
 						expenses={bill.expenses}
 						total={bill.value}
 						storeName={"REWE"}
-						date={new Date(bill.date).toLocaleDateString("en-US", {
-							day: "2-digit",
-							month: "short",
-							year: "numeric",
-						})}
-						user_id={1}
+						date={new Date(bill.datetime).toLocaleDateString(
+							"en-US",
+							{
+								day: "2-digit",
+								month: "short",
+								year: "numeric",
+							}
+						)}
+						username={getUsername()}
 					/>
 				))}
 			</IonContent>
@@ -176,8 +199,8 @@ const OverviewPage: React.FC = () => {
 						onClick={async () => {
 							const photo = await takePhoto("front");
 							if (!photo) return;
-							const expenses = await uploadPhoto(photo);
-							useExpenseStore.getState().addExpenses(expenses);
+							const bill = await uploadPhoto(photo, token);
+							billStore.addBill(bill);
 						}}
 					>
 						<IonIcon icon={camera} />

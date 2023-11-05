@@ -8,7 +8,7 @@ import {
 	IonMenu,
 	IonMenuToggle,
 } from "@ionic/react";
-import { analytics, logOut, lockOpen } from "ionicons/icons";
+import { analytics, logOut } from "ionicons/icons";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
@@ -29,12 +29,6 @@ const appPages: AppPage[] = [
 		iosIcon: analytics,
 		mdIcon: analytics,
 	},
-	{
-		title: "Login",
-		url: "/auth",
-		iosIcon: lockOpen,
-		mdIcon: lockOpen,
-	},
 ];
 
 const Menu: React.FC = () => {
@@ -48,6 +42,23 @@ const Menu: React.FC = () => {
 				<IonList id="inbox-list" class="flex-1">
 					<IonListHeader className="mb-5">EWER App</IonListHeader>
 					<IonMenuToggle autoHide={false}>
+						{tokenStore.isAuthenticated() ? (
+							<IonItem>
+								<IonLabel>
+									{"Logged in as " +
+										tokenStore.getUsername() +
+										" until " +
+										tokenStore
+											.getExpiration()
+											.toLocaleString("en-US", {
+												month: "short",
+												day: "2-digit",
+											})}
+								</IonLabel>
+							</IonItem>
+						) : (
+							""
+						)}
 						{appPages.map((appPage, index) => {
 							return (
 								<IonItem

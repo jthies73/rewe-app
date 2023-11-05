@@ -134,7 +134,7 @@ def retrieve_daily_data(user: User):
         for dt in range(30):
             date = (start + datetime.timedelta(days=dt)).date()
             total = sum([b.value for b in bills if b.datetime.date() == date])
-            values.append(dict(date=str(date), value=total))
+            values.append(dict(day=str(date), value=total))
     return values
 
 

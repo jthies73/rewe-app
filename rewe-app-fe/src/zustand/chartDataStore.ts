@@ -1,10 +1,8 @@
 import { create } from "zustand";
 
-import { Expense } from "../model/expense";
-
 // Define the store state and actions
-interface CartDataStore {
-	daily: { day: Date; value: number }[];
+interface ChartDataStore {
+	daily: { day: string; value: number }[];
 	setDaily: (daily: { day: string; value: number }[]) => void;
 	monthly: { month: string; value: number }[];
 	setMonthly: (monthly: { month: string; value: number }[]) => void;
@@ -13,41 +11,17 @@ interface CartDataStore {
 }
 
 // Create the Zustand store
-const useChartDataStore = create<CartDataStore>((set) => ({
-	daily: [
-		{
-			day: new Date("2021-01-01"),
-			value: 11.11,
-		},
-		{
-			day: new Date("2021-01-02"),
-			value: 11.11,
-		},
-	],
-	monthly: [
-		{
-			month: "Jan",
-			value: 11.11,
-		},
-		{
-			month: "Feb",
-			value: 11.11,
-		},
-	],
-	yearly: [
-		{
-			year: "2020",
-			value: 11.11,
-		},
-		{
-			year: "2021",
-			value: 11.11,
-		},
-	],
+const useChartDataStore = create<ChartDataStore>((set) => ({
+	daily: [],
+	monthly: [],
+	yearly: [],
 	setDaily: (daily: { day: string; value: number }[]) =>
 		set(() => ({
 			daily: daily.map((d) => ({
-				day: new Date(d.day),
+				day: new Date(d.day).toLocaleDateString("en-US", {
+					month: "short", // "Nov"
+					day: "2-digit", // "05"
+				}),
 				value: d.value,
 			})),
 		})),

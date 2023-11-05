@@ -1,4 +1,4 @@
-import { IonContent, IonIcon, IonPage, IonRouterLink } from "@ionic/react";
+import { IonContent, IonIcon, IonPage, IonToast } from "@ionic/react";
 import { lockClosed } from "ionicons/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
@@ -13,6 +13,8 @@ const LoginPage: React.FC = () => {
 
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+
+	const [error, setError] = useState<string | undefined>(undefined);
 
 	const handleUsernameChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -43,9 +45,9 @@ const LoginPage: React.FC = () => {
 			}),
 		})
 			.then((response) => {
-				// throw error when status code is not 201
 				if (response.status !== 200) {
 					console.error("Login failed", response);
+					setError("Login failed");
 					throw new Error("Login failed");
 				} else return response;
 			})
@@ -59,19 +61,11 @@ const LoginPage: React.FC = () => {
 			})
 			.catch((error) => {
 				console.error("Error:", error);
-			})
+			});
 	};
 
 	return (
 		<IonPage>
-			{/* <IonHeader>
-				<IonToolbar>
-					<IonButtons slot="start">
-						<IonMenuButton />
-					</IonButtons>
-					<IonTitle>Login</IonTitle>
-				</IonToolbar>
-			</IonHeader> */}
 			<IonContent fullscreen>
 				<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 					<div className="flex flex-col items-center sm:mx-auto sm:w-full sm:max-w-sm">
@@ -104,7 +98,7 @@ const LoginPage: React.FC = () => {
 										type="username"
 										autoComplete="username"
 										placeholder="Rainer"
-										// required
+										required
 										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
 										onChange={handleUsernameChange}
 									/>
@@ -127,7 +121,7 @@ const LoginPage: React.FC = () => {
 										type="password"
 										autoComplete="current-password"
 										placeholder="Zufall"
-										// required
+										required
 										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
 										onChange={handlePasswordChange}
 									/>
@@ -155,6 +149,14 @@ const LoginPage: React.FC = () => {
 						</p>
 					</div>
 				</div>
+				<IonToast
+					onDidDismiss={() => setError(undefined)}
+					className="mb-10"
+					color={"danger"}
+					isOpen={!!error}
+					message={error}
+					duration={5000}
+				></IonToast>
 			</IonContent>
 		</IonPage>
 	);

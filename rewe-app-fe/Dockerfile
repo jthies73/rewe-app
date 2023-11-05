@@ -1,10 +1,11 @@
-FROM node:20-buster-slim as builder
+FROM node:18 as builder
 WORKDIR /app
+
 COPY . .
 RUN npm ci
-RUN npm run build
+RUN npm run build --prod
 
-FROM nginx:1.21.1-alpine
+FROM nginx:1.19.6-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/build /usr/share/nginx/html
 RUN touch /var/run/nginx.pid

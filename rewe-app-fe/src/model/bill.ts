@@ -1,8 +1,8 @@
 import { Expense } from "./expense";
 
 export interface Bill {
-    id: number;
-    value: number;
-    date: string;
-    expenses: Expense[];
+	id: number;
+	value: number;
+	datetime: string;
+	expenses: Expense[];
 }

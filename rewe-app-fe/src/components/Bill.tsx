@@ -4,7 +4,7 @@ import { Expense } from "../model/expense";
 
 interface BillComponentProps {
 	bill_id: number;
-	user_id: number;
+	username: string;
 	date: string;
 	storeName: string;
 	total: number;
@@ -18,7 +18,7 @@ const BillComponent: React.FC<BillComponentProps> = ({
 	total,
 	storeName,
 	date,
-	user_id,
+	username,
 }) => {
 	return (
 		<div
@@ -51,7 +51,7 @@ const BillComponent: React.FC<BillComponentProps> = ({
 					marginTop: 5,
 				}}
 			>
-				Paid on {date.toString()} by user {user_id}
+				Paid on {date} by user {username}
 			</p>
 			<div style={{ height: "2px", backgroundColor: "#ddd" }}></div>
 			<ul style={{ listStyleType: "none", padding: "0" }}>

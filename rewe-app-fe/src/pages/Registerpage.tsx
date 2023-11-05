@@ -1,4 +1,4 @@
-import { IonContent, IonIcon, IonPage, IonRouterLink } from "@ionic/react";
+import { IonContent, IonIcon, IonPage, IonToast } from "@ionic/react";
 import { lockClosed } from "ionicons/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
@@ -14,6 +14,8 @@ const RegisterPage: React.FC = () => {
 	const [username, setUsername] = useState("");
 	const [password1, setPassword1] = useState("");
 	const [password2, setPassword2] = useState("");
+
+	const [error, setError] = useState<string | undefined>(undefined);
 
 	const handleUsernameChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -55,9 +57,9 @@ const RegisterPage: React.FC = () => {
 			}),
 		})
 			.then((response) => {
-				// throw error when status code is not 201
 				if (response.status !== 201) {
 					console.error("Registration failed", response);
+					setError("Registration failed");
 					throw new Error("Registration failed");
 				} else return response;
 			})
@@ -76,14 +78,6 @@ const RegisterPage: React.FC = () => {
 
 	return (
 		<IonPage>
-			{/* <IonHeader>
-				<IonToolbar>
-					<IonButtons slot="start">
-						<IonMenuButton />
-					</IonButtons>
-					<IonTitle>Login</IonTitle>
-				</IonToolbar>
-			</IonHeader> */}
 			<IonContent fullscreen>
 				<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 					<div className="flex flex-col items-center sm:mx-auto sm:w-full sm:max-w-sm">
@@ -116,7 +110,7 @@ const RegisterPage: React.FC = () => {
 										type="username"
 										autoComplete="username"
 										placeholder="Rainer"
-										// required
+										required
 										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
 										onChange={handleUsernameChange}
 									/>
@@ -136,10 +130,10 @@ const RegisterPage: React.FC = () => {
 									<input
 										id="password1"
 										name="password1"
-										type="password1"
+										type="password"
 										autoComplete="current-password"
 										placeholder="Zufall"
-										// required
+										required
 										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
 										onChange={handlePassword1Change}
 									/>
@@ -159,10 +153,10 @@ const RegisterPage: React.FC = () => {
 									<input
 										id="password2"
 										name="password2"
-										type="password2"
+										type="password"
 										autoComplete="current-password"
 										placeholder="Zufall"
-										// required
+										required
 										className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 p-3"
 										onChange={handlePassword2Change}
 									/>
@@ -190,6 +184,14 @@ const RegisterPage: React.FC = () => {
 						</p>
 					</div>
 				</div>
+				<IonToast
+					onDidDismiss={() => setError(undefined)}
+					className="mb-10"
+					color={"danger"}
+					isOpen={!!error}
+					message={error}
+					duration={5000}
+				></IonToast>
 			</IonContent>
 		</IonPage>
 	);

@@ -108,3 +108,6 @@ capacitor.config.json
 # Environment variables
 .env
 .env.*
+
+rewe-app-be/data
+rewe-app-be/tests
