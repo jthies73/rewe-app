@@ -1,6 +1,5 @@
 import { create } from "zustand";
 
-
 // Define the store state and actions
 interface ChartDataStore {
 	daily: { day: string; value: number }[];
@@ -13,49 +12,9 @@ interface ChartDataStore {
 
 // Create the Zustand store
 const useChartDataStore = create<ChartDataStore>((set) => ({
-	daily: [
-		{
-			day: new Date().toLocaleDateString("en-US", {
-				month: "short", // "Nov"
-				day: "2-digit", // "05"
-			}),
-			value: 10,
-		},
-		{
-			day: new Date().toLocaleDateString("en-US", {
-				month: "short", // "Nov"
-				day: "2-digit", // "05"
-			}),
-			value: 5,
-		},
-		{
-			day: new Date().toLocaleDateString("en-US", {
-				month: "short", // "Nov"
-				day: "2-digit", // "05"
-			}),
-			value: 5,
-		},
-	],
-	monthly: [
-		{
-			month: "Jan",
-			value: 3,
-		},
-		{
-			month: "Feb",
-			value: 25,
-		},
-	],
-	yearly: [
-		{
-			year: "2020",
-			value: 4932,
-		},
-		{
-			year: "2021",
-			value: 3598,
-		},
-	],
+	daily: [],
+	monthly: [],
+	yearly: [],
 	setDaily: (daily: { day: string; value: number }[]) =>
 		set(() => ({
 			daily: daily.map((d) => ({
