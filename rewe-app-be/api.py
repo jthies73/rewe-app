@@ -1,12 +1,16 @@
 import io
+import tempfile
 
+import cv2
 from fastapi import Body, Depends, FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 import auth
 import db
-import rewe_process
+import rewe_ebons
+import rewe_ocr
+from image_processing import preprocess_image
 
 app = FastAPI()
 # Configure CORS (Cross-Origin Resource Sharing) settings
@@ -98,8 +102,19 @@ async def get_yearly_data(request: Request):
 
 
 @app.post("/api/images", dependencies=[Depends(auth.authenticate)])
-async def process_upload_image(file: UploadFile = File(...)):
-    raise NotImplementedError("No image processing yet")
+async def process_upload_image(request: Request, file: UploadFile = File(...)):
+    contents = await file.read()
+    await file.close()
+    with tempfile.NamedTemporaryFile(mode="wb", delete=False) as tmp:
+        tmp.write(contents)
+        image = cv2.imread(tmp.name)
+        preprocessed_image = preprocess_image(image)
+        rewe_reader = rewe_ocr.ReweOcr(preprocessed_image)
+        ocr = rewe_reader.ocr()
+
+    user = await get_user_from_request(request)
+    bill_id = rewe_ebons.parse_rewe_ebon(ocr, user.id)
+    return db.jsonify_bill(bill_id=bill_id)
 
 
 @app.post("/api/pdfs", dependencies=[Depends(auth.authenticate)])
@@ -109,5 +124,6 @@ async def process_upload_pdf(request: Request, file: UploadFile = File(...)):
 
     user = await get_user_from_request(request)
     with io.BytesIO(contents) as fd:
-        bill_id = rewe_process.parse_rewe_ebon(fd, user.id)
+        text = rewe_ebons.extract_text(fd)
+    bill_id = rewe_ebons.parse_rewe_ebon(text, user.id)
     return db.jsonify_bill(bill_id=bill_id)

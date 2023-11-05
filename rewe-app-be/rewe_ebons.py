@@ -55,8 +55,7 @@ def __parse_rewe_ebon_text(text):
     return expenses, total
 
 
-def parse_rewe_ebon(ebon, user_id):
-    text = extract_text(ebon)
+def parse_rewe_ebon(text, user_id):
     expenses, total = __parse_rewe_ebon_text(text)
     bill = db.Bill(user_id=user_id, datetime=expenses[0].datetime, value=total)
     # We refresh ORM objects so that autoincremented values are accessible.
