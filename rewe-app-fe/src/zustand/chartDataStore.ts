@@ -44,7 +44,7 @@ const useChartDataStore = create<CartDataStore>((set) => ({
 			value: 11.11,
 		},
 	],
-	setDaily: (daily) =>
+	setDaily: (daily: { day: string; value: number }[]) =>
 		set(() => ({
 			daily: daily.map((d) => ({
 				day: new Date(d.day),

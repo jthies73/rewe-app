@@ -56,7 +56,7 @@ const BillComponent: React.FC<BillComponentProps> = ({
 			<div style={{ height: "2px", backgroundColor: "#ddd" }}></div>
 			<ul style={{ listStyleType: "none", padding: "0" }}>
 				{expenses.map((expense) => (
-					<li key={expense.expense_id} style={{}}>
+					<li key={expense.id} style={{}}>
 						<div>
 							<div
 								style={{

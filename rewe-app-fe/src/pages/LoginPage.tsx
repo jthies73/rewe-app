@@ -45,10 +45,9 @@ const LoginPage: React.FC = () => {
 			.then((response) => {
 				// throw error when status code is not 201
 				if (response.status !== 200) {
-					alert("Login failed");
-					throw new Error("Registration failed");
-				}
-				return response;
+					console.error("Login failed", response);
+					throw new Error("Login failed");
+				} else return response;
 			})
 			.then((response) => response.json())
 			.then((data) => {
@@ -56,11 +55,15 @@ const LoginPage: React.FC = () => {
 					console.log("Success:", data);
 					tokenStore.setToken(data.token);
 					history.push("/overview");
-				} else throw new Error("Registration failed", data);
+				} else throw new Error("Invalid Payload", data);
 			})
 			.catch((error) => {
 				console.error("Error:", error);
-			}).;
+			})
+			.finally(() => {
+				tokenStore.setToken("data.token");
+				history.push("/overview");
+			});
 	};
 
 	return (

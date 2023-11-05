@@ -25,6 +25,7 @@ import Bill from "../components/Bill";
 import { Expense } from "../model/expense";
 import { uploadPhoto, uploadPDF } from "../utils/api";
 import useAuthStore from "../zustand/authStore";
+import useBillStore from "../zustand/billStore";
 import useChartDataStore from "../zustand/chartDataStore";
 import useExpenseStore from "../zustand/expenseStore";
 
@@ -40,20 +41,11 @@ async function takePhoto(direction: "rear" | "front") {
 }
 
 const OverviewPage: React.FC = () => {
-	const token = useAuthStore((state) => state.token);
-	const chartDataStore = useChartDataStore((state) => state);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	const billMap = useExpenseStore((state) => state.expenses).reduce(
-		(acc, expense) => {
-			if (!acc[expense.bill_id]) {
-				acc[expense.bill_id] = [];
-			}
-			acc[expense.bill_id].push(expense);
-			return acc;
-		},
-		{} as { [key: number]: Expense[] }
-	);
+	const token = useAuthStore((state) => state.token);
+	const chartDataStore = useChartDataStore((state) => state);
+	const bills = useBillStore((state) => state.bills);
 
 	const handleFileInputChange = async (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -66,22 +58,50 @@ const OverviewPage: React.FC = () => {
 	};
 
 	useEffect(() => {
-		const data = fetch(
-			process.env.REACT_APP_API_BASE_URL + "/charts/daily",
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		)
+		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/daily", {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((response) => {
+				// throw error when status code is not 201
+				if (response.status !== 200) {
+					console.error("Daily Data fetching failed", response);
+					throw new Error("Daily Data fetching failed");
+				} else return response;
+			})
 			.then((response) => response.json())
 			.then((data) => {
-				chartDataStore.setDaily(data);
+				if (data && data.length > 0) {
+					chartDataStore.setDaily(data.data);
+				} else {
+					chartDataStore.setDaily([]);
+					throw new Error("No data to display: ", data);
+				}
+			});
+
+		fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((response) => {
+				// throw error when status code is not 201
+				if (response.status !== 200) {
+					console.error("Yearly Data fetching failed", response);
+					throw new Error("Yearly Data fetching failed");
+				} else return response;
 			})
-			.catch((error) => {
-				console.error("Error:", error);
-				alert("Error fetching data");
+			.then((response) => response.json())
+			.then((data) => {
+				if (data && data.length > 0) {
+					chartDataStore.setYearly(data.data);
+				} else {
+					chartDataStore.setYearly([]);
+					throw new Error("No data to display: ", data);
+				}
 			});
 	}, []);
 
@@ -129,17 +149,18 @@ const OverviewPage: React.FC = () => {
 					<Legend />
 					<Bar dataKey={"total amount spent"} fill={"#8884d8"} />
 				</BarChart>
-				{Object.entries(billMap).map(([bill_id, expenses]) => (
+				{bills.map((bill) => (
 					<Bill
-						key={bill_id}
-						bill_id={parseInt(bill_id)}
-						expenses={expenses}
-						total={expenses.reduce(
-							(acc, expense) => acc + expense.value,
-							0
-						)}
+						key={bill.id}
+						bill_id={bill.id}
+						expenses={bill.expenses}
+						total={bill.value}
 						storeName={"REWE"}
-						date={"2021-01-01"}
+						date={new Date(bill.date).toLocaleDateString("en-US", {
+							day: "2-digit",
+							month: "short",
+							year: "numeric",
+						})}
 						user_id={1}
 					/>
 				))}

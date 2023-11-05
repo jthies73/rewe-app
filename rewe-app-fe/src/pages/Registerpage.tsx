@@ -4,10 +4,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
-
-
 import useAuthStore from "../zustand/authStore";
-
 
 const RegisterPage: React.FC = () => {
 	const tokenStore = useAuthStore((state) => state);
@@ -60,10 +57,9 @@ const RegisterPage: React.FC = () => {
 			.then((response) => {
 				// throw error when status code is not 201
 				if (response.status !== 201) {
-					alert("Registration failed");
+					console.error("Registration failed", response);
 					throw new Error("Registration failed");
-				}
-				return response;
+				} else return response;
 			})
 			.then((response) => response.json())
 			.then((data) => {
@@ -71,7 +67,7 @@ const RegisterPage: React.FC = () => {
 					console.log("Success:", data);
 					tokenStore.setToken(data.token);
 					history.push("/overview");
-				} else throw new Error("Registration failed", data);
+				} else throw new Error("Invalid Payload", data);
 			})
 			.catch((error) => {
 				console.error("Error:", error);
