@@ -1,5 +1,6 @@
 import math
 import re
+import typing
 
 from pdfminer.high_level import extract_text
 from sqlalchemy.orm import Session
@@ -20,7 +21,7 @@ def __atof(x: str):
     return float(x.replace(",", "."))
 
 
-def __parse_rewe_ebon_text(text):
+def __parse_rewe_ebon_text(text: str):
     expense = None
     expenses = []
     for line in text.split("\n"):
@@ -55,12 +56,18 @@ def __parse_rewe_ebon_text(text):
     return expenses, total
 
 
-def parse_rewe_ebon(ebon, user_id):
+def parse_rewe_ebon(ebon: typing.IO, user_id: int) -> int:
     text = extract_text(ebon)
     expenses, total = __parse_rewe_ebon_text(text)
-    bill = db.Bill(user_id=user_id, datetime=expenses[0].datetime, value=total)
+    bill_datetime = expenses[0].datetime
     # We refresh ORM objects so that autoincremented values are accessible.
     with Session(db.engine) as session:
+        query = session.query(db.Bill).filter(db.Bill.datetime == bill_datetime)
+        bill = query.first()
+        if bill is not None:
+            print(f"Bill already exists (id={bill.id})")
+            return bill.id
+        bill = db.Bill(user_id=user_id, datetime=bill_datetime, value=total)
         session.add(bill)
         session.flush()
         session.refresh(bill)

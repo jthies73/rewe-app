@@ -57,20 +57,13 @@ async def register(user_data: dict = Body(...)):
     return JSONResponse(content=dict(token=token), status_code=201)
 
 
-@app.post("/api/db/create", dependencies=[Depends(auth.authenticate)])
-async def create_db(request: Request):
-    user = await get_user_from_request(request)
-    if user.name not in ["zzo", "jthies"]:
-        raise HTTPException(status_code=401)
-    db.create_database()
-
-
 @app.post("/api/db/clean", dependencies=[Depends(auth.authenticate)])
 async def clean_db(request: Request):
     user = await get_user_from_request(request)
     if user.name not in ["zzo", "jthies"]:
         raise HTTPException(status_code=401)
     db.clean()
+    db.create_database()
 
 
 @app.get("/api/bills", dependencies=[Depends(auth.authenticate)])
