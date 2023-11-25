@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 import db
 
-PRODUCT_PATTERN = r"^([\w\s\!\.\-/,%&]+?)\s+(\-?\d+,\d+) \w\s*[\*]*$"
+PRODUCT_PATTERN = r"^(.+?)\s+(\-?\d+,\d+) \w\s*[\*]*$"
 WEIGHT_PATTERN = r"\s+(\d+,\d+) kg x\s+(\d+,\d+) EUR/kg"
 WEIGHT_BUTCHER_PATTERN = r"\s*Handeingabe E-Bon\s*([\d,]+) kg"
 AMOUNT_PATTERN = r"\s+(\d+) Stk x\s+(\d+,\d+)"
