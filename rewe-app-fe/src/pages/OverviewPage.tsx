@@ -74,15 +74,17 @@ const OverviewPage: React.FC = () => {
 		}
 	};
 
+	const currentYear = new Date().toLocaleString("en-US", { year: "numeric" });
 	// current month and year as string based on current date
 	const [dailyMonth, setDailyMonth] = React.useState(
 		new Date().toLocaleString("en-US", { month: "2-digit" })
 	);
-	const [dailyYear, setDailyYear] = React.useState(
-		new Date().toLocaleString("en-US", { year: "numeric" })
-	);
-	const [monthlyYear, setMonthlyYear] = React.useState(
-		new Date().toLocaleString("en-US", { year: "numeric" })
+	const [dailyYear, setDailyYear] = React.useState(currentYear);
+	const [monthlyYear, setMonthlyYear] = React.useState(currentYear);
+
+	const years = Array.from(
+		{ length: 11 },
+		(_, i) => parseInt(currentYear) - 5 + i + ""
 	);
 
 	useEffect(() => {
@@ -199,12 +201,11 @@ const OverviewPage: React.FC = () => {
 							placeholder="Select Year"
 							onIonChange={(e) => setDailyYear(e.detail.value)}
 						>
-							<IonSelectOption value="2020">2020</IonSelectOption>
-							<IonSelectOption value="2021">2021</IonSelectOption>
-							<IonSelectOption value="2022">2022</IonSelectOption>
-							<IonSelectOption value="2023">2023</IonSelectOption>
-							<IonSelectOption value="2024">2024</IonSelectOption>
-							<IonSelectOption value="2025">2025</IonSelectOption>
+							{years.map((year) => (
+								<IonSelectOption key={year} value={year}>
+									{year}
+								</IonSelectOption>
+							))}
 						</IonSelect>
 					</div>
 					<div className="flex-1"></div>
@@ -233,12 +234,11 @@ const OverviewPage: React.FC = () => {
 					placeholder="Select Year"
 					onIonChange={(e) => setMonthlyYear(e.detail.value)}
 				>
-					<IonSelectOption value="2020">2020</IonSelectOption>
-					<IonSelectOption value="2021">2021</IonSelectOption>
-					<IonSelectOption value="2022">2022</IonSelectOption>
-					<IonSelectOption value="2023">2023</IonSelectOption>
-					<IonSelectOption value="2024">2024</IonSelectOption>
-					<IonSelectOption value="2025">2025</IonSelectOption>
+					{years.map((year) => (
+						<IonSelectOption key={year} value={year}>
+							{year}
+						</IonSelectOption>
+					))}
 				</IonSelect>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
