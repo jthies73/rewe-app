@@ -15,6 +15,7 @@ import {
 	IonMenuButton,
 	IonPage,
 	IonSelect,
+	IonSelectOption,
 	IonTitle,
 	IonToolbar,
 } from "@ionic/react";
@@ -148,37 +149,57 @@ const OverviewPage: React.FC = () => {
 			<IonContent>
 				<div>ChartData Daily Count: {chartDataStore.daily.length}</div>
 				<div>
+					ChartData Monthly Count: {chartDataStore.monthly.length}
+				</div>
+				<div>
 					ChartData Yearly Count: {chartDataStore.yearly.length}
 				</div>
 				{/* Dropdown for selecting month and year */}
-				<IonSelect
-					placeholder="Select Month"
-					onIonChange={(e) => setDailyMonth(e.detail.value)}
-				>
-					<option value="01">January</option>
-					<option value="02">February</option>
-					<option value="03">March</option>
-					<option value="04">April</option>
-					<option value="05">May</option>
-					<option value="06">June</option>
-					<option value="07">July</option>
-					<option value="08">August</option>
-					<option value="09">September</option>
-					<option value="10">October</option>
-					<option value="11">November</option>
-					<option value="12">December</option>
-				</IonSelect>
-				<IonSelect
-					placeholder="Select Year"
-					onIonChange={(e) => setDailyYear(e.detail.value)}
-				>
-					<option value="2020">2020</option>
-					<option value="2021">2021</option>
-					<option value="2022">2022</option>
-					<option value="2023">2023</option>
-					<option value="2024">2024</option>
-					<option value="2025">2025</option>
-				</IonSelect>
+				<div className="flex flex-row justify-start">
+					<div className="flex flex-row justify-start space-x-4">
+						<IonSelect
+							placeholder="Select Month"
+							onIonChange={(e) => setDailyMonth(e.detail.value)}
+						>
+							<IonSelectOption value="01">
+								January
+							</IonSelectOption>
+							<IonSelectOption value="02">
+								February
+							</IonSelectOption>
+							<IonSelectOption value="03">March</IonSelectOption>
+							<IonSelectOption value="04">April</IonSelectOption>
+							<IonSelectOption value="05">May</IonSelectOption>
+							<IonSelectOption value="06">June</IonSelectOption>
+							<IonSelectOption value="07">July</IonSelectOption>
+							<IonSelectOption value="08">August</IonSelectOption>
+							<IonSelectOption value="09">
+								September
+							</IonSelectOption>
+							<IonSelectOption value="10">
+								October
+							</IonSelectOption>
+							<IonSelectOption value="11">
+								November
+							</IonSelectOption>
+							<IonSelectOption value="12">
+								December
+							</IonSelectOption>
+						</IonSelect>
+						<IonSelect
+							placeholder="Select Year"
+							onIonChange={(e) => setDailyYear(e.detail.value)}
+						>
+							<IonSelectOption value="2020">2020</IonSelectOption>
+							<IonSelectOption value="2021">2021</IonSelectOption>
+							<IonSelectOption value="2022">2022</IonSelectOption>
+							<IonSelectOption value="2023">2023</IonSelectOption>
+							<IonSelectOption value="2024">2024</IonSelectOption>
+							<IonSelectOption value="2025">2025</IonSelectOption>
+						</IonSelect>
+					</div>
+					<div className="flex-1"></div>
+				</div>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
 						style={{ marginTop: 20 }}
@@ -202,12 +223,12 @@ const OverviewPage: React.FC = () => {
 					placeholder="Select Year"
 					onIonChange={(e) => setMonthlyYear(e.detail.value)}
 				>
-					<option value="2020">2020</option>
-					<option value="2021">2021</option>
-					<option value="2022">2022</option>
-					<option value="2023">2023</option>
-					<option value="2024">2024</option>
-					<option value="2025">2025</option>
+					<IonSelectOption value="2020">2020</IonSelectOption>
+					<IonSelectOption value="2021">2021</IonSelectOption>
+					<IonSelectOption value="2022">2022</IonSelectOption>
+					<IonSelectOption value="2023">2023</IonSelectOption>
+					<IonSelectOption value="2024">2024</IonSelectOption>
+					<IonSelectOption value="2025">2025</IonSelectOption>
 				</IonSelect>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
