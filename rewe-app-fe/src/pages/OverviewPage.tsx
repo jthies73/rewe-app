@@ -14,6 +14,7 @@ import {
 	IonIcon,
 	IonMenuButton,
 	IonPage,
+	IonSelect,
 	IonTitle,
 	IonToolbar,
 } from "@ionic/react";
@@ -35,6 +36,7 @@ import {
 	uploadPhoto,
 	uploadPDF,
 	fetchYearlyChartData,
+	fetchMonthyChartData,
 	fetchDailyChartData,
 	fetchBills,
 } from "../utils/api";
@@ -71,9 +73,13 @@ const OverviewPage: React.FC = () => {
 		}
 	};
 
+	const [dailyMonth, setDailyMonth] = React.useState("06");
+	const [dailyYear, setDailyYear] = React.useState("2024");
+	const [monthlyYear, setMonthlyYear] = React.useState("2024");
+
 	useEffect(() => {
 		try {
-			fetchDailyChartData(token).then((data) => {
+			fetchDailyChartData(token, dailyMonth, dailyYear).then((data) => {
 				if (data) {
 					console.log("CHARTDATA Daily: ", data);
 					chartDataStore.setDaily(data);
@@ -81,6 +87,19 @@ const OverviewPage: React.FC = () => {
 					chartDataStore.setDaily([]);
 					throw new Error(
 						`No daily chartdata in payload: ${JSON.stringify(data)}`
+					);
+				}
+			});
+			fetchMonthyChartData(token, monthlyYear).then((data) => {
+				if (data) {
+					console.log("CHARTDATA Monthly: ", data);
+					chartDataStore.setMonthly(data);
+				} else {
+					chartDataStore.setMonthly([]);
+					throw new Error(
+						`No monthly chartdata in payload: ${JSON.stringify(
+							data
+						)}`
 					);
 				}
 			});
@@ -113,7 +132,7 @@ const OverviewPage: React.FC = () => {
 				error
 			);
 		}
-	}, []);
+	}, [dailyMonth, dailyYear, monthlyYear]);
 
 	return (
 		<IonPage>
@@ -131,6 +150,35 @@ const OverviewPage: React.FC = () => {
 				<div>
 					ChartData Yearly Count: {chartDataStore.yearly.length}
 				</div>
+				{/* Dropdown for selecting month and year */}
+				<IonSelect
+					placeholder="Select Month"
+					onIonChange={(e) => setDailyMonth(e.detail.value)}
+				>
+					<option value="01">January</option>
+					<option value="02">February</option>
+					<option value="03">March</option>
+					<option value="04">April</option>
+					<option value="05">May</option>
+					<option value="06">June</option>
+					<option value="07">July</option>
+					<option value="08">August</option>
+					<option value="09">September</option>
+					<option value="10">October</option>
+					<option value="11">November</option>
+					<option value="12">December</option>
+				</IonSelect>
+				<IonSelect
+					placeholder="Select Year"
+					onIonChange={(e) => setDailyYear(e.detail.value)}
+				>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+					<option value="2024">2024</option>
+					<option value="2025">2025</option>
+				</IonSelect>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
 						style={{ marginTop: 20 }}
@@ -138,6 +186,36 @@ const OverviewPage: React.FC = () => {
 					>
 						<CartesianGrid strokeDasharray="3 3" />
 						<XAxis dataKey="day" type="category" />
+						<YAxis dataKey="value" type="number" unit={" €"} />
+						<Legend />
+						<Tooltip contentStyle={{ color: "black" }} />
+						<Bar
+							dataKey="value"
+							fill="#e08428"
+							name="total amount spent"
+							unit={" €"}
+						/>
+					</BarChart>
+				</ResponsiveContainer>
+				{/* Dropdown for selecting year */}
+				<IonSelect
+					placeholder="Select Year"
+					onIonChange={(e) => setMonthlyYear(e.detail.value)}
+				>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+					<option value="2024">2024</option>
+					<option value="2025">2025</option>
+				</IonSelect>
+				<ResponsiveContainer width={"100%"} height="30%">
+					<BarChart
+						style={{ marginTop: 20 }}
+						data={chartDataStore.monthly}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="month" type="category" />
 						<YAxis dataKey="value" type="number" unit={" €"} />
 						<Legend />
 						<Tooltip contentStyle={{ color: "black" }} />
