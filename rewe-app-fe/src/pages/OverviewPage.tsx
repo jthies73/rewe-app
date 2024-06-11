@@ -74,9 +74,16 @@ const OverviewPage: React.FC = () => {
 		}
 	};
 
-	const [dailyMonth, setDailyMonth] = React.useState("06");
-	const [dailyYear, setDailyYear] = React.useState("2024");
-	const [monthlyYear, setMonthlyYear] = React.useState("2024");
+	// current month and year as string based on current date
+	const [dailyMonth, setDailyMonth] = React.useState(
+		new Date().toLocaleString("en-US", { month: "2-digit" })
+	);
+	const [dailyYear, setDailyYear] = React.useState(
+		new Date().toLocaleString("en-US", { year: "numeric" })
+	);
+	const [monthlyYear, setMonthlyYear] = React.useState(
+		new Date().toLocaleString("en-US", { year: "numeric" })
+	);
 
 	useEffect(() => {
 		try {
@@ -158,6 +165,7 @@ const OverviewPage: React.FC = () => {
 				<div className="flex flex-row justify-start">
 					<div className="flex flex-row justify-start space-x-4">
 						<IonSelect
+							value={dailyMonth}
 							placeholder="Select Month"
 							onIonChange={(e) => setDailyMonth(e.detail.value)}
 						>
@@ -187,6 +195,7 @@ const OverviewPage: React.FC = () => {
 							</IonSelectOption>
 						</IonSelect>
 						<IonSelect
+							value={dailyYear}
 							placeholder="Select Year"
 							onIonChange={(e) => setDailyYear(e.detail.value)}
 						>
@@ -220,6 +229,7 @@ const OverviewPage: React.FC = () => {
 				</ResponsiveContainer>
 				{/* Dropdown for selecting year */}
 				<IonSelect
+					value={monthlyYear}
 					placeholder="Select Year"
 					onIonChange={(e) => setMonthlyYear(e.detail.value)}
 				>
