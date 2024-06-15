@@ -35,19 +35,3 @@ jobs:
           ls -al
           docker stop rewe-app-fe || true && docker rm rewe-app-fe || true
           docker run -d --net rewe-net --ip 172.41.0.21 --name rewe-app-fe rewe-app-fe-image
-  Deploy-Rewe-App-Be:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build image
-        working-directory: ./rewe-app-be
-        run: |
-          echo "Building rewe-app-be image... 🏗"
-          echo "JWT_SECRET=$JWT_SECRET" >> .env
-          docker build -t rewe-app-be-image .
-      - name: Deploy image
-        working-directory: ./rewe-app-be
-        run: |
-          echo "Deploying rewe-app-be image 🚀"
-          docker stop rewe-app-be || true && docker rm rewe-app-be || true
-          docker run -d --net rewe-net --ip 172.41.0.20  -v rewe-be-data:/app/data/ --name rewe-app-be rewe-app-be-image
