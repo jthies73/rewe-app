@@ -150,45 +150,44 @@ const OverviewPage: React.FC = () => {
 			);
 		}
 
-		chartDataStore.setDaily({
-			timeData: [
-				["2024-01-02", 100],
-				["2024-01-03", 200],
-				["2024-01-04", 300],
-				["2024-01-05", 400],
-				["2024-01-06", 500],
-				["2024-01-07", 600],
-				["2024-01-08", 700],
-			],
-			productData: [],
-		});
-
-		chartDataStore.setMonthly({
-			timeData: [
-				["2024-01-02", 100],
-				["2024-01-03", 200],
-				["2024-01-04", 300],
-				["2024-01-05", 400],
-				["2024-01-06", 500],
-				["2024-01-07", 600],
-				["2024-01-08", 700],
-			],
-			productData: [],
-		});
-
-		chartDataStore.setYearly({
-			timeData: [
-				["2024-01-02", 100],
-				["2024-01-03", 200],
-				["2024-01-04", 300],
-				["2024-01-05", 400],
-				["2024-01-06", 500],
-				["2024-01-07", 600],
-				["2024-01-08", 700],
-			],
-			productData: [],
-		});
-		setShowModal(true);
+		// chartDataStore.setDaily({
+		// 	timeData: [
+		// 		["2024-01-02", 100],
+		// 		["2024-01-03", 200],
+		// 		["2024-01-04", 300],
+		// 		["2024-01-05", 400],
+		// 		["2024-01-06", 500],
+		// 		["2024-01-07", 600],
+		// 		["2024-01-08", 700],
+		// 	],
+		// 	productData: [],
+		// });
+		//
+		// chartDataStore.setMonthly({
+		// 	timeData: [
+		// 		["2024-01-02", 100],
+		// 		["2024-01-03", 200],
+		// 		["2024-01-04", 300],
+		// 		["2024-01-05", 400],
+		// 		["2024-01-06", 500],
+		// 		["2024-01-07", 600],
+		// 		["2024-01-08", 700],
+		// 	],
+		// 	productData: [],
+		// });
+		//
+		// chartDataStore.setYearly({
+		// 	timeData: [
+		// 		["2024-01-02", 100],
+		// 		["2024-01-03", 200],
+		// 		["2024-01-04", 300],
+		// 		["2024-01-05", 400],
+		// 		["2024-01-06", 500],
+		// 		["2024-01-07", 600],
+		// 		["2024-01-08", 700],
+		// 	],
+		// 	productData: [],
+		// });
 	}, [dailyMonth, dailyYear, monthlyYear]);
 
 	const [showModal, setShowModal] = React.useState(false);
@@ -265,8 +264,8 @@ const OverviewPage: React.FC = () => {
 						style={{ marginTop: 20 }}
 						data={
 							dailyIsChecked
-								? chartDataStore.daily.timeData
-								: chartDataStore.daily.productData
+								? chartDataStore.daily.productData
+								: chartDataStore.daily.timeData
 						}
 						onClick={(data) => {
 							const date = data?.activePayload?.[0]?.payload.date;
@@ -310,8 +309,8 @@ const OverviewPage: React.FC = () => {
 						style={{ marginTop: 20 }}
 						data={
 							monthlyIsChecked
-								? chartDataStore.monthly.timeData
-								: chartDataStore.monthly.productData
+								? chartDataStore.monthly.productData
+								: chartDataStore.monthly.timeData
 						}
 						onClick={(data) => {
 							const date = data?.activePayload?.[0]?.payload.date;
@@ -340,8 +339,8 @@ const OverviewPage: React.FC = () => {
 						style={{ marginTop: 20 }}
 						data={
 							yearlyIsChecked
-								? chartDataStore.yearly.timeData
-								: chartDataStore.yearly.productData
+								? chartDataStore.yearly.productData
+								: chartDataStore.yearly.timeData
 						}
 						onClick={(data) => {
 							const date = data?.activePayload?.[0]?.payload.date;
@@ -419,7 +418,7 @@ const OverviewPage: React.FC = () => {
 			{/* MODAL */}
 			<div
 				hidden={!showModal}
-				className="absolute h-full w-[50%] z-50"
+				className="absolute h-full z-50 xs:w-full"
 				style={{ backgroundColor: "black" }}
 				onClick={() => {
 					setShowModal(false);
