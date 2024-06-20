@@ -17,7 +17,7 @@ const useBillStore = create<BillStore>((set, get) => ({
 		// {
 		// 	id: 1,
 		// 	value: 10,
-		// 	datetime: "2024-01-05",
+		// 	datetime: "2024-01-05T21:56:00",
 		// 	expenses: [
 		// 		{
 		// 			id: 1,
@@ -42,7 +42,7 @@ const useBillStore = create<BillStore>((set, get) => ({
 		// {
 		// 	id: 2,
 		// 	value: 20,
-		// 	datetime: "2024-01-05",
+		// 	datetime: "2024-01-05T21:56:00",
 		// 	expenses: [
 		// 		{
 		// 			id: 4,
@@ -92,7 +92,7 @@ const useBillStore = create<BillStore>((set, get) => ({
 		// {
 		// 	id: 4,
 		// 	value: 40,
-		// 	datetime: "2024-01-05",
+		// 	datetime: "2024-01-05T21:56:00",
 		// 	expenses: [
 		// 		{
 		// 			id: 10,
@@ -134,7 +134,7 @@ const useBillStore = create<BillStore>((set, get) => ({
 		console.log("Bills cleared");
 	},
 	findBillsByDate: (date) => {
-		return get().bills.filter((b) => b.datetime === date);
+		return get().bills.filter((b) => b.datetime.startsWith(date));
 	},
 }));
 
