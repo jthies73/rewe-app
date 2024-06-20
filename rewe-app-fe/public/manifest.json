@@ -1,34 +1,41 @@
 {
-	"short_name": "Rewe App",
-	"name": "Rewe App",
-	"icons": [
-		{
-			"src": "assets/icon/favicon.ico",
-			"sizes": "16x16",
-			"type": "image/x-icon",
-			"purpose": "any maskable"
-		},
-		{
-			"src": "assets/icon/icon-256.png",
-			"sizes": "256x256",
-			"purpose": "any"
-		},
-		{
-			"src": "assets/icon/icon-512.png",
-			"sizes": "512x512",
-			"purpose": "any"
-		}
-	],
-	"start_url": "index.html",
-	"display": "standalone",
-	"theme_color": "#FFFFFF",
-	"background_color": "#FFFFFF",
-	"share_target": {
-		"action": "/share",
-		"params": {
-			"title": "title",
-			"text": "text",
-			"url": "url"
-		}
-	}
+  "short_name": "Rewe App",
+  "name": "Rewe App",
+  "icons": [
+    {
+      "src": "assets/icon/favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon/icon-256.png",
+      "sizes": "256x256",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon/icon-512.png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "share_target": {
+    "action": "/share",
+    "method": "post",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "file",
+          "accept": [
+            "application/pdf"
+          ]
+        }
+      ]
+    }
+  }
 }
