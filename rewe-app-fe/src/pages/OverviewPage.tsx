@@ -19,6 +19,7 @@ import {
 	IonSelect,
 	IonSelectOption,
 	IonTitle,
+	IonToggle,
 	IonToolbar,
 } from "@ionic/react";
 import { add, camera, document as doc } from "ionicons/icons";
@@ -97,7 +98,7 @@ const OverviewPage: React.FC = () => {
 					console.log("CHARTDATA Daily: ", data);
 					chartDataStore.setDaily(data);
 				} else {
-					chartDataStore.setDaily([]);
+					chartDataStore.setDaily({ timeData: [], productData: [] });
 					throw new Error(
 						`No daily chartdata in payload: ${JSON.stringify(data)}`
 					);
@@ -108,7 +109,10 @@ const OverviewPage: React.FC = () => {
 					console.log("CHARTDATA Monthly: ", data);
 					chartDataStore.setMonthly(data);
 				} else {
-					chartDataStore.setMonthly([]);
+					chartDataStore.setMonthly({
+						timeData: [],
+						productData: [],
+					});
 					throw new Error(
 						`No monthly chartdata in payload: ${JSON.stringify(
 							data
@@ -121,7 +125,7 @@ const OverviewPage: React.FC = () => {
 					console.log("CHARTDATA Yearly: ", data);
 					chartDataStore.setYearly(data);
 				} else {
-					chartDataStore.setYearly([]);
+					chartDataStore.setYearly({ timeData: [], productData: [] });
 					throw new Error(
 						`No yearly chartdata in payload: ${JSON.stringify(
 							data
@@ -146,38 +150,52 @@ const OverviewPage: React.FC = () => {
 			);
 		}
 
-		chartDataStore.setDaily([
-			{ x: "2024-01-02", y: 100 },
-			{ x: "2024-01-03", y: 200 },
-			{ x: "2024-01-04", y: 300 },
-			{ x: "2024-01-05", y: 400 },
-			{ x: "2024-01-06", y: 500 },
-			{ x: "2024-01-07", y: 600 },
-			{ x: "2024-01-08", y: 700 },
-		]);
-		chartDataStore.setMonthly([
-			{ x: "2024-01-02", y: 100 },
-			{ x: "2024-01-03", y: 200 },
-			{ x: "2024-01-04", y: 300 },
-			{ x: "2024-01-05", y: 400 },
-			{ x: "2024-01-06", y: 500 },
-			{ x: "2024-01-07", y: 600 },
-			{ x: "2024-01-08", y: 700 },
-		]);
-		chartDataStore.setYearly([
-			{ x: "2024-01-02", y: 100 },
-			{ x: "2024-01-03", y: 200 },
-			{ x: "2024-01-04", y: 300 },
-			{ x: "2024-01-05", y: 400 },
-			{ x: "2024-01-06", y: 500 },
-			{ x: "2024-01-07", y: 600 },
-			{ x: "2024-01-08", y: 700 },
-		]);
+		chartDataStore.setDaily({
+			timeData: [
+				["2024-01-02", 100],
+				["2024-01-03", 200],
+				["2024-01-04", 300],
+				["2024-01-05", 400],
+				["2024-01-06", 500],
+				["2024-01-07", 600],
+				["2024-01-08", 700],
+			],
+			productData: [],
+		});
+
+		chartDataStore.setMonthly({
+			timeData: [
+				["2024-01-02", 100],
+				["2024-01-03", 200],
+				["2024-01-04", 300],
+				["2024-01-05", 400],
+				["2024-01-06", 500],
+				["2024-01-07", 600],
+				["2024-01-08", 700],
+			],
+			productData: [],
+		});
+
+		chartDataStore.setYearly({
+			timeData: [
+				["2024-01-02", 100],
+				["2024-01-03", 200],
+				["2024-01-04", 300],
+				["2024-01-05", 400],
+				["2024-01-06", 500],
+				["2024-01-07", 600],
+				["2024-01-08", 700],
+			],
+			productData: [],
+		});
 		setShowModal(true);
 	}, [dailyMonth, dailyYear, monthlyYear]);
 
 	const [showModal, setShowModal] = React.useState(false);
 	const [billDetails, setBillDetails] = React.useState<BillType[]>([]);
+	const [dailyIsChecked, setDailyIsChecked] = React.useState(false);
+	const [monthlyIsChecked, setMonthlyIsChecked] = React.useState(false);
+	const [yearlyIsChecked, setYearlyIsChecked] = React.useState(false);
 
 	return (
 		<IonPage>
@@ -191,13 +209,6 @@ const OverviewPage: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
-				<div>ChartData Daily Count: {chartDataStore.daily.length}</div>
-				<div>
-					ChartData Monthly Count: {chartDataStore.monthly.length}
-				</div>
-				<div>
-					ChartData Yearly Count: {chartDataStore.yearly.length}
-				</div>
 				{/* Dropdown for selecting month and year */}
 				<div className="flex flex-row justify-start">
 					<div className="flex flex-row justify-start space-x-4">
@@ -245,10 +256,18 @@ const OverviewPage: React.FC = () => {
 					</div>
 					<div className="flex-1"></div>
 				</div>
+				<IonToggle
+					checked={dailyIsChecked}
+					onIonChange={(e) => setDailyIsChecked(e.detail.checked)}
+				/>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
 						style={{ marginTop: 20 }}
-						data={chartDataStore.daily}
+						data={
+							dailyIsChecked
+								? chartDataStore.daily.timeData
+								: chartDataStore.daily.productData
+						}
 						onClick={(data) => {
 							const date = data?.activePayload?.[0]?.payload.date;
 							if (date) {
@@ -282,10 +301,18 @@ const OverviewPage: React.FC = () => {
 						</IonSelectOption>
 					))}
 				</IonSelect>
+				<IonToggle
+					checked={monthlyIsChecked}
+					onIonChange={(e) => setMonthlyIsChecked(e.detail.checked)}
+				/>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
 						style={{ marginTop: 20 }}
-						data={chartDataStore.monthly}
+						data={
+							monthlyIsChecked
+								? chartDataStore.monthly.timeData
+								: chartDataStore.monthly.productData
+						}
 						onClick={(data) => {
 							const date = data?.activePayload?.[0]?.payload.date;
 							setDailyMonth(date?.slice(0, 7).split("-")[1]);
@@ -304,10 +331,18 @@ const OverviewPage: React.FC = () => {
 						/>
 					</BarChart>
 				</ResponsiveContainer>
+				<IonToggle
+					checked={yearlyIsChecked}
+					onIonChange={(e) => setYearlyIsChecked(e.detail.checked)}
+				/>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
 						style={{ marginTop: 20 }}
-						data={chartDataStore.yearly}
+						data={
+							yearlyIsChecked
+								? chartDataStore.yearly.timeData
+								: chartDataStore.yearly.productData
+						}
 						onClick={(data) => {
 							const date = data?.activePayload?.[0]?.payload.date;
 							setMonthlyYear(date?.slice(0, 4));
