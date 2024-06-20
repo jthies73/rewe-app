@@ -269,7 +269,7 @@ const OverviewPage: React.FC = () => {
 						<Tooltip contentStyle={{ color: "black" }} />
 						<Bar
 							dataKey="value"
-							fill="#e08428"
+							fill="#A1B091"
 							name="total amount spent"
 							unit={" €"}
 						/>
@@ -299,7 +299,7 @@ const OverviewPage: React.FC = () => {
 						<Tooltip contentStyle={{ color: "black" }} />
 						<Bar
 							dataKey="value"
-							fill="#e08428"
+							fill="#546459"
 							name="total amount spent"
 							unit={" €"}
 						/>
@@ -317,7 +317,7 @@ const OverviewPage: React.FC = () => {
 						<Tooltip contentStyle={{ color: "black" }} />
 						<Bar
 							dataKey="value"
-							fill="#1fc7bf"
+							fill="#5C4452"
 							name="total amount spent"
 							unit={" €"}
 						/>
@@ -344,7 +344,10 @@ const OverviewPage: React.FC = () => {
 					/>
 				))}
 
-				<IonModal isOpen={showModal}>
+				<IonModal
+					isOpen={showModal}
+					onDidDismiss={() => setShowModal(false)}
+				>
 					<div className={"p-4 overflow-auto"}>
 						<h1>Bill details </h1>
 						{billDetails.length === 0 ? (
