@@ -7,24 +7,24 @@ interface ChartDataStore {
 		productData: { name: string; value: number }[];
 	};
 	setDaily: (daily: {
-		timeData: [string, number][];
-		productData: any[];
+		time_data: [string, number][];
+		product_data: any[];
 	}) => void;
 	monthly: {
 		timeData: { month: string; value: number; date: string }[];
 		productData: { name: string; value: number }[];
 	};
 	setMonthly: (monthly: {
-		timeData: [string, number][];
-		productData: any[];
+		time_data: [string, number][];
+		product_data: any[];
 	}) => void;
 	yearly: {
 		timeData: { year: string; value: number; date: string }[];
 		productData: { name: string; value: number }[];
 	};
 	setYearly: (yearly: {
-		timeData: [string, number][];
-		productData: any[];
+		time_data: [string, number][];
+		product_data: any[];
 	}) => void;
 }
 
@@ -36,7 +36,7 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 	setDaily: (daily) => {
 		set(() => ({
 			daily: {
-				timeData: daily.timeData.map((d) => ({
+				timeData: daily.time_data.map((d) => ({
 					day: new Date(d[0]).toLocaleDateString("en-US", {
 						month: "short", // "Nov"
 						day: "2-digit", // "05"
@@ -44,7 +44,7 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 					date: d[0] as string,
 					value: d[1] as number,
 				})),
-				productData: daily.productData.map((p) => ({
+				productData: daily.product_data.map((p) => ({
 					name: p[0] as string,
 					value: p[1] as number,
 				})),
@@ -55,14 +55,14 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 	setMonthly: (monthly) => {
 		set(() => ({
 			monthly: {
-				timeData: monthly.timeData.map((m) => ({
+				timeData: monthly.time_data.map((m) => ({
 					month: new Date(m[0]).toLocaleDateString("en-US", {
 						month: "short", // "Nov"
 					}),
 					date: m[0] as string,
 					value: m[1] as number,
 				})),
-				productData: monthly.productData.map((p) => ({
+				productData: monthly.product_data.map((p) => ({
 					name: p[0] as string,
 					value: p[1] as number,
 				})),
@@ -73,14 +73,14 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 	setYearly: (yearly) => {
 		set(() => ({
 			yearly: {
-				timeData: yearly.timeData.map((y) => ({
+				timeData: yearly.time_data.map((y) => ({
 					year: new Date(y[0]).toLocaleDateString("en-US", {
 						year: "numeric", // "2021"
 					}),
 					date: y[0] as string,
 					value: y[1] as number,
 				})),
-				productData: yearly.productData.map((p) => ({
+				productData: yearly.product_data.map((p) => ({
 					name: p[0] as string,
 					value: p[1] as number,
 				})),

@@ -98,7 +98,10 @@ const OverviewPage: React.FC = () => {
 					console.log("CHARTDATA Daily: ", data);
 					chartDataStore.setDaily(data);
 				} else {
-					chartDataStore.setDaily({ timeData: [], productData: [] });
+					chartDataStore.setDaily({
+						time_data: [],
+						product_data: [],
+					});
 					throw new Error(
 						`No daily chartdata in payload: ${JSON.stringify(data)}`
 					);
@@ -110,8 +113,8 @@ const OverviewPage: React.FC = () => {
 					chartDataStore.setMonthly(data);
 				} else {
 					chartDataStore.setMonthly({
-						timeData: [],
-						productData: [],
+						time_data: [],
+						product_data: [],
 					});
 					throw new Error(
 						`No monthly chartdata in payload: ${JSON.stringify(
@@ -125,7 +128,10 @@ const OverviewPage: React.FC = () => {
 					console.log("CHARTDATA Yearly: ", data);
 					chartDataStore.setYearly(data);
 				} else {
-					chartDataStore.setYearly({ timeData: [], productData: [] });
+					chartDataStore.setYearly({
+						time_data: [],
+						product_data: [],
+					});
 					throw new Error(
 						`No yearly chartdata in payload: ${JSON.stringify(
 							data
@@ -151,7 +157,7 @@ const OverviewPage: React.FC = () => {
 		}
 
 		// chartDataStore.setDaily({
-		// 	timeData: [
+		// 	time_data: [
 		// 		["2024-01-02", 100],
 		// 		["2024-01-03", 200],
 		// 		["2024-01-04", 300],
@@ -160,11 +166,11 @@ const OverviewPage: React.FC = () => {
 		// 		["2024-01-07", 600],
 		// 		["2024-01-08", 700],
 		// 	],
-		// 	productData: [],
+		// 	product_data: [],
 		// });
 		//
 		// chartDataStore.setMonthly({
-		// 	timeData: [
+		// 	time_data: [
 		// 		["2024-01-02", 100],
 		// 		["2024-01-03", 200],
 		// 		["2024-01-04", 300],
@@ -173,11 +179,11 @@ const OverviewPage: React.FC = () => {
 		// 		["2024-01-07", 600],
 		// 		["2024-01-08", 700],
 		// 	],
-		// 	productData: [],
+		// 	product_data: [],
 		// });
 		//
 		// chartDataStore.setYearly({
-		// 	timeData: [
+		// 	time_data: [
 		// 		["2024-01-02", 100],
 		// 		["2024-01-03", 200],
 		// 		["2024-01-04", 300],
@@ -186,7 +192,7 @@ const OverviewPage: React.FC = () => {
 		// 		["2024-01-07", 600],
 		// 		["2024-01-08", 700],
 		// 	],
-		// 	productData: [],
+		// 	product_data: [],
 		// });
 	}, [dailyMonth, dailyYear, monthlyYear]);
 
