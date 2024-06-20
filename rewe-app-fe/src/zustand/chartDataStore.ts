@@ -15,7 +15,7 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 	daily: [],
 	monthly: [],
 	yearly: [],
-	setDaily: (daily) =>
+	setDaily: (daily) => {
 		set(() => ({
 			daily: daily.map((d) => ({
 				day: new Date(d.x).toLocaleDateString("en-US", {
@@ -25,8 +25,10 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 				date: d.x,
 				value: d.y,
 			})),
-		})),
-	setMonthly: (monthly) =>
+		}));
+		console.log("daily chart data set", daily);
+	},
+	setMonthly: (monthly) => {
 		set(() => ({
 			monthly: monthly.map((m) => ({
 				month: new Date(m.x).toLocaleDateString("en-US", {
@@ -35,8 +37,10 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 				date: m.x,
 				value: m.y,
 			})),
-		})),
-	setYearly: (yearly) =>
+		}));
+		console.log("monthly chart data set", monthly);
+	},
+	setYearly: (yearly) => {
 		set(() => ({
 			yearly: yearly.map((y) => ({
 				year: new Date(y.x).toLocaleDateString("en-US", {
@@ -45,7 +49,9 @@ const useChartDataStore = create<ChartDataStore>((set) => ({
 				date: y.x,
 				value: y.y,
 			})),
-		})),
+		}));
+		console.log("yearly chart data set", yearly);
+	},
 }));
 
 export default useChartDataStore;

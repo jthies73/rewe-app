@@ -119,16 +119,19 @@ const useBillStore = create<BillStore>((set, get) => ({
 		set((state) => ({
 			bills: [...state.bills, bill],
 		}));
+		console.log("Bill added", bill);
 	},
 	addBills: (bills) => {
 		set((state) => ({
 			bills: [...state.bills, ...bills],
 		}));
+		console.log("Bills added", bills);
 	},
 	clearBills: () => {
 		set(() => ({
 			bills: [],
 		}));
+		console.log("Bills cleared");
 	},
 	findBillsByDate: (date) => {
 		return get().bills.filter((b) => b.datetime === date);
