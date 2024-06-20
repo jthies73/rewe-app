@@ -146,41 +146,40 @@ const OverviewPage: React.FC = () => {
 			);
 		}
 
-		// chartDataStore.setDaily([
-		// 	{ x: "2024-01-02", y: 100 },
-		// 	{ x: "2024-01-03", y: 200 },
-		// 	{ x: "2024-01-04", y: 300 },
-		// 	{ x: "2024-01-05", y: 400 },
-		// 	{ x: "2024-01-06", y: 500 },
-		// 	{ x: "2024-01-07", y: 600 },
-		// 	{ x: "2024-01-08", y: 700 },
-		// ]);
-		// chartDataStore.setMonthly([
-		// 	{ x: "2024-01-02", y: 100 },
-		// 	{ x: "2024-01-03", y: 200 },
-		// 	{ x: "2024-01-04", y: 300 },
-		// 	{ x: "2024-01-05", y: 400 },
-		// 	{ x: "2024-01-06", y: 500 },
-		// 	{ x: "2024-01-07", y: 600 },
-		// 	{ x: "2024-01-08", y: 700 },
-		// ]);
-		// chartDataStore.setYearly([
-		// 	{ x: "2024-01-02", y: 100 },
-		// 	{ x: "2024-01-03", y: 200 },
-		// 	{ x: "2024-01-04", y: 300 },
-		// 	{ x: "2024-01-05", y: 400 },
-		// 	{ x: "2024-01-06", y: 500 },
-		// 	{ x: "2024-01-07", y: 600 },
-		// 	{ x: "2024-01-08", y: 700 },
-		// ]);
+		chartDataStore.setDaily([
+			{ x: "2024-01-02", y: 100 },
+			{ x: "2024-01-03", y: 200 },
+			{ x: "2024-01-04", y: 300 },
+			{ x: "2024-01-05", y: 400 },
+			{ x: "2024-01-06", y: 500 },
+			{ x: "2024-01-07", y: 600 },
+			{ x: "2024-01-08", y: 700 },
+		]);
+		chartDataStore.setMonthly([
+			{ x: "2024-01-02", y: 100 },
+			{ x: "2024-01-03", y: 200 },
+			{ x: "2024-01-04", y: 300 },
+			{ x: "2024-01-05", y: 400 },
+			{ x: "2024-01-06", y: 500 },
+			{ x: "2024-01-07", y: 600 },
+			{ x: "2024-01-08", y: 700 },
+		]);
+		chartDataStore.setYearly([
+			{ x: "2024-01-02", y: 100 },
+			{ x: "2024-01-03", y: 200 },
+			{ x: "2024-01-04", y: 300 },
+			{ x: "2024-01-05", y: 400 },
+			{ x: "2024-01-06", y: 500 },
+			{ x: "2024-01-07", y: 600 },
+			{ x: "2024-01-08", y: 700 },
+		]);
 	}, [dailyMonth, dailyYear, monthlyYear]);
 
 	const [showModal, setShowModal] = React.useState(false);
 	const [billDetails, setBillDetails] = React.useState<BillType[]>([]);
 
-	// console.log("Selected Day: ", selectedDay);
-	console.log("Bill Details: ", billDetails);
-	// console.log("2024-01-05: ", billStore.findBillsByDate("2024-01-05"));
+	const [selectedMonth, setSelectedMonth] = React.useState("");
+	const [selectedYear, setSelectedYear] = React.useState("");
 
 	return (
 		<IonPage>
@@ -253,7 +252,6 @@ const OverviewPage: React.FC = () => {
 						style={{ marginTop: 20 }}
 						data={chartDataStore.daily}
 						onClick={(data) => {
-							console.log(data?.activePayload?.[0]?.payload.date);
 							const date = data?.activePayload?.[0]?.payload.date;
 							if (date) {
 								setBillDetails(billStore.findBillsByDate(date));
@@ -290,6 +288,10 @@ const OverviewPage: React.FC = () => {
 					<BarChart
 						style={{ marginTop: 20 }}
 						data={chartDataStore.monthly}
+						onClick={(data) => {
+							const date = data?.activePayload?.[0]?.payload.date;
+							setDailyMonth(date?.slice(0, 7).split("-")[1]);
+						}}
 					>
 						<CartesianGrid strokeDasharray="3 3" />
 						<XAxis dataKey="month" type="category" />
@@ -308,6 +310,10 @@ const OverviewPage: React.FC = () => {
 					<BarChart
 						style={{ marginTop: 20 }}
 						data={chartDataStore.yearly}
+						onClick={(data) => {
+							const date = data?.activePayload?.[0]?.payload.date;
+							setMonthlyYear(date?.slice(0, 4));
+						}}
 					>
 						<CartesianGrid strokeDasharray="3 3" />
 						<XAxis dataKey="year" type="category" />
