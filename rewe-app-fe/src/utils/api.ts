@@ -6,7 +6,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
 
 export async function uploadPhoto(photo: Photo, token: string) {
 	try {
-		// Create a FormData object 
+		// Create a FormData object
 		const formData = new FormData();
 		const fileName = generateDateFileName(new Date()) + ".jpeg";
 
@@ -69,13 +69,21 @@ export async function uploadPDF(file: File, token: string) {
 	}
 }
 
-export async function fetchDailyChartData(token: string, month: string, year: string) {
-	return await fetch(process.env.REACT_APP_API_BASE_URL + `/charts/daily?month=${month}&year=${year}`, {
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${token}`,
-		},
-	})
+export async function fetchDailyChartData(
+	token: string,
+	month: string,
+	year: string
+) {
+	return await fetch(
+		process.env.REACT_APP_API_BASE_URL +
+			`/charts/daily?month=${month}&year=${year}`,
+		{
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	)
 		.then((response) => {
 			if (response.status !== 200) {
 				console.error("Daily Data fetching failed", response);
@@ -85,14 +93,16 @@ export async function fetchDailyChartData(token: string, month: string, year: st
 		.then((response) => response.json());
 }
 
-
 export async function fetchMonthyChartData(token: string, year: string) {
-	return await fetch(process.env.REACT_APP_API_BASE_URL + `/charts/monthly?year=${year}`, {
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${token}`,
-		},
-	})
+	return await fetch(
+		process.env.REACT_APP_API_BASE_URL + `/charts/monthly?year=${year}`,
+		{
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	)
 		.then((response) => {
 			if (response.status !== 200) {
 				console.error("Daily Data fetching failed", response);
@@ -103,7 +113,7 @@ export async function fetchMonthyChartData(token: string, year: string) {
 }
 
 export async function fetchYearlyChartData(token: string) {
-	return await fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", { 
+	return await fetch(process.env.REACT_APP_API_BASE_URL + "/charts/yearly", {
 		headers: {
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${token}`,
