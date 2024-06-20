@@ -5,6 +5,7 @@ import {
 	CameraSource,
 } from "@capacitor/camera";
 import {
+	IonButton,
 	IonButtons,
 	IonContent,
 	IonFab,
@@ -13,6 +14,7 @@ import {
 	IonHeader,
 	IonIcon,
 	IonMenuButton,
+	IonModal,
 	IonPage,
 	IonSelect,
 	IonSelectOption,
@@ -33,6 +35,7 @@ import {
 } from "recharts";
 
 import Bill from "../components/Bill";
+import { Bill as BillType } from "../model/bill";
 import {
 	uploadPhoto,
 	uploadPDF,
@@ -142,7 +145,43 @@ const OverviewPage: React.FC = () => {
 				error
 			);
 		}
+
+		// chartDataStore.setDaily([
+		// 	{ x: "2024-01-02", y: 100 },
+		// 	{ x: "2024-01-03", y: 200 },
+		// 	{ x: "2024-01-04", y: 300 },
+		// 	{ x: "2024-01-05", y: 400 },
+		// 	{ x: "2024-01-06", y: 500 },
+		// 	{ x: "2024-01-07", y: 600 },
+		// 	{ x: "2024-01-08", y: 700 },
+		// ]);
+		// chartDataStore.setMonthly([
+		// 	{ x: "2024-01-02", y: 100 },
+		// 	{ x: "2024-01-03", y: 200 },
+		// 	{ x: "2024-01-04", y: 300 },
+		// 	{ x: "2024-01-05", y: 400 },
+		// 	{ x: "2024-01-06", y: 500 },
+		// 	{ x: "2024-01-07", y: 600 },
+		// 	{ x: "2024-01-08", y: 700 },
+		// ]);
+		//
+		// chartDataStore.setYearly([
+		// 	{ x: "2024-01-02", y: 100 },
+		// 	{ x: "2024-01-03", y: 200 },
+		// 	{ x: "2024-01-04", y: 300 },
+		// 	{ x: "2024-01-05", y: 400 },
+		// 	{ x: "2024-01-06", y: 500 },
+		// 	{ x: "2024-01-07", y: 600 },
+		// 	{ x: "2024-01-08", y: 700 },
+		// ]);
 	}, [dailyMonth, dailyYear, monthlyYear]);
+
+	const [showModal, setShowModal] = React.useState(false);
+	const [billDetails, setBillDetails] = React.useState<BillType[]>([]);
+
+	// console.log("Selected Day: ", selectedDay);
+	console.log("Bill Details: ", billDetails);
+	// console.log("2024-01-05: ", billStore.findBillsByDate("2024-01-05"));
 
 	return (
 		<IonPage>
@@ -214,6 +253,14 @@ const OverviewPage: React.FC = () => {
 					<BarChart
 						style={{ marginTop: 20 }}
 						data={chartDataStore.daily}
+						onClick={(data) => {
+							console.log(data?.activePayload?.[0]?.payload.date);
+							const date = data?.activePayload?.[0]?.payload.date;
+							if (date) {
+								setBillDetails(billStore.findBillsByDate(date));
+								setShowModal(true);
+							}
+						}}
 					>
 						<CartesianGrid strokeDasharray="3 3" />
 						<XAxis dataKey="day" type="category" />
@@ -296,6 +343,41 @@ const OverviewPage: React.FC = () => {
 						username={getUsername()}
 					/>
 				))}
+
+				<IonModal isOpen={showModal}>
+					<div className={"p-4 overflow-auto"}>
+						<h1>Bill details </h1>
+						{billDetails.length === 0 ? (
+							<div>No bills found for selection</div>
+						) : null}
+						<IonButton onClick={() => setShowModal(false)}>
+							Close
+						</IonButton>
+
+						{billDetails.map((bill) => (
+							<Bill
+								key={bill.id}
+								bill_id={bill.id}
+								expenses={bill.expenses}
+								total={bill.value}
+								storeName={"REWE"}
+								date={new Date(
+									bill.datetime
+								).toLocaleDateString("en-US", {
+									day: "2-digit",
+									month: "short",
+									year: "numeric",
+								})}
+								username={getUsername()}
+							/>
+						))}
+						{billDetails.length > 0 ? (
+							<IonButton onClick={() => setShowModal(false)}>
+								Close
+							</IonButton>
+						) : null}
+					</div>
+				</IonModal>
 			</IonContent>
 
 			<IonFab vertical="bottom" horizontal="end">
