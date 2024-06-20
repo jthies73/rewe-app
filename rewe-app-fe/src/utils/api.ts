@@ -129,7 +129,7 @@ export async function fetchYearlyChartData(token: string) {
 }
 
 export async function fetchBills(token: string) {
-	return await fetch(process.env.REACT_APP_API_BASE_URL + "/bills?limit=-1", {
+	return await fetch(process.env.REACT_APP_API_BASE_URL + "/bills", {
 		headers: {
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${token}`,
