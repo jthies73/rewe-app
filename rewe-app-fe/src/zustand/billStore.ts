@@ -116,15 +116,32 @@ const useBillStore = create<BillStore>((set, get) => ({
 		// },
 	],
 	addBill: (bill) => {
-		set((state) => ({
-			bills: [...state.bills, bill],
-		}));
+		set((state) => {
+			if (
+				state.bills.some((existingBill) => existingBill.id === bill.id)
+			) {
+				console.log("Bill with the same id already exists");
+				return state;
+			} else {
+				return {
+					bills: [...state.bills, bill],
+				};
+			}
+		});
 		console.log("Bill added", bill);
 	},
 	addBills: (bills) => {
-		set((state) => ({
-			bills: [...state.bills, ...bills],
-		}));
+		set((state) => {
+			const newBills = bills.filter(
+				(bill) =>
+					!state.bills.some(
+						(existingBill) => existingBill.id === bill.id
+					)
+			);
+			return {
+				bills: [...state.bills, ...newBills],
+			};
+		});
 		console.log("Bills added", bills);
 	},
 	clearBills: () => {
