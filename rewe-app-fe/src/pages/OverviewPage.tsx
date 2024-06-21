@@ -5,6 +5,7 @@ import {
 	CameraSource,
 } from "@capacitor/camera";
 import {
+	IonButton,
 	IonButtons,
 	IonContent,
 	IonFab,
@@ -13,10 +14,12 @@ import {
 	IonHeader,
 	IonIcon,
 	IonMenuButton,
+	IonModal,
 	IonPage,
 	IonSelect,
 	IonSelectOption,
 	IonTitle,
+	IonToggle,
 	IonToolbar,
 } from "@ionic/react";
 import { add, camera, document as doc } from "ionicons/icons";
@@ -33,6 +36,7 @@ import {
 } from "recharts";
 
 import Bill from "../components/Bill";
+import { Bill as BillType } from "../model/bill";
 import {
 	uploadPhoto,
 	uploadPDF,
@@ -94,7 +98,10 @@ const OverviewPage: React.FC = () => {
 					console.log("CHARTDATA Daily: ", data);
 					chartDataStore.setDaily(data);
 				} else {
-					chartDataStore.setDaily([]);
+					chartDataStore.setDaily({
+						time_data: [],
+						product_data: [],
+					});
 					throw new Error(
 						`No daily chartdata in payload: ${JSON.stringify(data)}`
 					);
@@ -105,7 +112,10 @@ const OverviewPage: React.FC = () => {
 					console.log("CHARTDATA Monthly: ", data);
 					chartDataStore.setMonthly(data);
 				} else {
-					chartDataStore.setMonthly([]);
+					chartDataStore.setMonthly({
+						time_data: [],
+						product_data: [],
+					});
 					throw new Error(
 						`No monthly chartdata in payload: ${JSON.stringify(
 							data
@@ -118,7 +128,10 @@ const OverviewPage: React.FC = () => {
 					console.log("CHARTDATA Yearly: ", data);
 					chartDataStore.setYearly(data);
 				} else {
-					chartDataStore.setYearly([]);
+					chartDataStore.setYearly({
+						time_data: [],
+						product_data: [],
+					});
 					throw new Error(
 						`No yearly chartdata in payload: ${JSON.stringify(
 							data
@@ -142,7 +155,74 @@ const OverviewPage: React.FC = () => {
 				error
 			);
 		}
+
+		// chartDataStore.setDaily({
+		// 	time_data: [
+		// 		["2024-01-02", 100],
+		// 		["2024-01-03", 200],
+		// 		["2024-01-04", 300],
+		// 		["2024-01-05", 400],
+		// 		["2024-01-06", 500],
+		// 		["2024-01-07", 600],
+		// 		["2024-01-08", 700],
+		// 	],
+		// 	product_data: [
+		// 		["Milk", 100],
+		// 		["Bread", 200],
+		// 		["Butter", 300],
+		// 		["Eggs", 400],
+		// 		["Cheese", 500],
+		// 		["Yogurt", 600],
+		// 		["Fruit", 700],
+		// 	],
+		// });
+		// chartDataStore.setMonthly({
+		// 	time_data: [
+		// 		["2024-01-02", 100],
+		// 		["2024-01-03", 200],
+		// 		["2024-01-04", 300],
+		// 		["2024-01-05", 400],
+		// 		["2024-01-06", 500],
+		// 		["2024-01-07", 600],
+		// 		["2024-01-08", 700],
+		// 	],
+		// 	product_data: [
+		// 		["Milk", 100],
+		// 		["Bread", 200],
+		// 		["Butter", 300],
+		// 		["Eggs", 400],
+		// 		["Cheese", 500],
+		// 		["Yogurt", 600],
+		// 		["Fruit", 700],
+		// 	],
+		// });
+		// chartDataStore.setYearly({
+		// 	time_data: [
+		// 		["2024-01-02", 100],
+		// 		["2024-01-03", 200],
+		// 		["2024-01-04", 300],
+		// 		["2024-01-05", 400],
+		// 		["2024-01-06", 500],
+		// 		["2024-01-07", 600],
+		// 		["2024-01-08", 700],
+		// 	],
+		// 	product_data: [
+		// 		["Milk", 100],
+		// 		["Bread", 200],
+		// 		["Butter", 300],
+		// 		["Eggs", 400],
+		// 		["Cheese", 500],
+		// 		["Yogurt", 600],
+		// 		["Fruit", 700],
+		// 	],
+		// });
 	}, [dailyMonth, dailyYear, monthlyYear]);
+
+	const [showModal, setShowModal] = React.useState(false);
+	const [billDetails, setBillDetails] = React.useState<BillType[]>([]);
+	const [dailyIsChecked, setDailyIsChecked] = React.useState(false);
+	const [monthlyIsChecked, setMonthlyIsChecked] = React.useState(false);
+	const [yearlyIsChecked, setYearlyIsChecked] = React.useState(false);
 
 	return (
 		<IonPage>
@@ -156,13 +236,6 @@ const OverviewPage: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
-				<div>ChartData Daily Count: {chartDataStore.daily.length}</div>
-				<div>
-					ChartData Monthly Count: {chartDataStore.monthly.length}
-				</div>
-				<div>
-					ChartData Yearly Count: {chartDataStore.yearly.length}
-				</div>
 				{/* Dropdown for selecting month and year */}
 				<div className="flex flex-row justify-start">
 					<div className="flex flex-row justify-start space-x-4">
@@ -210,19 +283,38 @@ const OverviewPage: React.FC = () => {
 					</div>
 					<div className="flex-1"></div>
 				</div>
+				<IonToggle
+					checked={dailyIsChecked}
+					onIonChange={(e) => setDailyIsChecked(e.detail.checked)}
+				/>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
 						style={{ marginTop: 20 }}
-						data={chartDataStore.daily}
+						data={
+							dailyIsChecked
+								? chartDataStore.daily.productData
+								: chartDataStore.daily.timeData
+						}
+						onClick={(data) => {
+							const date = data?.activePayload?.[0]?.payload.date;
+							if (date) {
+								setBillDetails(billStore.findBillsByDate(date));
+								setShowModal(true);
+							}
+						}}
 					>
 						<CartesianGrid strokeDasharray="3 3" />
-						<XAxis dataKey="day" type="category" />
+						{dailyIsChecked ? (
+							<XAxis dataKey="name" type="category" />
+						) : (
+							<XAxis dataKey="day" type="category" />
+						)}
 						<YAxis dataKey="value" type="number" unit={" €"} />
 						<Legend />
 						<Tooltip contentStyle={{ color: "black" }} />
 						<Bar
 							dataKey="value"
-							fill="#e08428"
+							fill="#A1B091"
 							name="total amount spent"
 							unit={" €"}
 						/>
@@ -240,37 +332,69 @@ const OverviewPage: React.FC = () => {
 						</IonSelectOption>
 					))}
 				</IonSelect>
+				<IonToggle
+					checked={monthlyIsChecked}
+					onIonChange={(e) => setMonthlyIsChecked(e.detail.checked)}
+				/>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
 						style={{ marginTop: 20 }}
-						data={chartDataStore.monthly}
+						data={
+							monthlyIsChecked
+								? chartDataStore.monthly.productData
+								: chartDataStore.monthly.timeData
+						}
+						onClick={(data) => {
+							const date = data?.activePayload?.[0]?.payload.date;
+							setDailyMonth(date?.slice(0, 7).split("-")[1]);
+						}}
 					>
 						<CartesianGrid strokeDasharray="3 3" />
-						<XAxis dataKey="month" type="category" />
+						{monthlyIsChecked ? (
+							<XAxis dataKey="name" type="category" />
+						) : (
+							<XAxis dataKey="month" type="category" />
+						)}
 						<YAxis dataKey="value" type="number" unit={" €"} />
 						<Legend />
 						<Tooltip contentStyle={{ color: "black" }} />
 						<Bar
 							dataKey="value"
-							fill="#e08428"
+							fill="#546459"
 							name="total amount spent"
 							unit={" €"}
 						/>
 					</BarChart>
 				</ResponsiveContainer>
+				<IonToggle
+					checked={yearlyIsChecked}
+					onIonChange={(e) => setYearlyIsChecked(e.detail.checked)}
+				/>
 				<ResponsiveContainer width={"100%"} height="30%">
 					<BarChart
 						style={{ marginTop: 20 }}
-						data={chartDataStore.yearly}
+						data={
+							yearlyIsChecked
+								? chartDataStore.yearly.productData
+								: chartDataStore.yearly.timeData
+						}
+						onClick={(data) => {
+							const date = data?.activePayload?.[0]?.payload.date;
+							setMonthlyYear(date?.slice(0, 4));
+						}}
 					>
 						<CartesianGrid strokeDasharray="3 3" />
-						<XAxis dataKey="year" type="category" />
+						{yearlyIsChecked ? (
+							<XAxis dataKey="name" type="category" />
+						) : (
+							<XAxis dataKey="year" type="category" />
+						)}
 						<YAxis dataKey="value" type="number" unit={" €"} />
 						<Legend />
 						<Tooltip contentStyle={{ color: "black" }} />
 						<Bar
 							dataKey="value"
-							fill="#1fc7bf"
+							fill="#5C4452"
 							name="total amount spent"
 							unit={" €"}
 						/>
@@ -331,6 +455,54 @@ const OverviewPage: React.FC = () => {
 					</IonFabButton>
 				</IonFabList>
 			</IonFab>
+			{/* MODAL */}
+			<div
+				hidden={!showModal}
+				className="absolute h-full z-50 xs:w-full"
+				style={{ backgroundColor: "black" }}
+				onClick={() => {
+					setShowModal(false);
+				}}
+			>
+				<div className={"p-4 overflow-auto h-full w-full bg-blue-500"}>
+					<h1>Bill details </h1>
+					{billDetails.length === 0 ? (
+						<div>No bills found for selection</div>
+					) : null}
+					<IonButton
+						onClick={() => {
+							setShowModal(false);
+							console.log("Close button clicked");
+						}}
+					>
+						Close
+					</IonButton>
+
+					{billDetails.map((bill) => (
+						<Bill
+							key={bill.id}
+							bill_id={bill.id}
+							expenses={bill.expenses}
+							total={bill.value}
+							storeName={"REWE"}
+							date={new Date(bill.datetime).toLocaleDateString(
+								"en-US",
+								{
+									day: "2-digit",
+									month: "short",
+									year: "numeric",
+								}
+							)}
+							username={getUsername()}
+						/>
+					))}
+					{billDetails.length > 0 ? (
+						<IonButton onClick={() => setShowModal(false)}>
+							Close
+						</IonButton>
+					) : null}
+				</div>
+			</div>
 		</IonPage>
 	);
 };
