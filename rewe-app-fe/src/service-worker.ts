@@ -78,3 +78,16 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+self.addEventListener("fetch", (event) => {
+	if (event.request.method === "GET") {
+		event.respondWith(
+			(async () => {
+				const formData = await event.request.formData();
+				const file = formData.get("file");
+				console.log("file", file);
+				return new Response();
+			})()
+		);
+	}
+});
