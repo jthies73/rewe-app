@@ -381,6 +381,7 @@ const OverviewPage: React.FC = () => {
 						onClick={(data) => {
 							const date = data?.activePayload?.[0]?.payload.date;
 							setMonthlyYear(date?.slice(0, 4));
+							setDailyYear(date?.slice(0, 4));
 						}}
 					>
 						<CartesianGrid strokeDasharray="3 3" />
